@@ -21,86 +21,86 @@ public class KoinMasterController {
 	@Autowired
 	private KoinMasterRepository koinMasterRepository;
 
-	@RequestMapping(value = "/systemUser/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("systemUserForm") KoinMasterForm koinMasterForm, HttpSession session) {
+	@RequestMapping(value = "/koinMaster/detail")
+	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
 
 		if(id == null) {
 			// 新規登録
 		}else {
 			// 更新
-			var systemUser = koinMasterRepository.findById(id).get();
+			var koinMaster = koinMasterRepository.findById(id).get();
 
 			koinMasterForm.setId(id);
-			koinMasterForm.setName(systemUser.getName());
-			koinMasterForm.setAge(systemUser.getAge());
+			koinMasterForm.setName(koinMaster.getName());
+			koinMasterForm.setAge(koinMaster.getAge());
 
 		}
 
-		session.setAttribute("systemUserForm", koinMasterForm);
+		session.setAttribute("koinMasterForm", koinMasterForm);
 
-		return "/systemUser/detail";
+		return "/koinMaster/detail";
 	}
 
-	@RequestMapping(value = "/systemUser/edit")
-	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("systemUserForm") KoinMasterForm koinMasterForm, HttpSession session) {
+	@RequestMapping(value = "/koinMaster/edit")
+	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
 
 		if(id == null) {
 			// 新規登録
 		}else {
 			// 更新
-			var systemUser = koinMasterRepository.findById(id).get();
+			var koinMaster = koinMasterRepository.findById(id).get();
 
 			koinMasterForm.setId(id);
-			koinMasterForm.setName(systemUser.getName());
-			koinMasterForm.setAge(systemUser.getAge());
+			koinMasterForm.setName(koinMaster.getName());
+			koinMasterForm.setAge(koinMaster.getAge());
 
 		}
 
-		session.setAttribute("systemUserForm", koinMasterForm);
+		session.setAttribute("koinMasterForm", koinMasterForm);
 
-		return "/systemUser/edit";
+		return "/koinMaster/edit";
 	}
 
-	@RequestMapping("/systemUser/editCheck")
+	@RequestMapping("/koinMaster/editCheck")
 	public String editCheck(HttpSession session, @Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result) {
 
-		session.setAttribute("systemUserForm", koinMasterForm);
+		session.setAttribute("koinMasterForm", koinMasterForm);
 
 		if(result.hasErrors()) {
-			return "/systemUser/edit";
+			return "/koinMaster/edit";
 		}
 
-		return "/systemUser/editCheck";
+		return "/koinMaster/editCheck";
 	}
 
-	@PostMapping("/systemUser/finish")
+	@PostMapping("/koinMaster/finish")
 	public String finish(HttpSession session) {
-		var sessionEditForm = (KoinMasterForm) session.getAttribute("systemUserForm");
+		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
 
-		var systemUser = new KoinMaster();
+		var koinMaster = new KoinMaster();
 
 		if(sessionEditForm.getId() != null) {
 
-			systemUser.setId(sessionEditForm.getId());
+			koinMaster.setId(sessionEditForm.getId());
 
 		}
 
-		systemUser.setName(sessionEditForm.getName());
-		systemUser.setAge(sessionEditForm.getAge());
+		koinMaster.setName(sessionEditForm.getName());
+		koinMaster.setAge(sessionEditForm.getAge());
 
-		this.userService.save(systemUser);
+		this.userService.save(koinMaster);
 
-		return "/systemUser/finish";
+		return "/koinMaster/finish";
 	}
 
-	@RequestMapping(value = "/systemUser/list")
+	@RequestMapping(value = "/koinMaster/list")
 	public String list(Model model) {
         var list = userService.findAll();
         model.addAttribute("list", list);
-        return "/systemUser/list";
+        return "/koinMaster/list";
 	}
 
-	@RequestMapping("/systemUser/delete")
+	@RequestMapping("/koinMaster/delete")
 	public String delete(@RequestParam(name = "id", required = false) Long id, Model model) {
 
 		this.koinMasterRepository.deleteById(id);
@@ -108,34 +108,34 @@ public class KoinMasterController {
 		return this.list(model);
 	}
 
-	@RequestMapping("/systemUser/returnEdit")
+	@RequestMapping("/koinMaster/returnEdit")
 	public String returnEdit(Model model, HttpSession session) {
 
-		var sessionEditForm = (KoinMasterForm) session.getAttribute("systemUserForm");
+		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/systemUser/edit";
+			return "redirect:/koinMaster/edit";
 		}
 
-		model.addAttribute("systemUserForm", sessionEditForm);
+		model.addAttribute("koinMasterForm", sessionEditForm);
 
-		return "/systemUser/edit";
+		return "/koinMaster/edit";
 	}
 
-	@RequestMapping("/systemUser/returnDetail")
+	@RequestMapping("/koinMaster/returnDetail")
 	public String returnDetail(Model model, HttpSession session) {
 
-		var sessionEditForm = (KoinMasterForm) session.getAttribute("systemUserForm");
+		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/systemUser/detail";
+			return "redirect:/koinMaster/detail";
 		}
 
-		model.addAttribute("systemUserForm", sessionEditForm);
+		model.addAttribute("koinMasterForm", sessionEditForm);
 
-		return "/systemUser/detail";
+		return "/koinMaster/detail";
 	}
 
 }
