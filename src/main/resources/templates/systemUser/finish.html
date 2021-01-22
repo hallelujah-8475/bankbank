@@ -1,0 +1,26 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+<meta charset="UTF-8" />
+<title>Hello Thymeleaf</title>
+</head>
+<body>
+<div class="col-12 col-sm-12 col-lg-12">
+	<header class="header my-5">
+		<a href="/"><img id="header_logo" src="/images/logo.png"></a>
+	</header>
+</div>
+<div class="container">
+	<p th:text="'更新が完了しました。'"></p>
+	<div class="row justify-content-start">
+		<div class="mb-3">
+			<a href="/systemUser/list" class="btn btn-outline-secondary">戻る</a>
+		</div>
+	</div>
+</div>
+<footer class="footer bg-secondary">
+</footer>
+</body>
+</html>

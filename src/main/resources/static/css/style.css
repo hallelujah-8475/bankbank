@@ -1,0 +1,13 @@
+header, footer {
+	height: 100px;
+	text-align: center;
+}
+
+#header_logo {
+	height: 100px;
+	width: 100px;
+}
+
+.menu_container {
+	margin: 5px;
+}
