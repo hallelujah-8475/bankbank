@@ -1,38 +1,31 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('メニュー')}">
 <body>
 <div class="row">
-	<div class="col-12 col-sm-12 col-lg-12">
-		<header class="header my-5">
-			<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-		</header>
-	</div>
+<th:block th:replace="~{layout/component :: header}"></th:block>
 
 	<div class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
-			<a href="/form/list" class="list-group-item list-group-item-action active disabled">配属情報</a>
-			<a href="/form/list" class="list-group-item list-group-item-action">配属情報一覧</a>
+			<a href="/haizokuMaster/list" class="list-group-item list-group-item-action active disabled">配属情報</a>
+			<a href="/haizokuMaster/list" class="list-group-item list-group-item-action">配属情報一覧</a>
+			<a href="/taioMaster/list" class="list-group-item list-group-item-action">対応状況一覧</a>
+			<a href="/keiyakuMaster/list" class="list-group-item list-group-item-action">契約一覧</a>
 		</div>
 	</div>
 	<div class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/form/list" class="list-group-item list-group-item-action active disabled">勤怠情報</a>
-			<a href="/form/list" class="list-group-item list-group-item-action">勤怠一覧</a>
+			<a href="/kintaiMaster/list" class="list-group-item list-group-item-action">勤怠一覧</a>
 		</div>
 	</div>
 	<div class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/form/list" class="list-group-item list-group-item-action active disabled">マスタ情報</a>
 			<a href="/shitenMaster/list" class="list-group-item list-group-item-action">支店</a>
-			<a href="/form/list" class="list-group-item list-group-item-action">行員</a>
-			<a href="/form/list" class="list-group-item list-group-item-action">顧客</a>
-			<a href="/form/list" class="list-group-item list-group-item-action">商品</a>
+			<a href="/koinMaster/list" class="list-group-item list-group-item-action">行員</a>
+			<a href="/clientMaster/list" class="list-group-item list-group-item-action">顧客</a>
+			<a href="/shohinMaster/list" class="list-group-item list-group-item-action">商品</a>
 		</div>
 	</div>
 	<div class="col-12 col-sm-6 col-lg-3">

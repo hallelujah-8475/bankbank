@@ -1,0 +1,24 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('対応状況一覧')}">
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('対応状況一覧')}"></th:block>
+	<div class="row justify-content-start">
+	<form method="post" th:action="@{/taioMaster/finish}" th:object="${taioMasterForm}">
+		ID<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+		対応ID<input type="text" readonly class="form-control-plaintext" name="taioid" th:field="*{taioid}">
+		対応開始日<input type="text" readonly class="form-control-plaintext" name="taiostartdate" th:field="*{taiostartdate}"><br>
+		対応終了日<input type="text" readonly class="form-control-plaintext" name="taioenddate" th:field="*{taioenddate}"><br>
+		顧客ID<input type="text" readonly class="form-control-plaintext" name="clientid" th:field="*{clientid}"><br>
+		支店ID<input type="text" readonly class="form-control-plaintext" name="shitenid" th:field="*{shitenid}"><br>
+		行員ID<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}"><br>
+		<a th:href="@{'/taioMaster/edit?id=' + ${taioMasterForm.id}}" class="btn btn-outline-secondary">編集</a>
+		<a href="/taioMaster/list" class="btn btn-outline-secondary">戻る</a>
+	</form>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>

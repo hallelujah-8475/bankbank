@@ -7,14 +7,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class SystemUserForm {
 
-	private Long id;
+	protected Long id;
 
 	@NotBlank
-	private String name;
+	protected String name;
 
 	@NotNull
 	@Min(18)
-	private int age;
+	protected int age;
 
 
 

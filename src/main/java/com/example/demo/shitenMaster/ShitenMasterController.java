@@ -40,6 +40,7 @@ public class ShitenMasterController {
 			shitenMasterForm.setAtmcount(shitenMaster.getAtmcount());
 			shitenMasterForm.setParkingflg(shitenMaster.getParkingflg());
 			shitenMasterForm.setBiko(shitenMaster.getBiko());
+			shitenMasterForm.setShitenid(shitenMaster.getShitenid());
 
 		}
 
@@ -69,6 +70,7 @@ public class ShitenMasterController {
 			shitenMasterForm.setAtmcount(shitenMaster.getAtmcount());
 			shitenMasterForm.setParkingflg(shitenMaster.getParkingflg());
 			shitenMasterForm.setBiko(shitenMaster.getBiko());
+			shitenMasterForm.setShitenid(shitenMaster.getShitenid());
 
 		}
 
@@ -106,6 +108,10 @@ public class ShitenMasterController {
 		shitenMaster.setAtmcount(sessionEditForm.getAtmcount());
 		shitenMaster.setParkingflg(sessionEditForm.getParkingflg());
 		shitenMaster.setBiko(sessionEditForm.getBiko());
+
+		int maxId = shitenMasterService.findByMaxShitenId();
+
+		shitenMaster.setShitenid(maxId + 1);
 
 		this.shitenMasterService.save(shitenMaster);
 

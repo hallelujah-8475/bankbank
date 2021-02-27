@@ -1,24 +1,10 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
 <body>
-<div class="col-12 col-sm-12 col-lg-12">
-	<header class="header my-5">
-		<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-	</header>
-</div>
-<script src="https://kit.fontawesome.com/8925a3b56e.js" crossorigin="anonymous"></script>
+<th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
-	<hr>
-	<div class="font-weight-bold my-3">
-		<i class="far fa-list-alt pr-2 text-primary"></i>システム管理者情報一覧
-	</div>
-	<hr>
+	<th:block th:replace="~{layout/component :: container_top('システム管理者情報一覧')}"></th:block>
 	<div class="row justify-content-start">
 		<a href="/systemUser/edit" class="btn btn-outline-secondary mb-3">新規登録</a>
 		<table class="table table-striped table-sm">
@@ -36,7 +22,6 @@
 	    <a href="/" class="btn btn-outline-secondary mb-3">戻る</a>
 	</div>
 </div>
-<footer class="footer bg-secondary">
-</footer>
+<footer th:replace="~{layout/component :: footer}"></footer>
 </body>
 </html>

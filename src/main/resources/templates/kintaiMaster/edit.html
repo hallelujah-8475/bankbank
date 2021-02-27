@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('勤怠一覧')}">
+<script>
+function deleteCheck() {
+
+	var id = $('#id').val();
+
+    var result = window.confirm('本当に削除してもよろしいですか？');
+
+    if(result) {
+    	document.location.href = '/kintaiMaster/delete?id=' + id;
+    }
+}
+
+function returnDetail() {
+	document.location.href = '/kintaiMaster/returnDetail';
+
+	return false;
+}
+</script>
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('勤怠一覧')}"></th:block>
+	<div class="row justify-content-start">
+		<form method="post" th:action="@{/kintaiMaster/editCheck}" th:object="${kintaiMasterForm}">
+			<table class="table table-bordered">
+				<tr>
+					<td>
+						<label>ID</label>
+					</td>
+					<td>
+						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>名前</label>
+					</td>
+					<td>
+						<input type="text" name="name" th:field="*{name}">
+						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>年齢</label>
+					</td>
+					<td>
+						<input type="number" name="age" th:field="*{age}">
+						<span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
+					</td>
+				</tr>
+			</table>
+			<div class="mb-3">
+				<input type="submit" value="確認" class="btn btn-outline-secondary">
+				<a href="/kintaiMaster/list" class="btn btn-outline-secondary" th:if="${#strings.isEmpty(kintaiMasterForm.id)}">戻る</a>
+				<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnDetail();" th:if="${!#strings.isEmpty(kintaiMasterForm.id)}">
+				<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();" th:if="${!#strings.isEmpty(kintaiMasterForm.id)}">
+			</div>
+		</form>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>

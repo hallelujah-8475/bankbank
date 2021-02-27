@@ -1,12 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
 <script>
 function deleteCheck() {
 
@@ -26,18 +20,9 @@ function returnDetail() {
 }
 </script>
 <body>
-<div class="col-12 col-sm-12 col-lg-12">
-	<header class="header my-5">
-		<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-	</header>
-</div>
-<script src="https://kit.fontawesome.com/8925a3b56e.js" crossorigin="anonymous"></script>
+<th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
-	<hr>
-	<div class="font-weight-bold my-3">
-		<i class="far fa-edit pr-2 text-primary"></i>システム管理者情報一覧　編集
-	</div>
-	<hr>
+<th:block th:replace="~{layout/component :: container_top('行員')}"></th:block>
 	<div class="row justify-content-start">
 		<form method="post" th:action="@{/koinMaster/editCheck}" th:object="${koinMasterForm}">
 			<table class="table table-bordered">
@@ -47,6 +32,14 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>行員ID</label>
+					</td>
+					<td>
+						<input type="text" readonly class="form-control-plaintext" id="koinid" name="koinid" th:field="*{koinid}">
 					</td>
 				</tr>
 				<tr>
@@ -67,7 +60,25 @@ function returnDetail() {
 						<span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
 					</td>
 				</tr>
-			</table>
+				<tr>
+					<td>
+						<label>部署</label>
+					</td>
+					<td>
+						<select name="busho">
+							<option th:each="entity : ${bushoList}" th:value="${entity.key}" th:text="${entity.value}"></option>
+						</select>
+					</td>
+				</tr>
+					<tr>
+						<td><label>支店</label></td>
+						<td>
+							<select name="shitenid">
+								<option th:each="entity : ${list}" th:value="${entity.key}" th:text="${entity.value}"></option>
+							</select>
+						</td>
+					</tr>
+				</table>
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">
 				<a href="/koinMaster/list" class="btn btn-outline-secondary" th:if="${#strings.isEmpty(koinMasterForm.id)}">戻る</a>
@@ -77,7 +88,6 @@ function returnDetail() {
 		</form>
 	</div>
 </div>
-<footer class="footer bg-secondary">
-</footer>
+<footer th:replace="~{layout/component :: footer}"></footer>
 </body>
 </html>

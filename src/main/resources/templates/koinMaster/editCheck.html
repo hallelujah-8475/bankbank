@@ -1,11 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<head>
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('行員')}">
 <script>
 function returnEdit() {
 	document.location.href = '/koinMaster/returnEdit';
@@ -14,23 +9,17 @@ function returnEdit() {
 }
 </script>
 <body>
-<div class="col-12 col-sm-12 col-lg-12">
-	<header class="header my-5">
-		<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-	</header>
-</div>
-<script src="https://kit.fontawesome.com/8925a3b56e.js" crossorigin="anonymous"></script>
+<th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
-	<hr>
-	<div class="font-weight-bold my-3">
-		<i class="far fa-edit pr-2 text-primary"></i>システム管理者情報一覧　確認
-	</div>
-	<hr>
+<th:block th:replace="~{layout/component :: container_top('行員')}"></th:block>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/koinMaster/finish}" th:object="${koinMasterForm}">
 		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+		<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
 		<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
 		<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+		<input type="text" readonly class="form-control-plaintext" name="busho" th:field="*{busho}">
+		<input type="text" readonly class="form-control-plaintext" name="shitenid" th:field="*{shitenid}">
 		<div class="mb-3">
 			<input type="submit" value="送信" class="btn btn-outline-secondary">
 			<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">
@@ -38,7 +27,6 @@ function returnEdit() {
 	</form>
 	</div>
 </div>
-<footer class="footer bg-secondary">
-</footer>
+<footer th:replace="~{layout/component :: footer}"></footer>
 </body>
 </html>

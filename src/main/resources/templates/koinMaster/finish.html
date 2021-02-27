@@ -1,18 +1,10 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('行員')}">
 <body>
-<div class="col-12 col-sm-12 col-lg-12">
-	<header class="header my-5">
-		<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-	</header>
-</div>
+list.html
 <div class="container">
+<th:block th:replace="~{layout/component :: container_top('行員')}"></th:block>
 	<p th:text="'更新が完了しました。'"></p>
 	<div class="row justify-content-start">
 		<div class="mb-3">
@@ -20,7 +12,6 @@
 		</div>
 	</div>
 </div>
-<footer class="footer bg-secondary">
-</footer>
+<footer th:replace="~{layout/component :: footer}"></footer>
 </body>
 </html>

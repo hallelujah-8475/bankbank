@@ -1,3 +1,4 @@
+
 package com.example.demo.shitenMaster;
 
 import javax.persistence.Column;
@@ -50,6 +51,10 @@ public class ShitenMaster {
 
 	@Column
 	private String biko;
+
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column
+	private int shitenid;
 
 	public long getId() {
 		return id;
@@ -146,5 +151,14 @@ public class ShitenMaster {
 	public void setBiko(String biko) {
 		this.biko = biko;
 	}
+
+	public int getShitenid() {
+		return shitenid;
+	}
+
+	public void setShitenid(int shitenid) {
+		this.shitenid = shitenid;
+	}
+
 
 }

@@ -41,6 +41,8 @@ public class ShitenMasterForm {
 	@NotBlank
 	private String biko;
 
+	private int shitenid;
+
 	public Long getId() {
 		return id;
 	}
@@ -113,6 +115,14 @@ public class ShitenMasterForm {
 	public void setBiko(String biko) {
 		this.biko = biko;
 	}
+	public int getShitenid() {
+		return shitenid;
+	}
+	public void setShitenid(int shitenid) {
+		this.shitenid = shitenid;
+	}
+
+
 
 
 }

@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('商品')}">
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('商品')}"></th:block>
+	<div class="row justify-content-start">
+	<form method="post" th:action="@{/shohinMaster/finish}" th:object="${shohinMasterForm}">
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>商品ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>商品名</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+				</td>
+			</tr>
+		</table>
+		<div class="mb-3">
+			<a th:href="@{'/shohinMaster/edit?id=' + ${shohinMasterForm.id}}" class="btn btn-outline-secondary">編集</a>
+			<a href="/shohinMaster/list" class="btn btn-outline-secondary">戻る</a>
+		</div>
+	</form>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>

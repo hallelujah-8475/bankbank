@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+<meta charset="UTF-8" />
+<title>Hello Thymeleaf</title>
+</head>
+<body>
+<header class="header bg-secondary">
+<a href="/"><img id="header_logo" src="/images/logo.png"></a>
+</header>
+<div class="container">
+	<h1 th:text="'finish'"></h1>
+	<div class="row justify-content-start">
+	<a href="/clientMaster/list" class="btn btn-outline-secondary">戻る</a>
+	</div>
+</div>
+<footer class="footer bg-secondary">
+</footer>
+</body>
+</html>

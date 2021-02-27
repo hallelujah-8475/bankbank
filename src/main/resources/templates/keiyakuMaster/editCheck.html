@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('契約一覧')}">
+<script>
+function returnEdit() {
+	document.location.href = '/keiyakuMaster/returnEdit';
+
+	return false;
+}
+</script>
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('契約一覧')}"></th:block>
+	<div class="row justify-content-start">
+	<form method="post" th:action="@{/keiyakuMaster/finish}" th:object="${keiyakuMasterForm}">
+		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+		<input type="text" readonly class="form-control-plaintext" name="keiyakuid" th:field="*{keiyakuid}">
+		<input type="text" readonly class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
+		<input type="text" readonly class="form-control-plaintext" name="yushi" th:field="*{yushi}">
+		<input type="text" readonly class="form-control-plaintext" name="kinri" th:field="*{kinri}">
+		<input type="text" readonly class="form-control-plaintext" name="returnlimit" th:field="*{returnlimit}">
+		<input type="text" readonly class="form-control-plaintext" name="clientid" th:field="*{clientid}">
+		<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
+		<div class="mb-3">
+			<input type="submit" value="送信" class="btn btn-outline-secondary">
+			<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">
+		</div>
+	</form>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>

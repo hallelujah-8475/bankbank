@@ -1,0 +1,171 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta charset="UTF-8" />
+<title>Hello Thymeleaf</title>
+</head>
+<script>
+function deleteCheck() {
+
+	var id = $('#id').val();
+
+    var result = window.confirm('本当に削除してもよろしいですか？');
+
+    if(result) {
+    	document.location.href = '/clientMaster/delete?id=' + id;
+    }
+}
+
+function returnDetail() {
+	document.location.href = '/clientMaster/returnDetail';
+
+	return false;
+}
+</script>
+<body>
+<header class="header bg-secondary">
+<a href="/"><img id="header_logo" src="/images/logo.png"></a>
+</header>
+<script src="https://kit.fontawesome.com/8925a3b56e.js" crossorigin="anonymous"></script>
+<div class="container">
+	<hr>
+	<div class="font-weight-bold my-3">
+		<i class="far fa-edit pr-2 text-primary"></i>顧客　編集
+	</div>
+	<hr>
+	<div class="row justify-content-start">
+		<form method="post" th:action="@{/clientMaster/editCheck}" th:object="${clientMasterForm}">
+			<table class="table table-bordered">
+				<tr>
+					<td>
+						<label>ID</label>
+					</td>
+					<td>
+						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>顧客ID</label>
+					</td>
+					<td>
+						<input type="text" readonly class="form-control-plaintext" id="clientid" name="clientid" th:field="*{clientid}">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>顧客名</label>
+					</td>
+					<td>
+						<input type="text" name="name" th:field="*{name}"><br>
+						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>代表者名</label>
+					</td>
+					<td>
+						<input type="text" name="daihyoname" th:field="*{daihyoname}"><br>
+						<span th:if="${#fields.hasErrors('daihyoname')}" th:errors="*{name}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>代表者年齢</label>
+					</td>
+					<td>
+						<input type="number" name="daihyoage" th:field="*{daihyoage}">
+						<span th:if="${#fields.hasErrors('daihyoage')}" th:errors="*{daihyoage}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>与信レベル</label>
+					</td>
+					<td>
+						<input type="number" name="yoshinlevel" th:field="*{yoshinlevel}">
+						<span th:if="${#fields.hasErrors('yoshinlevel')}" th:errors="*{yoshinlevel}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>郵便番号１</label>
+					</td>
+					<td>
+						<input type="text" name="postcode1" th:field="*{postcode1}"><br>
+						<span th:if="${#fields.hasErrors('postcode1')}" th:errors="*{postcode1}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>郵便番号2</label>
+					</td>
+					<td>
+						<input type="text" name="postcode2" th:field="*{postcode2}"><br>
+						<span th:if="${#fields.hasErrors('postcode2')}" th:errors="*{postcode2}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>都道府県</label>
+					</td>
+					<td>
+						<input type="text" name="prefecture" th:field="*{prefecture}"><br>
+						<span th:if="${#fields.hasErrors('prefecture')}" th:errors="prefecture">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>住所１</label>
+					</td>
+					<td>
+						<input type="text" name="address1" th:field="*{address1}"><br>
+						<span th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>住所2</label>
+					</td>
+					<td>
+						<input type="text" name="address2" th:field="*{address2}"><br>
+						<span th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>電話番号１</label>
+					</td>
+					<td>
+						<input type="text" name="phonenumber1" th:field="*{phonenumber1}"><br>
+						<span th:if="${#fields.hasErrors('phonenumber1')}" th:errors="*{phonenumber1}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>電話番号2</label>
+					</td>
+					<td>
+						<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br>
+						<span th:if="${#fields.hasErrors('phonenumber2')}" th:errors="*{phonenumber2}">エラー</span>
+					</td>
+				</tr>
+			</table>
+
+			<div class="mb-3">
+				<input type="submit" value="確認" class="btn btn-outline-secondary">
+				<a href="/clientMaster/list" class="btn btn-outline-secondary" th:if="${#strings.isEmpty(clientMasterForm.id)}">戻る</a>
+				<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnDetail();" th:if="${!#strings.isEmpty(clientMasterForm.id)}">
+				<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();" th:if="${!#strings.isEmpty(clientMasterForm.id)}">
+			</div>
+		</form>
+	</div>
+</div>
+<footer class="footer bg-secondary">
+</footer>
+</body>
+</html>

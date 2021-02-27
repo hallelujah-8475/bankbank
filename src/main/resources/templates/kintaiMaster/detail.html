@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('勤怠一覧')}">
+</head>
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('勤怠一覧')}"></th:block>
+	<div class="row justify-content-start">
+	<form method="post" th:action="@{/kintaiMaster/finish}" th:object="${kintaiMasterForm}">
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>名前</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>年齢</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+				</td>
+			</tr>
+		</table>
+		<div class="mb-3">
+			<a th:href="@{'/kintaiMaster/edit?id=' + ${kintaiMasterForm.id}}" class="btn btn-outline-secondary">編集</a>
+			<a href="/kintaiMaster/list" class="btn btn-outline-secondary">戻る</a>
+		</div>
+	</form>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>
