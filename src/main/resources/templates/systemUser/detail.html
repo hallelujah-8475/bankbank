@@ -1,5 +1,5 @@
 <!doctype html>
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -29,6 +29,22 @@
 				</td>
 				<td>
 					<span th:text="*{age}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>ログインID</label>
+				</td>
+				<td>
+					<span th:text="*{loginid}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>パスワード</label>
+				</td>
+				<td>
+					<span th:text="*{password}"></span>
 				</td>
 			</tr>
 		</table>

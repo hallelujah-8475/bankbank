@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <script>
 function returnEdit() {
 	document.location.href = '/systemUser/returnEdit';
@@ -14,12 +14,60 @@ function returnEdit() {
 	<th:block th:replace="~{layout/component :: container_top('システム管理者情報一覧')}"></th:block>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/systemUser/finish}" th:object="${systemUserForm}">
-		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
-		<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
-		<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+		<table class="table table-bordered">
+			<th:block th:if="${id}">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${id}">
+					<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+			</th:block>
+			<tr>
+				<td>
+					<label>名前</label>
+				</td>
+				<td>
+					<span th:text="*{name}"></span>
+					<input type="hidden" name="name" th:field="*{name}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>年齢</label>
+				</td>
+				<td>
+					<span th:text="*{age}"></span>
+					<input type="hidden" name="age" th:field="*{age}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>ログインID</label>
+				</td>
+				<td>
+					<span th:text="*{loginid}"></span>
+					<input type="hidden" name="loginid" th:field="*{loginid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>パスワード</label>
+				</td>
+				<td>
+					<span th:text="*{password}"></span>
+					<input type="hidden" name="password" th:field="*{password}">
+				</td>
+			</tr>
+		</table>
 		<div class="mb-3">
-			<input type="submit" value="送信" class="btn btn-outline-secondary">
-			<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">
+		<input type="submit" value="送信" class="btn btn-outline-secondary">
+		<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">
 		</div>
 	</form>
 	</div>

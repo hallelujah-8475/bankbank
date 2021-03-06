@@ -81,10 +81,10 @@ public class KoinMasterForm {
 			bushoname = "融資";
 			break;
 		case 2:
-			bushoname = "預金";
+			bushoname = "営業";
 			break;
 		case 3:
-			bushoname = "営業";
+			bushoname = "預金";
 			break;
 		}
 

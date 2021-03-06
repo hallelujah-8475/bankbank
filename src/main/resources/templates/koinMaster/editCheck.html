@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('行員')}">
+<head th:replace="~{layout/component :: head('行員')}"></head>
 <script>
 function returnEdit() {
 	document.location.href = '/koinMaster/returnEdit';
@@ -14,12 +14,62 @@ function returnEdit() {
 <th:block th:replace="~{layout/component :: container_top('行員')}"></th:block>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/koinMaster/finish}" th:object="${koinMasterForm}">
-		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
-		<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
-		<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
-		<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
-		<input type="text" readonly class="form-control-plaintext" name="busho" th:field="*{busho}">
-		<input type="text" readonly class="form-control-plaintext" name="shitenid" th:field="*{shitenid}">
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+					<input type="hidden" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>行員ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
+					<input type="hidden" name="koinid" th:field="*{koinid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>名前</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+					<input type="hidden" name="name" th:field="*{name}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>年齢</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+					<input type="hidden" name="age" th:field="*{age}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>部署</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="busho" th:value="*{busho}" th:field="*{bushoname}">
+					<input type="hidden" name="busho" th:field="*{busho}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>支店</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="shitenid" th:value="*{shitenid}" th:field="*{shitenname}">
+					<input type="hidden" name="shitenid" th:field="*{shitenid}">
+				</td>
+			</tr>
+		</table>
 		<div class="mb-3">
 			<input type="submit" value="送信" class="btn btn-outline-secondary">
 			<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">

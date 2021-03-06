@@ -11,3 +11,8 @@ header, footer {
 .menu_container {
 	margin: 5px;
 }
+
+#login_content {
+	heigh: 200px;
+	width: 320px;
+}

@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <script>
@@ -21,13 +21,11 @@ function returnEdit() {
 		代表者名<input type="text" readonly class="form-control-plaintext" name="daihyoname" th:field="*{daihyoname}"><br>
 		代表者年齢<input type="text" readonly class="form-control-plaintext" name="daihyoage" th:field="*{daihyoage}"><br>
 		与信レベル<input type="text" readonly class="form-control-plaintext" name="yoshinlevel" th:field="*{yoshinlevel}"><br>
-		郵便番号１<input type="text" readonly class="form-control-plaintext" name="postcode1" th:field="*{postcode1}"><br>
-		郵便番号２<input type="text" readonly class="form-control-plaintext" name="postcode2" th:field="*{postcode2}"><br>
+		郵便番号<input type="text" readonly class="form-control-plaintext" name="postcode1" th:field="*{postcode1}">ー<input type="text" readonly class="form-control-plaintext" name="postcode2" th:field="*{postcode2}"><br>
 		都道府県<input type="text" readonly class="form-control-plaintext" name="prefecture" th:field="*{prefecture}"><br>
 		住所１<input type="text" readonly class="form-control-plaintext" name="address1" th:field="*{address1}"><br>
 		住所２<input type="text" readonly class="form-control-plaintext" name="address2" th:field="*{address2}"><br>
-		電話番号１<input type="text" readonly class="form-control-plaintext" name="phonenumber1" th:field="*{phonenumber1}"><br>
-		電話番号２<input type="text" readonly class="form-control-plaintext" name="phonenumber2" th:field="*{phonenumber2}"><br>
+		電話番号<input type="text" readonly class="form-control-plaintext" name="phonenumber1" th:field="*{phonenumber1}">ー<input type="text" readonly class="form-control-plaintext" name="phonenumber2" th:field="*{phonenumber2}"><br>
 
 		<input type="submit" value="送信" class="btn btn-outline-secondary">
 		<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">

@@ -1,26 +1,26 @@
-package com.example.demo.systemUser;
+package com.example.demo.login;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class SystemUserForm {
+public class LoginForm {
 
-	private Long id;
+	protected Long id;
 
 	@NotBlank
-	private String name;
+	protected String name;
 
 	@NotNull
 	@Min(18)
-	private int age;
+	protected int age;
 
 	@NotBlank
-	private String loginid;
+	protected String loginid;
 
 	@NotBlank
-	private String password;
+	protected String password;
 
 
 	public Long getId() {

@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('行員')}">
+<head th:replace="~{layout/component :: head('行員')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -13,7 +13,7 @@
 					<label>ID</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+					<span th:text="*{id}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -21,7 +21,7 @@
 					<label>行員ID</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
+					<span th:text="*{koinid}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -29,7 +29,7 @@
 					<label>名前</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+					<span th:text="*{name}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +37,7 @@
 					<label>年齢</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+					<span th:text="*{age}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -45,7 +45,7 @@
 					<label>部署</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="busho" th:value="*{busho}" th:field="*{bushoname}">
+					<span th:text="*{bushoname}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +53,7 @@
 					<label>支店</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="shitenid" th:value="*{shitenid}" th:field="*{shitenname}">
+					<span th:text="*{shitenname}"></span>
 				</td>
 			</tr>
 		</table>

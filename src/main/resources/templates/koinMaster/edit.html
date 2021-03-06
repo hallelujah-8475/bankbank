@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <script>
 function deleteCheck() {
 
@@ -26,6 +26,7 @@ function returnDetail() {
 	<div class="row justify-content-start">
 		<form method="post" th:action="@{/koinMaster/editCheck}" th:object="${koinMasterForm}">
 			<table class="table table-bordered">
+				<th:block th:if="${id}">
 				<tr>
 					<td>
 						<label>ID</label>
@@ -34,6 +35,11 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</th:block>
+				<th:block th:if="${id}">
 				<tr>
 					<td>
 						<label>行員ID</label>
@@ -42,6 +48,10 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="koinid" name="koinid" th:field="*{koinid}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="koinid" name="koinid" th:field="*{koinid}">
+				</th:block>
 				<tr>
 					<td>
 						<label>名前</label>
@@ -66,19 +76,21 @@ function returnDetail() {
 					</td>
 					<td>
 						<select name="busho">
-							<option th:each="entity : ${bushoList}" th:value="${entity.key}" th:text="${entity.value}"></option>
+							<option th:each="entity : ${bushoList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{busho}"></option>
 						</select>
 					</td>
 				</tr>
-					<tr>
-						<td><label>支店</label></td>
-						<td>
-							<select name="shitenid">
-								<option th:each="entity : ${list}" th:value="${entity.key}" th:text="${entity.value}"></option>
-							</select>
-						</td>
-					</tr>
-				</table>
+				<tr>
+					<td>
+						<label>支店</label>
+					</td>
+					<td>
+						<select name="shitenid">
+							<option th:each="entity : ${list}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
+						</select>
+					</td>
+				</tr>
+			</table>
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">
 				<a href="/koinMaster/list" class="btn btn-outline-secondary" th:if="${#strings.isEmpty(koinMasterForm.id)}">戻る</a>

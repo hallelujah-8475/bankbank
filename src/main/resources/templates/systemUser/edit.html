@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <script>
 function deleteCheck() {
 
@@ -26,6 +26,7 @@ function returnDetail() {
 	<div class="row justify-content-start">
 		<form method="post" th:action="@{/systemUser/editCheck}" th:object="${systemUserForm}">
 			<table class="table table-bordered">
+				<th:block th:if="${id}">
 				<tr>
 					<td>
 						<label>ID</label>
@@ -34,6 +35,10 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</th:block>
 				<tr>
 					<td>
 						<label>名前</label>
@@ -50,6 +55,24 @@ function returnDetail() {
 					<td>
 						<input type="number" name="age" th:field="*{age}">
 						<span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>ログインID</label>
+					</td>
+					<td>
+						<input type="text" name="loginid" th:field="*{loginid}">
+						<span th:if="${#fields.hasErrors('loginid')}" th:errors="*{loginid}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>パスワード</label>
+					</td>
+					<td>
+						<input type="text" name="password" th:field="*{password}">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">エラー</span>
 					</td>
 				</tr>
 			</table>

@@ -2,6 +2,7 @@ package com.example.demo.systemUser;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,10 +41,8 @@ public class SystemUserController {
 			// 更新
 			var systemUser = systemUserRepository.findById(id).get();
 
+			BeanUtils.copyProperties(systemUser, systemUserForm);
 			systemUserForm.setId(id);
-			systemUserForm.setName(systemUser.getName());
-			systemUserForm.setAge(systemUser.getAge());
-
 		}
 
 		session.setAttribute("systemUserForm", systemUserForm);
@@ -60,10 +59,8 @@ public class SystemUserController {
 			// 更新
 			var systemUser = systemUserRepository.findById(id).get();
 
+			BeanUtils.copyProperties(systemUser, systemUserForm);
 			systemUserForm.setId(id);
-			systemUserForm.setName(systemUser.getName());
-			systemUserForm.setAge(systemUser.getAge());
-
 		}
 
 		session.setAttribute("systemUserForm", systemUserForm);
@@ -72,31 +69,28 @@ public class SystemUserController {
 	}
 
 	@RequestMapping("/systemUser/editCheck")
-	public String editCheck(HttpSession session, @Validated @ModelAttribute SystemUserForm systemUserForm, BindingResult result) {
+	public String editCheck(@Validated @ModelAttribute SystemUserForm systemUserForm, BindingResult result, HttpSession session) {
 
 		session.setAttribute("systemUserForm", systemUserForm);
 
-		if(result.hasErrors()) {
-			return "/systemUser/edit";
-		}
+//		if(result.hasErrors()) {
+//			return "/systemUser/edit";
+//		}
 
 		return "/systemUser/editCheck";
 	}
 
 	@PostMapping("/systemUser/finish")
-	public String finish(HttpSession session) {
-		var sessionEditForm = (SystemUserForm) session.getAttribute("systemUserForm");
+	public String finish(HttpSession session, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm) {
 
 		var systemUser = new SystemUser();
 
-		if(sessionEditForm.getId() != null) {
+		if(systemUserForm.getId() == null) {
 
-			systemUser.setId(sessionEditForm.getId());
-
+			systemUserForm.setId((long) 0);
 		}
 
-		systemUser.setName(sessionEditForm.getName());
-		systemUser.setAge(sessionEditForm.getAge());
+		BeanUtils.copyProperties(systemUserForm, systemUser);
 
 		this.userService.save(systemUser);
 

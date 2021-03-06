@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('顧客')}">
+<head th:replace="~{layout/component :: head('顧客')}"></head>
 <script>
 function deleteCheck() {
 
@@ -83,17 +83,8 @@ function returnDetail() {
 						<label>郵便番号１</label>
 					</td>
 					<td>
-						<input type="text" name="postcode1" th:field="*{postcode1}"><br>
+						<input type="text" name="postcode1" th:field="*{postcode1}">ー<input type="text" name="postcode2" th:field="*{postcode2}" onKeyUp="AjaxZip3.zip2addr('postcode1','postcode2','prefecture','address1','address2');"><br><br>
 						<span th:if="${#fields.hasErrors('postcode1')}" th:errors="*{postcode1}">エラー</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>郵便番号2</label>
-					</td>
-					<td>
-						<input type="text" name="postcode2" th:field="*{postcode2}"><br>
-						<span th:if="${#fields.hasErrors('postcode2')}" th:errors="*{postcode2}">エラー</span>
 					</td>
 				</tr>
 				<tr>
@@ -125,20 +116,11 @@ function returnDetail() {
 				</tr>
 				<tr>
 					<td>
-						<label>電話番号１</label>
+						<label>電話番号</label>
 					</td>
 					<td>
-						<input type="text" name="phonenumber1" th:field="*{phonenumber1}"><br>
+						<input type="text" name="phonenumber1" th:field="*{phonenumber1}">ー<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br>
 						<span th:if="${#fields.hasErrors('phonenumber1')}" th:errors="*{phonenumber1}">エラー</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>電話番号2</label>
-					</td>
-					<td>
-						<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br>
-						<span th:if="${#fields.hasErrors('phonenumber2')}" th:errors="*{phonenumber2}">エラー</span>
 					</td>
 				</tr>
 			</table>

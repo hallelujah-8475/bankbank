@@ -1,10 +1,10 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('行員')}">
+<head th:replace="~{layout/component :: head('行員')}"></head>
 <body>
-list.html
+<th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
-<th:block th:replace="~{layout/component :: container_top('行員')}"></th:block>
+	<th:block th:replace="~{layout/component :: container_top('行員')}"></th:block>
 	<p th:text="'更新が完了しました。'"></p>
 	<div class="row justify-content-start">
 		<div class="mb-3">

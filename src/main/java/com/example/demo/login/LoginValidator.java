@@ -1,21 +1,21 @@
-package com.example.demo.systemUser;
+package com.example.demo.login;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class SystemUserValidator implements Validator {
+public class LoginValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return SystemUserForm.class.isAssignableFrom(clazz);
+		return LoginForm.class.isAssignableFrom(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 
-//		var form = SystemUserForm.class.cast(target);
+		var form = LoginForm.class.cast(target);
 
 //		if(form.getName() != null) {
 //			errors.rejectValue("name", "systemUser.validate.test");

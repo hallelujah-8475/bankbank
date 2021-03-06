@@ -1,4 +1,4 @@
-package com.example.demo.systemUser;
+package com.example.demo.login;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "systemuser")
-public class SystemUser {
+public class Login {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

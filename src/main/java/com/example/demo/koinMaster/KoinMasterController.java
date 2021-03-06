@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterService;
-import com.example.demo.timecard.TimeCardService;
 
 @Controller
 public class KoinMasterController {
@@ -64,6 +64,7 @@ public class KoinMasterController {
 		var koinMaster = koinMasterRepository.findById(id).get();
 
 		koinMasterForm.setId(id);
+		koinMasterForm.setKoinid(koinMaster.getKoinid());
 		koinMasterForm.setName(koinMaster.getName());
 		koinMasterForm.setAge(koinMaster.getAge());
 		koinMasterForm.setBusho(koinMaster.getBusho());
@@ -85,13 +86,10 @@ public class KoinMasterController {
 			// 更新
 			var koinMaster = koinMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(koinMaster, koinMasterForm);
 			koinMasterForm.setId(id);
-			koinMasterForm.setKoinid(koinMaster.getKoinid());
-			koinMasterForm.setName(koinMaster.getName());
-			koinMasterForm.setAge(koinMaster.getAge());
-			koinMasterForm.setBusho(koinMaster.getBusho());
-			koinMasterForm.setShitenid(koinMaster.getShitenid());
-
+			var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
+			koinMasterForm.setShitenname(entity.getName());
 		}
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
@@ -106,6 +104,8 @@ public class KoinMasterController {
 	public String editCheck(HttpSession session, @Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result) {
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
+		var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
+		koinMasterForm.setShitenname(entity.getName());
 
 		if(result.hasErrors()) {
 			return "/koinMaster/edit";
@@ -155,7 +155,7 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping("/koinMaster/returnEdit")
-	public String returnEdit(Model model, HttpSession session) {
+	public String returnEdit(Model model, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
 
 		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
 
@@ -165,6 +165,9 @@ public class KoinMasterController {
 		}
 
 		model.addAttribute("koinMasterForm", sessionEditForm);
+
+		this.setSelectTag(model);
+		this.setBushoSelectTag(model);
 
 		return "/koinMaster/edit";
 	}
