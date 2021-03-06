@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
+<head th:replace="~{layout/component :: head('顧客')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <script>
@@ -14,19 +14,117 @@ function returnEdit() {
 	<th:block th:replace="~{layout/component :: container_top('顧客')}"></th:block>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/clientMaster/finish}" th:object="${clientMasterForm}">
-
-		<input type="hidden" name="id" th:field="*{id}">
-		<input type="hidden" name="clientid" th:field="*{clientid}">
-		顧客名<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}"><br>
-		代表者名<input type="text" readonly class="form-control-plaintext" name="daihyoname" th:field="*{daihyoname}"><br>
-		代表者年齢<input type="text" readonly class="form-control-plaintext" name="daihyoage" th:field="*{daihyoage}"><br>
-		与信レベル<input type="text" readonly class="form-control-plaintext" name="yoshinlevel" th:field="*{yoshinlevel}"><br>
-		郵便番号<input type="text" readonly class="form-control-plaintext" name="postcode1" th:field="*{postcode1}">ー<input type="text" readonly class="form-control-plaintext" name="postcode2" th:field="*{postcode2}"><br>
-		都道府県<input type="text" readonly class="form-control-plaintext" name="prefecture" th:field="*{prefecture}"><br>
-		住所１<input type="text" readonly class="form-control-plaintext" name="address1" th:field="*{address1}"><br>
-		住所２<input type="text" readonly class="form-control-plaintext" name="address2" th:field="*{address2}"><br>
-		電話番号<input type="text" readonly class="form-control-plaintext" name="phonenumber1" th:field="*{phonenumber1}">ー<input type="text" readonly class="form-control-plaintext" name="phonenumber2" th:field="*{phonenumber2}"><br>
-
+		<table class="table table-bordered">
+			<th:block th:if="${id}">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${id}">
+					<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+			</th:block>
+			<th:block th:if="${id}">
+			<tr>
+				<td>
+					<label>顧客ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" id="clientid" name="clientid" th:field="*{clientid}">
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${clientid}">
+					<input type="hidden" class="form-control-plaintext" id="clientid" name="clientid" th:field="*{clientid}">
+			</th:block>
+			<tr>
+				<td>
+					<label>顧客名</label>
+				</td>
+				<td>
+					<span th:text="*{name}"></span>
+					<input type="hidden" name="name" th:field="*{name}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>代表者名</label>
+				</td>
+				<td>
+					<span th:text="*{daihyoname}"></span>
+					<input type="hidden" name="daihyoname" th:field="*{daihyoname}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>代表者年齢</label>
+				</td>
+				<td>
+					<span th:text="*{daihyoage}"></span>
+					<input type="hidden" name="daihyoage" th:field="*{daihyoage}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>与信レベル</label>
+				</td>
+				<td>
+					<span th:text="*{yoshinlevel}"></span>
+					<input type="hidden" name="yoshinlevel" th:field="*{yoshinlevel}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>郵便番号</label>
+				</td>
+				<td>
+					<span th:text="*{postcode1}"></span>-<span th:text="*{postcode2}"></span>
+					<input type="hidden" name="postcode1" th:field="*{postcode1}">
+					<input type="hidden" name="postcode2" th:field="*{postcode2}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>都道府県</label>
+				</td>
+				<td>
+					<span th:text="*{prefecture}"></span>
+					<input type="hidden" name="prefecture" th:field="*{prefecture}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>住所１</label>
+				</td>
+				<td>
+					<span th:text="*{address1}"></span>
+					<input type="hidden" name="address1" th:field="*{address1}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>住所２</label>
+				</td>
+				<td>
+					<span th:text="*{address2}"></span>
+					<input type="hidden" name="address2" th:field="*{address2}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>電話番号</label>
+				</td>
+				<td>
+					<span th:text="*{phonenumber1}"></span>-<span th:text="*{phonenumber2}"></span>
+					<input type="hidden" name="phonenumber1" th:field="*{phonenumber1}">
+					<input type="hidden" name="phonenumber2" th:field="*{phonenumber2}"><br>
+				</td>
+			</tr>
+		</table>
 		<input type="submit" value="送信" class="btn btn-outline-secondary">
 		<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">
 	</form>

@@ -1,5 +1,17 @@
 <!doctype html>
 <head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
+<script>
+function deleteCheck() {
+
+	var id = $('#id').text();
+
+    var result = window.confirm('本当に削除してもよろしいですか？');
+
+    if(result) {
+    	document.location.href = '/systemUser/delete?id=' + id;
+    }
+}
+</script>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -12,7 +24,7 @@
 					<label>ID</label>
 				</td>
 				<td>
-					<span th:text="*{id}"></span>
+					<span id="id" th:text="*{id}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -51,6 +63,9 @@
 		<div class="mb-3">
 			<a th:href="@{'/systemUser/edit?id=' + ${systemUserForm.id}}" class="btn btn-outline-secondary">編集</a>
 			<a href="/systemUser/list" class="btn btn-outline-secondary">戻る</a>
+			<th:block th:if="${!#strings.isEmpty(systemUserForm.id)}">
+			<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();">
+			</th:block>
 		</div>
 	</form>
 	</div>

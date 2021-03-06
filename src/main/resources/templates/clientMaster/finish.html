@@ -1,13 +1,15 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
+<head th:replace="~{layout/component :: head('顧客')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('顧客')}"></th:block>
-	<h1 th:text="'finish'"></h1>
+	<p th:text="'更新が完了しました。'"></p>
 	<div class="row justify-content-start">
-	<a href="/clientMaster/list" class="btn btn-outline-secondary">戻る</a>
+		<div class="mb-3">
+			<a href="/clientMaster/list" class="btn btn-outline-secondary">戻る</a>
+		</div>
 	</div>
 </div>
 <footer th:replace="~{layout/component :: footer}"></footer>

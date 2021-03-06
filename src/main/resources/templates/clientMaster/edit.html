@@ -26,6 +26,7 @@ function returnDetail() {
 	<div class="row justify-content-start">
 		<form method="post" th:action="@{/clientMaster/editCheck}" th:object="${clientMasterForm}">
 			<table class="table table-bordered">
+				<th:block th:if="${id}">
 				<tr>
 					<td>
 						<label>ID</label>
@@ -34,14 +35,23 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</th:block>
+				<th:block th:if="${clientid}">
 				<tr>
 					<td>
-						<label>顧客ID</label>
+						<label>支店ID</label>
 					</td>
 					<td>
 						<input type="text" readonly class="form-control-plaintext" id="clientid" name="clientid" th:field="*{clientid}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${clientid}">
+						<input type="hidden" class="form-control-plaintext" id="clientid" name="clientid" th:field="*{clientid}">
+				</th:block>
 				<tr>
 					<td>
 						<label>顧客名</label>

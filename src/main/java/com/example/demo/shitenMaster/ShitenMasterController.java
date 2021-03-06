@@ -2,6 +2,7 @@ package com.example.demo.shitenMaster;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,20 +59,8 @@ public class ShitenMasterController {
 			// 更新
 			var shitenMaster = shitenMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(shitenMaster, shitenMasterForm);
 			shitenMasterForm.setId(id);
-			shitenMasterForm.setName(shitenMaster.getName());
-			shitenMasterForm.setPhonenumber1(shitenMaster.getPhonenumber1());
-			shitenMasterForm.setPhonenumber2(shitenMaster.getPhonenumber2());
-			shitenMasterForm.setPostcode1(shitenMaster.getPostcode1());
-			shitenMasterForm.setPostcode2(shitenMaster.getPostcode2());
-			shitenMasterForm.setPrefecture(shitenMaster.getPrefecture());
-			shitenMasterForm.setAddress1(shitenMaster.getAddress1());
-			shitenMasterForm.setAddress2(shitenMaster.getAddress2());
-			shitenMasterForm.setAtmcount(shitenMaster.getAtmcount());
-			shitenMasterForm.setParkingflg(shitenMaster.getParkingflg());
-			shitenMasterForm.setBiko(shitenMaster.getBiko());
-			shitenMasterForm.setShitenid(shitenMaster.getShitenid());
-
 		}
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
@@ -89,29 +78,18 @@ public class ShitenMasterController {
 
 	@PostMapping("/shitenMaster/finish")
 	public String finish(HttpSession session, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm) {
-		ShitenMasterForm sessionEditForm = (ShitenMasterForm) session.getAttribute("shitenMasterForm");
 
 		var shitenMaster = new ShitenMaster();
 
-		if(sessionEditForm.getId() != null) {
-			shitenMaster.setId(sessionEditForm.getId());
+		if(shitenMasterForm.getId() == null) {
+
+			int maxId = shitenMasterService.findByMaxShitenId();
+
+			shitenMasterForm.setId((long) 0);
+			shitenMasterForm.setShitenid(maxId + 1);
 		}
 
-		shitenMaster.setName(sessionEditForm.getName());
-		shitenMaster.setPhonenumber1(sessionEditForm.getPhonenumber1());
-		shitenMaster.setPhonenumber2(sessionEditForm.getPhonenumber2());
-		shitenMaster.setPostcode1(sessionEditForm.getPostcode1());
-		shitenMaster.setPostcode2(sessionEditForm.getPostcode2());
-		shitenMaster.setPrefecture(sessionEditForm.getPrefecture());
-		shitenMaster.setAddress1(sessionEditForm.getAddress1());
-		shitenMaster.setAddress2(sessionEditForm.getAddress2());
-		shitenMaster.setAtmcount(sessionEditForm.getAtmcount());
-		shitenMaster.setParkingflg(sessionEditForm.getParkingflg());
-		shitenMaster.setBiko(sessionEditForm.getBiko());
-
-		int maxId = shitenMasterService.findByMaxShitenId();
-
-		shitenMaster.setShitenid(maxId + 1);
+		BeanUtils.copyProperties(shitenMasterForm, shitenMaster);
 
 		this.shitenMasterService.save(shitenMaster);
 

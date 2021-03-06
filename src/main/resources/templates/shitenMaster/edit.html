@@ -26,6 +26,7 @@ function returnDetail() {
 	<div class="row justify-content-start">
 		<form method="post" th:action="@{/shitenMaster/editCheck}" th:object="${shitenMasterForm}">
 			<table class="table table-bordered">
+				<th:block th:if="${id}">
 				<tr>
 					<td>
 						<label>ID</label>
@@ -34,6 +35,11 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</th:block>
+				<th:block th:if="${shitenid}">
 				<tr>
 					<td>
 						<label>支店ID</label>
@@ -42,6 +48,10 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="shitenid" name="shitenid" th:field="*{shitenid}">
 					</td>
 				</tr>
+				</th:block>
+				<th:block th:unless="${shitenid}">
+						<input type="hidden" class="form-control-plaintext" id="shitenid" name="shitenid" th:field="*{shitenid}">
+				</th:block>
 				<tr>
 					<td>
 						<label>支店名</label>
@@ -89,20 +99,11 @@ function returnDetail() {
 				</tr>
 				<tr>
 					<td>
-						<label>電話番号１</label>
+						<label>電話番号</label>
 					</td>
 					<td>
-						<input type="text" name="phonenumber1" th:field="*{phonenumber1}"><br>
+						<input type="text" name="phonenumber1" th:field="*{phonenumber1}">-<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br><br>
 						<span th:if="${#fields.hasErrors('phonenumber1')}" th:errors="*{phonenumber1}">エラー</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>電話番号2</label>
-					</td>
-					<td>
-						<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br>
-						<span th:if="${#fields.hasErrors('phonenumber2')}" th:errors="*{phonenumber2}">エラー</span>
 					</td>
 				</tr>
 				<tr>
