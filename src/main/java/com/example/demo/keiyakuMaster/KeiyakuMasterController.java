@@ -103,7 +103,7 @@ public class KeiyakuMasterController {
 			keiyakuMasterForm.setId(id);
 			keiyakuMasterForm.setKeiyakuid(keiyakuMaster.getKeiyakuid());
 			keiyakuMasterForm.setShohinid(keiyakuMaster.getShohinid());
-			keiyakuMasterForm.setYushi(keiyakuMaster.getYushi());
+			keiyakuMasterForm.setPrice(keiyakuMaster.getPrice());
 			keiyakuMasterForm.setKinri(keiyakuMaster.getKinri());
 			keiyakuMasterForm.setReturnlimit(keiyakuMaster.getReturnlimit());
 			keiyakuMasterForm.setClientid(keiyakuMaster.getClientid());
@@ -129,7 +129,7 @@ public class KeiyakuMasterController {
 			keiyakuMasterForm.setId(id);
 			keiyakuMasterForm.setKeiyakuid(keiyakuMaster.getKeiyakuid());
 			keiyakuMasterForm.setShohinid(keiyakuMaster.getShohinid());
-			keiyakuMasterForm.setYushi(keiyakuMaster.getYushi());
+			keiyakuMasterForm.setPrice(keiyakuMaster.getPrice());
 			keiyakuMasterForm.setKinri(keiyakuMaster.getKinri());
 			keiyakuMasterForm.setReturnlimit(keiyakuMaster.getReturnlimit());
 			keiyakuMasterForm.setClientid(keiyakuMaster.getClientid());
@@ -174,7 +174,7 @@ public class KeiyakuMasterController {
 		}
 
 		keiyakuMaster.setShohinid(sessionEditForm.getShohinid());
-		keiyakuMaster.setYushi(sessionEditForm.getYushi());
+		keiyakuMaster.setPrice(sessionEditForm.getPrice());
 		keiyakuMaster.setKinri(sessionEditForm.getKinri());
 		keiyakuMaster.setReturnlimit(sessionEditForm.getReturnlimit());
 		keiyakuMaster.setClientid(sessionEditForm.getClientid());

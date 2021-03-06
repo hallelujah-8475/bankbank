@@ -29,9 +29,6 @@ public class KoinMasterController {
 	private ShitenMasterService shitenMasterService;
 
 	@Autowired
-	private TimeCardService timeCardService;
-
-	@Autowired
 	private KoinMasterRepository koinMasterRepository;
 
     private void setSelectTag(Model model) {
@@ -144,7 +141,7 @@ public class KoinMasterController {
 
 	@RequestMapping(value = "/koinMaster/list")
 	public String list(Model model) {
-        var list = timeCardService.findForKoinMasterAndTimeCard();
+        var list = koinMasterService.findAll();
         model.addAttribute("list", list);
         return "/koinMaster/list";
 	}

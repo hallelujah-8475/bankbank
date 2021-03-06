@@ -12,7 +12,7 @@
 					<label>ID</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+					<span th:text="*{id}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -20,7 +20,7 @@
 					<label>名前</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+					<span th:text="*{name}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -28,7 +28,7 @@
 					<label>年齢</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+					<span th:text="*{age}"></span>
 				</td>
 			</tr>
 		</table>

@@ -15,7 +15,7 @@ public class KeiyakuMasterForm {
 	protected int shohinid;
 
 	@NotNull
-	protected int yushi;
+	protected int price;
 
 	@NotNull
 	protected int kinri;
@@ -53,12 +53,12 @@ public class KeiyakuMasterForm {
 		this.shohinid = shohinid;
 	}
 
-	public int getYushi() {
-		return yushi;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setYushi(int yushi) {
-		this.yushi = yushi;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public int getKinri() {

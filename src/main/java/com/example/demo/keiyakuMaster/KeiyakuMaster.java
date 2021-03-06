@@ -25,7 +25,7 @@ public class KeiyakuMaster {
 	  private int shohinid;
 
 	  @Column
-	  private int yushi;
+	  private int price;
 
 	  @Column
 	  private int kinri;
@@ -57,11 +57,11 @@ public class KeiyakuMaster {
 	public void setShohinid(int shohinid) {
 		this.shohinid = shohinid;
 	}
-	public int getYushi() {
-		return yushi;
+	public int getPrice() {
+		return price;
 	}
-	public void setYushi(int yushi) {
-		this.yushi = yushi;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public int getKinri() {
 		return kinri;

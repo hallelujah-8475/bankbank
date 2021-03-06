@@ -1,12 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('顧客')}">
 <script>
 function deleteCheck() {
 
@@ -26,16 +20,9 @@ function returnDetail() {
 }
 </script>
 <body>
-<header class="header bg-secondary">
-<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-</header>
-<script src="https://kit.fontawesome.com/8925a3b56e.js" crossorigin="anonymous"></script>
+<th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
-	<hr>
-	<div class="font-weight-bold my-3">
-		<i class="far fa-edit pr-2 text-primary"></i>顧客　編集
-	</div>
-	<hr>
+	<th:block th:replace="~{layout/component :: container_top('顧客')}"></th:block>
 	<div class="row justify-content-start">
 		<form method="post" th:action="@{/clientMaster/editCheck}" th:object="${clientMasterForm}">
 			<table class="table table-bordered">
@@ -165,7 +152,6 @@ function returnDetail() {
 		</form>
 	</div>
 </div>
-<footer class="footer bg-secondary">
-</footer>
+<footer th:replace="~{layout/component :: footer}"></footer>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('契約一覧')}">
+<head th:replace="~{layout/component :: head('契約一覧')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -34,10 +34,10 @@
 			</tr>
 			<tr>
 				<td>
-					<label>融資</label>
+					<label>金額</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="yushi" th:field="*{yushi}">
+					<input type="text" readonly class="form-control-plaintext" name="price" th:field="*{price}">
 				</td>
 			</tr>
 			<tr>

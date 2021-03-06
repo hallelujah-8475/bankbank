@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('契約一覧')}">
+<head th:replace="~{layout/component :: head('契約一覧')}"></head>
 <script>
 function returnEdit() {
 	document.location.href = '/keiyakuMaster/returnEdit';
@@ -17,7 +17,7 @@ function returnEdit() {
 		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
 		<input type="text" readonly class="form-control-plaintext" name="keiyakuid" th:field="*{keiyakuid}">
 		<input type="text" readonly class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
-		<input type="text" readonly class="form-control-plaintext" name="yushi" th:field="*{yushi}">
+		<input type="text" readonly class="form-control-plaintext" name="price" th:field="*{price}">
 		<input type="text" readonly class="form-control-plaintext" name="kinri" th:field="*{kinri}">
 		<input type="text" readonly class="form-control-plaintext" name="returnlimit" th:field="*{returnlimit}">
 		<input type="text" readonly class="form-control-plaintext" name="clientid" th:field="*{clientid}">

@@ -1,3 +1,4 @@
+
 package com.example.demo.clientMaster;
 
 import javax.servlet.http.HttpSession;
@@ -29,21 +30,8 @@ public class ClientMasterController {
 			// 更新
 			var clientMaster = clientMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(clientMaster, clientMasterForm);
 			clientMasterForm.setId(id);
-			clientMasterForm.setName(clientMaster.getName());
-			clientMasterForm.setPhonenumber1(clientMaster.getPhonenumber1());
-			clientMasterForm.setPhonenumber2(clientMaster.getPhonenumber2());
-			clientMasterForm.setPostcode1(clientMaster.getPostcode1());
-			clientMasterForm.setPostcode2(clientMaster.getPostcode2());
-			clientMasterForm.setPrefecture(clientMaster.getPrefecture());
-			clientMasterForm.setAddress1(clientMaster.getAddress1());
-			clientMasterForm.setAddress2(clientMaster.getAddress2());
-			clientMasterForm.setClientid(clientMaster.getClientid());
-			clientMasterForm.setDaihyoage(clientMaster.getDaihyoage());
-			clientMasterForm.setDaihyoname(clientMaster.getDaihyoname());
-			clientMasterForm.setYoshinlevel(clientMaster.getYoshinlevel());
-
-
 		}
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
@@ -61,21 +49,7 @@ public class ClientMasterController {
 			var clientMaster = clientMasterRepository.findById(id).get();
 
 			BeanUtils.copyProperties(clientMaster, clientMasterForm);
-
-//			clientMasterForm.setId(id);
-//			clientMasterForm.setName(clientMaster.getName());
-//			clientMasterForm.setPhonenumber1(clientMaster.getPhonenumber1());
-//			clientMasterForm.setPhonenumber2(clientMaster.getPhonenumber2());
-//			clientMasterForm.setPostcode1(clientMaster.getPostcode1());
-//			clientMasterForm.setPostcode2(clientMaster.getPostcode2());
-//			clientMasterForm.setPrefecture(clientMaster.getPrefecture());
-//			clientMasterForm.setAddress1(clientMaster.getAddress1());
-//			clientMasterForm.setAddress2(clientMaster.getAddress2());
-//			clientMasterForm.setClientid(clientMaster.getClientid());
-//			clientMasterForm.setDaihyoage(clientMaster.getDaihyoage());
-//			clientMasterForm.setDaihyoname(clientMaster.getDaihyoname());
-//			clientMasterForm.setYoshinlevel(clientMaster.getYoshinlevel());
-
+			clientMasterForm.setId(id);
 		}
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
@@ -93,31 +67,17 @@ public class ClientMasterController {
 
 	@PostMapping("/clientMaster/finish")
 	public String finish(HttpSession session, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm) {
-		ClientMasterForm sessionEditForm = (ClientMasterForm) session.getAttribute("clientMasterForm");
 
 		var clientMaster = new ClientMaster();
 
-		if(sessionEditForm.getId() == null) {
+		if(clientMasterForm.getId() == null) {
 			int maxId = clientMasterService.findByMaxClientId();
 
-			clientMaster.setClientid(maxId + 1);
-		}else {
-			clientMaster.setId(sessionEditForm.getId());
-			clientMaster.setClientid(sessionEditForm.getClientid());
+			clientMasterForm.setId((long) 0);
+			clientMasterForm.setClientid(maxId + 1);
 		}
 
-		clientMaster.setName(sessionEditForm.getName());
-		clientMaster.setPhonenumber1(sessionEditForm.getPhonenumber1());
-		clientMaster.setPhonenumber2(sessionEditForm.getPhonenumber2());
-		clientMaster.setPostcode1(sessionEditForm.getPostcode1());
-		clientMaster.setPostcode2(sessionEditForm.getPostcode2());
-		clientMaster.setPrefecture(sessionEditForm.getPrefecture());
-		clientMaster.setAddress1(sessionEditForm.getAddress1());
-		clientMaster.setAddress2(sessionEditForm.getAddress2());
-		clientMaster.setDaihyoage(sessionEditForm.getDaihyoage());
-		clientMaster.setDaihyoname(sessionEditForm.getDaihyoname());
-		clientMaster.setYoshinlevel(sessionEditForm.getYoshinlevel());
-
+		BeanUtils.copyProperties(clientMasterForm, clientMaster);
 
 		this.clientMasterService.save(clientMaster);
 

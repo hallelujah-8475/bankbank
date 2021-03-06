@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('支店')}">
+<head th:replace="~{layout/component :: head('支店')}"></head>
 <script>
 function deleteCheck() {
 
@@ -36,7 +36,7 @@ function returnDetail() {
 				</tr>
 				<tr>
 					<td>
-						<label>ID</label>
+						<label>支店ID</label>
 					</td>
 					<td>
 						<input type="text" readonly class="form-control-plaintext" id="shitenid" name="shitenid" th:field="*{shitenid}">
@@ -53,20 +53,11 @@ function returnDetail() {
 				</tr>
 				<tr>
 					<td>
-						<label>郵便番号１</label>
+						<label>郵便番号</label>
 					</td>
 					<td>
-						<input type="text" name="postcode1" th:field="*{postcode1}"><br>
+						<input type="text" name="postcode1" th:field="*{postcode1}">ー<input type="text" name="postcode2" th:field="*{postcode2}" onKeyUp="AjaxZip3.zip2addr('postcode1','postcode2','prefecture','address1','address2');"><br>
 						<span th:if="${#fields.hasErrors('postcode1')}" th:errors="*{postcode1}">エラー</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>郵便番号2</label>
-					</td>
-					<td>
-						<input type="text" name="postcode2" th:field="*{postcode2}"><br>
-						<span th:if="${#fields.hasErrors('postcode2')}" th:errors="*{postcode2}">エラー</span>
 					</td>
 				</tr>
 				<tr>

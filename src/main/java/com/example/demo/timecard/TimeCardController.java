@@ -25,6 +25,13 @@ public class TimeCardController {
 		return "/timecard/index";
 	}
 
+	@RequestMapping(value = "/timecard/list")
+	public String list(Model model) {
+        var list = timeCardService.findAll();
+        model.addAttribute("list", list);
+        return "/timecard/list";
+	}
+
 	@RequestMapping("/timecard/entry")
 	public String entry(@RequestParam(name = "id", required = false) int id, Model model) {
 

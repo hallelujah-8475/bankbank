@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <script>
 function deleteCheck() {
 
@@ -52,11 +52,11 @@ function returnDetail() {
 				</tr>
 				<tr>
 					<td>
-						<label>融資</label>
+						<label>金額</label>
 					</td>
 					<td>
-						<input type="number" name="yushi" th:field="*{yushi}">
-						<span th:if="${#fields.hasErrors('yushi')}" th:errors="*{yushi}">エラー</span>
+						<input type="number" name="price" th:field="*{price}">
+						<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">エラー</span>
 					</td>
 				</tr>
 				<tr>

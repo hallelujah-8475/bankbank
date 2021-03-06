@@ -14,23 +14,39 @@
 					<label>ID</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
+					<span th:text="*{id}"></span>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label>名前</label>
+					<label>タイムカードID</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+					<span th:text="*{timecardid}"></span>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label>年齢</label>
+					<label>行員ID</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="age" th:field="*{age}">
+					<span th:text="*{koinid}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>勤務日</label>
+				</td>
+				<td>
+					<span th:text="*{workdate}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>勤務時間</label>
+				</td>
+				<td>
+					<span th:text="*{workstartdate}"></span>〜<span th:text="*{workenddate}"></span>
 				</td>
 			</tr>
 		</table>

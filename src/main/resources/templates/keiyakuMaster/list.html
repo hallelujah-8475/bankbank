@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('契約一覧')}">
+<head th:replace="~{layout/component :: head('契約一覧')}"></head>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -12,11 +12,15 @@
 		      <th>ID</th>
 		      <th>契約ID</th>
 		      <th>返済期限</th>
+		      <th>金額</th>
+		      <th>商品</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td ><a th:href="@{'/keiyakuMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
 		      <td th:text="${entity.keiyakuid}">name</td>
 		      <td th:text="${entity.returnlimit}">age</td>
+		      <td th:text="${entity.price}">age</td>
+		      <td th:text="${entity.shohinid}">age</td>
 		    </tr>
 	    </table>
 	    <a href="/" class="btn btn-outline-secondary mb-3">戻る</a>

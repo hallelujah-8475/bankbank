@@ -1,22 +1,15 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-<meta charset="UTF-8" />
-<title>Hello Thymeleaf</title>
-</head>
+<head th:replace="~{layout/component :: head('システム管理者情報一覧')}">
 <body>
-<header class="header bg-secondary">
-<a href="/"><img id="header_logo" src="/images/logo.png"></a>
-</header>
+<th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
+	<th:block th:replace="~{layout/component :: container_top('顧客')}"></th:block>
 	<h1 th:text="'finish'"></h1>
 	<div class="row justify-content-start">
 	<a href="/clientMaster/list" class="btn btn-outline-secondary">戻る</a>
 	</div>
 </div>
-<footer class="footer bg-secondary">
-</footer>
+<footer th:replace="~{layout/component :: footer}"></footer>
 </body>
 </html>

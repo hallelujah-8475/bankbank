@@ -1,12 +1,18 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('タイムカード')}">
+<head th:replace="~{layout/component :: head('タイムカード')}"></head>
 <script>
-function entryCheck(id) {
+function entryCheck(id, workstarttime) {
 
-	alert(id);
+	var resultString = '';
 
-    var result = window.confirm('本当に削除してもよろしいですか？');
+    if(workstarttime == 'null' || workstarttime == null) {
+    	resultString = '打刻の状態を「出勤」にしてもよろしいですか？';
+    }else {
+    	resultString = '打刻の状態を「打刻済み」にしてもよろしいですか？';
+    }
+
+    var result = window.confirm(resultString);
 
     if(result) {
     	document.location.href = '/timecard/entry?id=' + id;
@@ -20,13 +26,17 @@ function entryCheck(id) {
 	<div class="row justify-content-start">
 		<table class="table table-striped table-sm">
 		    <tr>
+		      <th></th>
 		      <th>ID</th>
 		      <th>氏名</th>
 		      <th>出勤</th>
 		      <th>退勤</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		      <td th:text="${entity[0]}" id="id" th:field="*{id}" th:attr="onclick='entryCheck(' + ${entity[0]} + ');'">id</td>
+		      <td th:if="${entity[2] == null}"><input type="button" value="出勤" th:attr="onclick='entryCheck(' + ${entity[0]} + ', \'' + ${entity[2]} + '\');'"></td>
+		      <td th:if="${entity[2] != null && entity[3] == null}"><input type="button" value="退勤" th:attr="onclick='entryCheck(' + ${entity[0]} + ', \'' + ${entity[2]} + '\');'"></td>
+		      <td th:if="${entity[2] != null && entity[3] != null}"><input type="button" value="打刻済み" disabled></td>
+		      <td th:text="${entity[0]}" id="id" th:field="*{id}">id</td>
 		      <td th:text="${entity[1]}">name</td>
 		      <td th:text="${entity[2]}">age</td>
 		      <td th:text="${entity[3]}">age</td>

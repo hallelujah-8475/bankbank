@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,12 @@ public class TimeCardService {
 	public TimeCard save(TimeCard entity) {
 
 		return this.timeCardRepositry.save(entity);
+	}
+
+	public List<TimeCard> findAll() {
+
+
+		return timeCardRepositry.findAll(Sort.by("id"));
 	}
 
 	public TimeCard findByKoinIdAndWorkDate(int koinid, String date) {
