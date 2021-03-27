@@ -1,5 +1,6 @@
 package com.example.demo.koinMaster;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,8 +9,11 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.haizokuMaster.HaizokuMasterListForm;
 
 @Service
 @Transactional
@@ -17,6 +21,9 @@ public class KoinMasterService {
 
 	@Autowired
 	KoinMasterRepository koinMasterRepositry;
+
+	@Autowired
+	KoinMasterSpecifications koinMasterSpecifications;
 
 	@PersistenceContext
 	EntityManager entityManager;
@@ -42,6 +49,14 @@ public class KoinMasterService {
 	            .getSingleResult();
 
 	}
+
+    public List<KoinMaster> findUsers(HaizokuMasterListForm haizokuMasterListForm) {
+
+    	List<KoinMaster> list = new ArrayList<KoinMaster>();
+
+    	list = koinMasterRepositry.findAll(Specification.where(koinMasterSpecifications.nameContains(haizokuMasterListForm.getShitenid())));
+    	return list;
+    }
 
 
 }

@@ -39,6 +39,9 @@ public class KeiyakuMaster {
 	  @Column
 	  private int koinid;
 
+	  @Column
+	  private int shoninflg;
+
 	  public long getId() {
 	    return id;
 	  }
@@ -87,6 +90,14 @@ public class KeiyakuMaster {
 	public void setKoinid(int koinid) {
 		this.koinid = koinid;
 	}
+	public int getShoninflg() {
+		return shoninflg;
+	}
+	public void setShoninflg(int shoninflg) {
+		this.shoninflg = shoninflg;
+	}
+
+
 
 
 

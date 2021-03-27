@@ -1,10 +1,12 @@
 package com.example.demo.taioMaster;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class TaioMasterForm {
+public class TaioMasterForm implements Serializable {
 
 	private Long id;
 

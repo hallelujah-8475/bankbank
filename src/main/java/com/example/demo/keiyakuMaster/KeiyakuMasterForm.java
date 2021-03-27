@@ -1,10 +1,12 @@
 package com.example.demo.keiyakuMaster;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class KeiyakuMasterForm {
+public class KeiyakuMasterForm implements Serializable {
 
 	protected Long id;
 

@@ -1,15 +1,17 @@
 package com.example.demo.shitenMaster;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class ShitenMasterForm {
+public class ShitenMasterForm implements Serializable {
 
 	private Long id;
 
 	@NotBlank
-	private String name;
+	private String shitenname;
 
 	@NotNull
 	private int postcode1;
@@ -49,11 +51,11 @@ public class ShitenMasterForm {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getShitenname() {
+		return shitenname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setShitenname(String shitenname) {
+		this.shitenname = shitenname;
 	}
 	public int getPostcode1() {
 		return postcode1;

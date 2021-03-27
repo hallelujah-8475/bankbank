@@ -29,20 +29,8 @@ public class ShitenMasterController {
 			// 更新
 			var shitenMaster = shitenMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(shitenMaster, shitenMasterForm);
 			shitenMasterForm.setId(id);
-			shitenMasterForm.setName(shitenMaster.getName());
-			shitenMasterForm.setPhonenumber1(shitenMaster.getPhonenumber1());
-			shitenMasterForm.setPhonenumber2(shitenMaster.getPhonenumber2());
-			shitenMasterForm.setPostcode1(shitenMaster.getPostcode1());
-			shitenMasterForm.setPostcode2(shitenMaster.getPostcode2());
-			shitenMasterForm.setPrefecture(shitenMaster.getPrefecture());
-			shitenMasterForm.setAddress1(shitenMaster.getAddress1());
-			shitenMasterForm.setAddress2(shitenMaster.getAddress2());
-			shitenMasterForm.setAtmcount(shitenMaster.getAtmcount());
-			shitenMasterForm.setParkingflg(shitenMaster.getParkingflg());
-			shitenMasterForm.setBiko(shitenMaster.getBiko());
-			shitenMasterForm.setShitenid(shitenMaster.getShitenid());
-
 		}
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);

@@ -1,15 +1,21 @@
 package com.example.demo.koinMaster;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.example.demo.shitenMaster.ShitenMaster;
 
 @Entity
 @Table(name = "koinmaster")
-public class KoinMaster {
+public class KoinMaster implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +26,7 @@ public class KoinMaster {
 	private int koinid;
 
 	@Column
-	private String name;
+	private String koinname;
 
 	@Column
 	private int age;
@@ -30,6 +36,17 @@ public class KoinMaster {
 
 	@Column
 	private int busho;
+
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy="shitenid")
+//	private List<ShitenMaster> koinlist;
+
+	@OneToOne
+	@JoinColumn(name = "shitenid", referencedColumnName = "shitenid", insertable = false, updatable = false)
+	private ShitenMaster shitenmaster;
+
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "shitenid", referencedColumnName = "id", insertable = false, updatable = false)
+//	private KoinMaster koinmaster;
 
 	public long getId() {
 		return id;
@@ -47,12 +64,12 @@ public class KoinMaster {
 		this.koinid = koinid;
 	}
 
-	public String getName() {
-		return name;
+	public String getKoinname() {
+		return koinname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setKoinname(String koinname) {
+		this.koinname = koinname;
 	}
 
 	public int getAge() {
@@ -78,5 +95,26 @@ public class KoinMaster {
 	public void setBusho(int busho) {
 		this.busho = busho;
 	}
+
+//	public ShitenMaster getShitenmaster() {
+//		return shitenmaster;
+//	}
+//
+//	public void setShitenmaster(ShitenMaster shitenmaster) {
+//		this.shitenmaster = shitenmaster;
+//	}
+
+
+//	public List<ShitenMaster> getKoinlist() {
+//		return koinlist;
+//	}
+//
+//	public void setKoinlist(List<ShitenMaster> koinlist) {
+//		this.koinlist = koinlist;
+//	}
+
+
+
+
 
 }

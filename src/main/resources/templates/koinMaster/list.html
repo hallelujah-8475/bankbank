@@ -15,7 +15,7 @@
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td ><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
-		      <td th:text="${entity.name}">name</td>
+		      <td th:text="${entity.koinname}">name</td>
 		      <td th:text="${entity.age}">age</td>
 		    </tr>
 	    </table>

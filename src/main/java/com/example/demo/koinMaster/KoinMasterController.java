@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.constant.BushoKbn;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterService;
 
@@ -39,7 +40,7 @@ public class KoinMasterController {
 
         for(ShitenMaster entity : list) {
 
-        	optionMap.put(entity.getShitenid(), entity.getName());
+        	optionMap.put(entity.getShitenid(), entity.getShitenname());
         }
 
         model.addAttribute("list", optionMap);
@@ -47,13 +48,7 @@ public class KoinMasterController {
 
     private void setBushoSelectTag(Model model) {
 
-    	Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
-
-    	optionMap.put(1, "融資");
-    	optionMap.put(2, "営業");
-    	optionMap.put(3, "預金");
-
-    	model.addAttribute("bushoList", optionMap);
+    	model.addAttribute("bushoList", BushoKbn.getOptionMap());
     }
 
 	@RequestMapping(value = "/koinMaster/detail")
@@ -61,16 +56,17 @@ public class KoinMasterController {
 			@ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm,
 			HttpSession session,Model model) {
 
-		var koinMaster = koinMasterRepository.findById(id).get();
+		if(id == null) {
+			// 新規登録
+		}else {
+			// 更新
+			var koinMaster = koinMasterRepository.findById(id).get();
 
-		koinMasterForm.setId(id);
-		koinMasterForm.setKoinid(koinMaster.getKoinid());
-		koinMasterForm.setName(koinMaster.getName());
-		koinMasterForm.setAge(koinMaster.getAge());
-		koinMasterForm.setBusho(koinMaster.getBusho());
-		koinMasterForm.setShitenid(koinMaster.getShitenid());
-		var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
-		koinMasterForm.setShitenname(entity.getName());
+			BeanUtils.copyProperties(koinMaster, koinMasterForm);
+			koinMasterForm.setId(id);
+			var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
+			koinMasterForm.setShitenname(entity.getShitenname());
+		}
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
@@ -89,7 +85,7 @@ public class KoinMasterController {
 			BeanUtils.copyProperties(koinMaster, koinMasterForm);
 			koinMasterForm.setId(id);
 			var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
-			koinMasterForm.setShitenname(entity.getName());
+			koinMasterForm.setShitenname(entity.getShitenname());
 		}
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
@@ -101,38 +97,30 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping("/koinMaster/editCheck")
-	public String editCheck(HttpSession session, @Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result) {
+	public String editCheck(@Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result, HttpSession session) {
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
-		var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
-		koinMasterForm.setShitenname(entity.getName());
 
-		if(result.hasErrors()) {
-			return "/koinMaster/edit";
-		}
+//		if(result.hasErrors()) {
+//			return "/koinMaster/edit";
+//		}
 
 		return "/koinMaster/editCheck";
 	}
 
 	@PostMapping("/koinMaster/finish")
-	public String finish(HttpSession session) {
-		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
+	public String finish(HttpSession session, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm) {
 
 		var koinMaster = new KoinMaster();
 
-		if(sessionEditForm.getId() == null) {
+		if(koinMasterForm.getId() == null) {
 			int maxId = koinMasterService.findByMaxKoinId();
 
-			koinMaster.setKoinid(maxId + 1);
-		}else {
-			koinMaster.setId(sessionEditForm.getId());
-			koinMaster.setKoinid(sessionEditForm.getKoinid());
+			koinMasterForm.setId((long) 0);
+			koinMasterForm.setKoinid(maxId + 1);
 		}
 
-		koinMaster.setName(sessionEditForm.getName());
-		koinMaster.setAge(sessionEditForm.getAge());
-		koinMaster.setBusho(sessionEditForm.getBusho());
-		koinMaster.setShitenid(sessionEditForm.getShitenid());
+		BeanUtils.copyProperties(koinMasterForm, koinMaster);
 
 		this.koinMasterService.save(koinMaster);
 
@@ -184,7 +172,7 @@ public class KoinMasterController {
 
         var entity = (ShitenMaster)shitenMasterService.findByShitenId(sessionEditForm.getShitenid());
 
-        sessionEditForm.setShitenname(entity.getName());
+        sessionEditForm.setShitenname(entity.getShitenname());
 
 		model.addAttribute("koinMasterForm", sessionEditForm);
 

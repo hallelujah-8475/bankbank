@@ -1,9 +1,15 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout/component :: head('メニュー')}">
 <body>
 <div class="row">
 <th:block th:replace="~{layout/component :: header}"></th:block>
+
+	<div class="col-12 col-sm-12 col-lg-12 text-center">
+		<div id="shoninDiv">
+				未承認の契約が<a href="/keiyakuMaster/list"><span th:text="${miShoninCount}"></span></a>件あります。
+		</div>
+	</div>
 
 	<div class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
@@ -42,6 +48,7 @@
 			</div>
 		</footer>
 	</div>
+
 </div>
 </body>
 </html>

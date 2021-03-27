@@ -85,7 +85,7 @@ public class KeiyakuMasterController {
 
 		for(KoinMaster entity : list) {
 
-			optionMap.put(entity.getKoinid(), entity.getName());
+			optionMap.put(entity.getKoinid(), entity.getKoinname());
 		}
 
 		model.addAttribute("koinList", optionMap);

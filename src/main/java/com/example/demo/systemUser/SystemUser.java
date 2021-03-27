@@ -1,5 +1,7 @@
 package com.example.demo.systemUser;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "systemuser")
-public class SystemUser {
+public class SystemUser implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +29,9 @@ public class SystemUser {
 
 	@Column
 	private String password;
+
+	@Column
+	private String role;
 
 	public long getId() {
 		return id;
@@ -67,5 +72,15 @@ public class SystemUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 
 }

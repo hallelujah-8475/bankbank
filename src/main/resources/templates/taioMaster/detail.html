@@ -5,6 +5,7 @@
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('対応状況一覧')}"></th:block>
+	<a href="/taioMaster/report" class="btn btn-outline-secondary mb-3">帳票出力</a>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/taioMaster/finish}" th:object="${taioMasterForm}">
 		<table class="table table-bordered">

@@ -11,7 +11,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="50" splitType="Stretch">
+		<band height="294" splitType="Stretch">
 			<staticText>
 				<reportElement x="210" y="20" width="100" height="30" uuid="a19ace77-8088-43d2-a240-ec20fa6d6149"/>
 				<textElement>
@@ -28,6 +28,9 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="10" y="-1" width="71" height="295" uuid="b94858f5-4f1d-44a7-8382-89978335db46"/>
+			</line>
 		</band>
 	</title>
 	<columnHeader>

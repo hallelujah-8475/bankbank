@@ -1,10 +1,12 @@
 package com.example.demo.clientMaster;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class ClientMasterForm {
+public class ClientMasterForm implements Serializable {
 
 	private Long id;
 

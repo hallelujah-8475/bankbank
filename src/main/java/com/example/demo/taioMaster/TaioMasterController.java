@@ -69,7 +69,7 @@ public class TaioMasterController {
 
         for(ShitenMaster entity : list) {
 
-        	optionMap.put(entity.getShitenid(), entity.getName());
+        	optionMap.put(entity.getShitenid(), entity.getShitenname());
         }
 
         model.addAttribute("shitenList", optionMap);
@@ -97,7 +97,7 @@ public class TaioMasterController {
 
 		for(KoinMaster entity : list) {
 
-			optionMap.put(entity.getKoinid(), entity.getName());
+			optionMap.put(entity.getKoinid(), entity.getKoinname());
 		}
 
 		model.addAttribute("koinList", optionMap);
@@ -240,7 +240,11 @@ public class TaioMasterController {
 	}
 
 	@RequestMapping(value = "/taioMaster/report", method = RequestMethod.GET)
-	public String getReport(HttpServletResponse response) {
+	public String getReport(HttpServletResponse response, HttpSession session) {
+
+		TaioMasterForm sessionEditForm = (TaioMasterForm) session.getAttribute("taioMasterForm");
+
+		var taioMaster = taioMasterRepository.findById(sessionEditForm.getId()).get();
 
 		/**▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼　データ作成部　▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼**/
         //ヘッダーデータ作成

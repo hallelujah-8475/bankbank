@@ -1,10 +1,12 @@
 package com.example.demo.shohinMaster;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class ShohinMasterForm {
+public class ShohinMasterForm implements Serializable {
 
 	private Long id;
 

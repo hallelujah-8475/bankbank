@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SystemUserRepository extends JpaRepository<SystemUser, Long> {
 
-
+	SystemUser findByLoginidEquals(String loginid);
 }

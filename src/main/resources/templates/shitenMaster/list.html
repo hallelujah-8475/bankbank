@@ -14,7 +14,7 @@
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td ><a th:href="@{'/shitenMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
-		      <td th:text="${entity.name}">name</td>
+		      <td th:text="${entity.shitenname}">name</td>
 		    </tr>
 	    </table>
 	    <a href="/" class="btn btn-outline-secondary">戻る</a>

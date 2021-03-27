@@ -29,5 +29,10 @@ public class SystemUserService {
 		return this.userRepositry.findById(id);
 	}
 
+	public SystemUser findByLoginId(String loginid) {
+
+		return this.userRepositry.findByLoginidEquals(loginid);
+	}
+
 
 }

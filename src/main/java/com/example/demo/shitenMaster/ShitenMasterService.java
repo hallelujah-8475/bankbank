@@ -1,5 +1,6 @@
 package com.example.demo.shitenMaster;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,8 +9,11 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.haizokuMaster.HaizokuMasterListForm;
 
 @Service
 @Transactional
@@ -20,6 +24,9 @@ public class ShitenMasterService {
 
 	@PersistenceContext
 	EntityManager entityManager;
+
+	@Autowired
+	ShitenMasterSpecifications shitenMasterSpecifications;
 
 	public ShitenMaster save(ShitenMaster entity) {
 
@@ -52,6 +59,16 @@ public class ShitenMasterService {
 	            .getSingleResult();
 
 	}
+
+    public List<ShitenMaster> findUsers(HaizokuMasterListForm haizokuMasterListForm) {
+
+    	List<ShitenMaster> list = new ArrayList<ShitenMaster>();
+
+    	list = shitenMasterRepositry.findAll(Specification.where(shitenMasterSpecifications.nameContains(haizokuMasterListForm.getShitenid())));
+
+    	return list;
+    }
+
 
 
 

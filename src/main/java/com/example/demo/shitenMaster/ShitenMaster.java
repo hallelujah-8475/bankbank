@@ -1,6 +1,8 @@
 
 package com.example.demo.shitenMaster;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,15 +14,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "shitenmaster")
-public class ShitenMaster {
+public class ShitenMaster implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column
+	@Column(name = "id")
 	private long id;
 
+
 	@Column
-	private String name;
+	private String shitenname;
 
 	@Column
 	private int postcode1;
@@ -64,12 +67,12 @@ public class ShitenMaster {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getShitenname() {
+		return shitenname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShitenname(String shitenname) {
+		this.shitenname = shitenname;
 	}
 
 	public int getPostcode1() {
@@ -159,6 +162,14 @@ public class ShitenMaster {
 	public void setShitenid(int shitenid) {
 		this.shitenid = shitenid;
 	}
+
+//	public List<KoinMaster> getKoinlist() {
+//		return koinlist;
+//	}
+//
+//	public void setKoinlist(List<KoinMaster> koinlist) {
+//		this.koinlist = koinlist;
+//	}
 
 
 }

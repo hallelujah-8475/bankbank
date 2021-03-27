@@ -3,6 +3,16 @@ header, footer {
 	text-align: center;
 }
 
+#login_content {
+	heigh: 200px;
+	width: 320px;
+	margin: 0 auto;
+}
+
+#login_status {
+	height: 50px;
+}
+
 #header_logo {
 	height: 100px;
 	width: 100px;
@@ -12,7 +22,10 @@ header, footer {
 	margin: 5px;
 }
 
-#login_content {
-	heigh: 200px;
-	width: 320px;
+#shoninDiv {
+	height: 50px;
+	width: 600px;
+	border: solid 1px;
+	background-color: yellow;
+	margin: 0 auto;
 }

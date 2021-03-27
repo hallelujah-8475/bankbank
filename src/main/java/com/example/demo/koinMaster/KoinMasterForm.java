@@ -1,12 +1,16 @@
 package com.example.demo.koinMaster;
 
-public class KoinMasterForm {
+import java.io.Serializable;
+
+import com.example.demo.constant.BushoKbn;
+
+public class KoinMasterForm implements Serializable {
 
 	private Long id;
 
 	private int koinid;
 
-	private String name;
+	private String koinname;
 
 	private int age;
 
@@ -32,12 +36,12 @@ public class KoinMasterForm {
 		this.koinid = koinid;
 	}
 
-	public String getName() {
-		return name;
+	public String getKoinname() {
+		return koinname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setKoinname(String koinname) {
+		this.koinname = koinname;
 	}
 
 	public int getAge() {
@@ -74,21 +78,7 @@ public class KoinMasterForm {
 
 	public String getBushoname() {
 
-		String bushoname = "";
-
-		switch(this.busho) {
-		case 1:
-			bushoname = "融資";
-			break;
-		case 2:
-			bushoname = "営業";
-			break;
-		case 3:
-			bushoname = "預金";
-			break;
-		}
-
-		return bushoname;
+		return BushoKbn.getLabel(this.busho);
 	}
 
 }
