@@ -55,7 +55,6 @@ public class ShitenMaster implements Serializable{
 	@Column
 	private String biko;
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
 	private int shitenid;
 

@@ -33,13 +33,13 @@ function entryCheck(id, workstarttime) {
 		      <th>退勤</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		      <td th:if="${entity[2] == null}"><input type="button" value="出勤" th:attr="onclick='entryCheck(' + ${entity[0]} + ', \'' + ${entity[2]} + '\');'"></td>
-		      <td th:if="${entity[2] != null && entity[3] == null}"><input type="button" value="退勤" th:attr="onclick='entryCheck(' + ${entity[0]} + ', \'' + ${entity[2]} + '\');'"></td>
-		      <td th:if="${entity[2] != null && entity[3] != null}"><input type="button" value="打刻済み" disabled></td>
-		      <td th:text="${entity[0]}" id="id" th:field="*{id}">id</td>
-		      <td th:text="${entity[1]}">name</td>
-		      <td th:text="${entity[2]}">age</td>
-		      <td th:text="${entity[3]}">age</td>
+		      <td th:if="${entity.workstarttime == null}"><input type="button" value="出勤" th:attr="onclick='entryCheck(' + ${entity.id} + ', \'' + entity.workstarttime + '\');'"></td>
+		      <td th:if="${entity.workstarttime != null && entity.workendtime == null}"><input type="button" value="退勤" th:attr="onclick='entryCheck(' + ${entity.id} + ', \'' + entity.workstarttime + '\');'"></td>
+		      <td th:if="${entity.workstarttime != null && entity.workendtime != null}"><input type="button" value="打刻済み" disabled></td>
+		      <td th:text="${entity.id}" id="id" th:field="*{id}">id</td>
+		      <td th:text="${entity.koinmaster.koinname}">name</td>
+		      <td th:text="${entity.workstarttime}">name</td>
+		      <td th:text="${entity.workendtime}">age</td>
 		    </tr>
 	    </table>
 	</div>

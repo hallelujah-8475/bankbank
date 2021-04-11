@@ -64,6 +64,15 @@ function returnEdit() {
 					<input type="hidden" name="password" th:field="*{password}">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>権限</label>
+				</td>
+				<td>
+					<span th:text="*{role}"></span>
+					<input type="hidden" name="role" th:field="*{role}">
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 		<input type="submit" value="送信" class="btn btn-outline-secondary">

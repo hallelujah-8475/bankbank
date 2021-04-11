@@ -54,7 +54,9 @@ public class KoinMasterService {
 
     	List<KoinMaster> list = new ArrayList<KoinMaster>();
 
-    	list = koinMasterRepositry.findAll(Specification.where(koinMasterSpecifications.nameContains(haizokuMasterListForm.getShitenid())));
+    	list = koinMasterRepositry.findAll(Specification
+    										.where(koinMasterSpecifications.shitenIdContains(haizokuMasterListForm.getShitenid()))
+    										.and(koinMasterSpecifications.koinNameContains(haizokuMasterListForm.getKoinname())));
     	return list;
     }
 

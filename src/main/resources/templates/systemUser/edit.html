@@ -57,6 +57,15 @@
 						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">エラー</span>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<label>権限</label>
+					</td>
+					<td>
+						<input type="checkbox" value="ROLE_ADMIN" name="role" th:field="*{role}" th:text="${role == 'ROLE_ADMIN'} ? 'checked' : '' ">
+						<span th:if="${#fields.hasErrors('role')}" th:errors="*{role}">エラー</span>
+					</td>
+				</tr>
 			</table>
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">

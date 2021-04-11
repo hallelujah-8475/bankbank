@@ -38,7 +38,7 @@ function returnEdit() {
 					<label>名前</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="koinname" th:field="*{koinname}">
+					<span th:text="*{koinname}"></span>
 					<input type="hidden" name="koinname" th:field="*{koinname}">
 				</td>
 			</tr>
@@ -65,7 +65,7 @@ function returnEdit() {
 					<label>支店</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" name="shitenid" th:value="*{shitenid}" th:field="*{shitenname}">
+					<span th:text="*{shitenname}"></span>
 					<input type="hidden" name="shitenid" th:field="*{shitenid}">
 				</td>
 			</tr>

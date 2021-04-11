@@ -230,4 +230,16 @@ public class KeiyakuMasterController {
 		return "/keiyakuMaster/detail";
 	}
 
+	@RequestMapping("/keiyakuMaster/shonin")
+	public String shonin(@RequestParam(name = "id", required = false) Long id, Model model) {
+
+		var keiyakuMaster = keiyakuMasterRepository.findById(id).get();
+
+		keiyakuMaster.setShoninflg(1);
+
+		keiyakuMasterService.save(keiyakuMaster);
+
+		return this.list(model);
+	}
+
 }

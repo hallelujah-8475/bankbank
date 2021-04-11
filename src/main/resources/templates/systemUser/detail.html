@@ -59,6 +59,14 @@ function deleteCheck() {
 					<span th:text="*{password}"></span>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>権限</label>
+				</td>
+				<td>
+					<span th:text="*{role}"></span>
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<a th:href="@{'/systemUser/edit?id=' + ${systemUserForm.id}}" class="btn btn-outline-secondary">編集</a>

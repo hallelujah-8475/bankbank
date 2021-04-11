@@ -1,4 +1,4 @@
-package com.example.demo.systemUser;
+package com.example.demo.accesslog;
 
 import java.io.Serializable;
 
@@ -13,8 +13,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "systemuser")
-public class SystemUser implements Serializable {
+@Table(name = "accesslog")
+public class AccessLog implements Serializable {
 
 	@Getter
 	@Setter
@@ -26,25 +26,20 @@ public class SystemUser implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private String name;
+	private String actsystemuserid;
 
 	@Getter
 	@Setter
 	@Column
-	private int age;
+	private String actdatetime;
 
 	@Getter
 	@Setter
 	@Column
-	private String loginid;
+	private String actcontent;
 
 	@Getter
 	@Setter
 	@Column
-	private String password;
-
-	@Getter
-	@Setter
-	@Column
-	private String role;
+	private String actresult;
 }

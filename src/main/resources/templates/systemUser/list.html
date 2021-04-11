@@ -7,6 +7,10 @@
 	<th:block th:replace="~{layout/component :: container_top('システム管理者情報一覧')}"></th:block>
 	<div class="row justify-content-start">
 		<a href="/systemUser/edit" class="btn btn-outline-secondary mb-3">新規登録</a>
+		<form action="/systemUser/csvImport" th:action="@{/systemUser/csvImport}" method="post" enctype="multipart/form-data">
+			<input type="file" name="csvFile" accept=".csv" class="btn btn-outline-secondary mb-3 ml-1" value="CSVファイル選択">
+			<input type="submit" class="btn btn-outline-secondary mb-3 ml-1" value="取り込み">
+		</form>
 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>ID</th>

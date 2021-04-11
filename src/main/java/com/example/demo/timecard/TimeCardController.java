@@ -9,16 +9,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.koinMaster.KoinMaster;
+import com.example.demo.koinMaster.KoinMasterService;
+
 @Controller
 public class TimeCardController {
 
 	@Autowired
 	private TimeCardService timeCardService;
 
+	@Autowired
+	private TimeCardRepository timeCardRepository;
+
+	@Autowired
+	private KoinMasterService koinMasterService;
+
 	@RequestMapping(value = "/timecard")
 	private String index(Model model) {
 
-        var list = timeCardService.findForKoinMasterAndTimeCard();
+		Date date = new Date();
+		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
+		String insertDate = formatedDate.format(date);
+
+        var list = timeCardRepository .findByWorkdateEqualsOrderById(insertDate);
 
         model.addAttribute("list", list);
 
@@ -27,7 +40,11 @@ public class TimeCardController {
 
 	@RequestMapping(value = "/timecard/list")
 	public String list(Model model) {
-        var list = timeCardService.findAll();
+		Date date = new Date();
+		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
+		String insertDate = formatedDate.format(date);
+
+        var list = timeCardRepository .findByWorkdateEqualsOrderById(insertDate);
         model.addAttribute("list", list);
         return "/timecard/list";
 	}
@@ -79,6 +96,35 @@ public class TimeCardController {
 
 
 		return this.index(model);
+	}
+
+	@RequestMapping("/timecard/reset")
+	public String reset() {
+
+		Date date = new Date();
+		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
+		String insertDate = formatedDate.format(date);
+
+        var list = koinMasterService.findAll();
+
+        for(KoinMaster target : list) {
+
+        	var timeCard = new TimeCard();
+
+        	timeCard.setKoinid(target.getKoinid());
+
+        	timeCard.setWorkdate(insertDate);
+
+        	int maxId = timeCardService.findByMaxTimeCardId();
+
+        	timeCard.setTimecardid(maxId + 1);
+
+        	this.timeCardService.save(timeCard);
+        }
+
+
+
+        return "/timecard/list";
 	}
 
 }

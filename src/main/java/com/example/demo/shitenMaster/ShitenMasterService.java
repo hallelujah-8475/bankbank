@@ -2,7 +2,6 @@ package com.example.demo.shitenMaster;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,11 +34,6 @@ public class ShitenMasterService {
 
 	public List<ShitenMaster> findAll() {
 		return shitenMasterRepositry.findAll(Sort.by("id"));
-	}
-
-	public Optional<ShitenMaster> findById(Long id) {
-
-		return this.shitenMasterRepositry.findById(id);
 	}
 
 	public Object findByShitenId(int shitenid) {

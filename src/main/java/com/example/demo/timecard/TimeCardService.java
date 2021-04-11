@@ -62,9 +62,9 @@ public class TimeCardService {
 
 	}
 
-	public List<String> findForKoinMasterAndTimeCard() {
+	public List<String> findForKoinMasterAndTimeCard(String workDate) {
 
-		String sql = "SELECT km.id, km.koinname, T.workstarttime, T.workendtime FROM KoinMaster km LEFT OUTER JOIN TimeCard T ON km.koinid = T.koinid order by km.id ASC";
+		String sql = "SELECT km.id, km.koinname, T.workstarttime, T.workendtime FROM KoinMaster km LEFT OUTER JOIN TimeCard T ON km.koinid = T.koinid Where T.workdate = '" + workDate + "' order by km.id ASC";
 
 		Query q = entityManager.createQuery(sql);
 

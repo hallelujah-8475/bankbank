@@ -6,19 +6,29 @@
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('配属情報一覧')}"></th:block>
 	<div class="row justify-content-start">
-		<div style="height: 200px; width: 100%; border: solid 1px; margin: 20px;">
+		<div class="w-100 m-2">
 			<form method="post" th:action="@{/haizokuMaster/list}" th:object="${haizokuMasterListForm}">
-			<table>
+			<table class="table-bordered w-100">
 				<tr>
-					<td>
-						<label>支店名</label>
+					<td class="p-2 text-center">
+						<label class="m-0">支店</label>
 					</td>
-					<td>
-						<input type="text" name="shitenid">
+					<td class="p-2">
+						<select class="w-100" name="shitenid">
+							<option th:each="entity : ${optionMapList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
+						</select>
+					</td>
+					<td class="p-2 text-center">
+						<label class="m-0">名前</label>
+					</td>
+					<td class="p-2">
+						<input class="w-100" type="text" name="koinname" th:value="${haizokuMasterListForm.koinname}">
+					</td>
+					<td class="p-2 text-center ">
+						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</td>
 				</tr>
 			</table>
-			<input type="submit" value="検索" class="btn btn-outline-secondary">
 			</form>
 		</div>
 		<table class="table table-striped table-sm">
@@ -28,9 +38,7 @@
 		      <th>名前</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		    <th:block th:if="${#strings.isEmpty(entity.shitenmaster.shitenname)}">
 		      <td th:text="${entity.shitenmaster.shitenname}">name</td>
-		      </th:block>
  		      <td th:text="${entity.age}">name</td>
 		      <td th:text="${entity.koinname}">name</td>
 		    </tr>

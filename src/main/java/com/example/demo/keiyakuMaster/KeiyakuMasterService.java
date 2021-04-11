@@ -1,7 +1,6 @@
 package com.example.demo.keiyakuMaster;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,11 +27,6 @@ public class KeiyakuMasterService {
 
 	public List<KeiyakuMaster> findAll() {
 		return keiyakuMasterRepositry.findAll(Sort.by("id"));
-	}
-
-	public Optional<KeiyakuMaster> findById(Long id) {
-
-		return this.keiyakuMasterRepositry.findById(id);
 	}
 
 	public int findByMaxKeiyakuId() {
