@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.accesslog.AccessLog;
+import com.example.demo.accesslog.AccessLogService;
 import com.opencsv.exceptions.CsvException;
 
 @Controller
@@ -34,6 +38,9 @@ public class SystemUserController {
 
 	@Autowired
 	private SystemUserValidator systemUserValidator;
+
+	@Autowired
+	private AccessLogService accessLogService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -106,6 +113,19 @@ public class SystemUserController {
 		BeanUtils.copyProperties(systemUserForm, systemUser);
 
 		this.systemUserService.save(systemUser);
+
+		AccessLog accesslog = new AccessLog();
+
+		LocalDateTime date1 = LocalDateTime.now();
+		DateTimeFormatter dtformat1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		String fdate1 = dtformat1.format(date1);
+
+		 accesslog.setActsystemuserid(1);
+		 accesslog.setActdatetime(fdate1);
+		 accesslog.setActcontent("【システムユーザー】更新");
+		 accesslog.setActresult("成功");
+
+		this.accessLogService.save(accesslog);
 
 		return "/systemUser/finish";
 	}

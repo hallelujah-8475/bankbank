@@ -34,7 +34,13 @@ public class KeiyakuMasterService {
 		return (Integer)entityManager
 	            .createQuery("select COALESCE(MAX(keiyakuid), 0) from KeiyakuMaster")
 	            .getSingleResult();
+	}
 
+	public List<KeiyakuMaster> findByKeiyakuRanking() {
+
+		return entityManager
+				.createQuery("select koinmaster.koinname, keiyakumaster.koinid, count(keiyakumaster.id) as result from KeiyakuMaster keiyakumaster left outer join KoinMaster koinmaster ON keiyakumaster.koinid = koinmaster.koinid where keiyakumaster.shoninflg = 1 group by keiyakumaster.koinid, koinmaster.koinname order by result desc")
+				.getResultList();
 	}
 
 }

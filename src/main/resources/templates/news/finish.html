@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('お知らせ')}"></head>
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('お知らせ')}"></th:block>
+	<p th:text="'更新が完了しました。'"></p>
+	<div class="row justify-content-start">
+		<div class="mb-3">
+			<a href="/news/list" class="btn btn-outline-secondary">戻る</a>
+		</div>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>

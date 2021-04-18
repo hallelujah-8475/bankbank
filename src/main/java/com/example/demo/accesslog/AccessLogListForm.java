@@ -13,7 +13,7 @@ public class AccessLogListForm implements Serializable {
 
 	@Getter
 	@Setter
-	private String actsystemuserid;
+	private long actsystemuserid;
 
 	@Getter
 	@Setter

@@ -1,0 +1,89 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/component :: head('お知らせ')}"></head>
+<script>
+function returnEdit() {
+	document.location.href = '/news/returnEdit';
+
+	return false;
+}
+</script>
+<body>
+<th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="container">
+	<th:block th:replace="~{layout/component :: container_top('お知らせ')}"></th:block>
+	<div class="row justify-content-start">
+	<form method="post" th:action="@{/news/finish}" th:object="${newsForm}">
+		<table class="table table-bordered">
+			<th:block th:if="${id}">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${id}">
+					<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+			</th:block>
+			<tr>
+				<td>
+					<label>タイトル</label>
+				</td>
+				<td>
+					<span th:text="*{title}"></span>
+					<input type="hidden" name="title" th:field="*{title}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>内容</label>
+				</td>
+				<td>
+					<span th:text="*{content}"></span>
+					<input type="hidden" name="content" th:field="*{content}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>公開開始日</label>
+				</td>
+				<td>
+					<span th:text="*{kokaistartdate}"></span>
+					〜
+					<span th:text="*{kokaienddate}"></span>
+					<input type="hidden" name="kokaistartdate" th:field="*{kokaistartdate}">
+					<input type="hidden" name="kokaienddate" th:field="*{kokaienddate}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>対象支店</label>
+				</td>
+				<td>
+					<span th:text="*{shitenid}"></span>
+					<input type="hidden" name="shitenid" th:field="*{shitenid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>公開</label>
+				</td>
+				<td>
+					<span th:text="*{kokaiflg}"></span>
+					<input type="hidden" name="kokaiflg" th:field="*{kokaiflg}">
+				</td>
+			</tr>
+		</table>
+		<div class="mb-3">
+		<input type="submit" value="送信" class="btn btn-outline-secondary">
+		<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">
+		</div>
+	</form>
+	</div>
+</div>
+<footer th:replace="~{layout/component :: footer}"></footer>
+</body>
+</html>

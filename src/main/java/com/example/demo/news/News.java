@@ -1,4 +1,4 @@
-package com.example.demo.accesslog;
+package com.example.demo.news;
 
 import java.io.Serializable;
 
@@ -13,8 +13,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "accesslog")
-public class AccessLog implements Serializable {
+@Table(name = "news")
+public class News implements Serializable {
 
 	@Getter
 	@Setter
@@ -26,20 +26,30 @@ public class AccessLog implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private long actsystemuserid;
+	private String title;
 
 	@Getter
 	@Setter
 	@Column
-	private String actdatetime;
+	private String content;
 
 	@Getter
 	@Setter
 	@Column
-	private String actcontent;
+	private String kokaistartdate;
 
 	@Getter
 	@Setter
 	@Column
-	private String actresult;
+	private String kokaienddate;
+
+	@Getter
+	@Setter
+	@Column
+	private int shitenid;
+
+	@Getter
+	@Setter
+	@Column
+	private int kokaiflg;
 }

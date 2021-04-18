@@ -2,14 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout/component :: head('メニュー')}">
 <body>
-<div class="row">
+<div class="row" id="app">
 <th:block th:replace="~{layout/component :: header}"></th:block>
 
-	<div class="col-12 col-sm-12 col-lg-12 text-center">
-		<div id="shoninDiv">
-				未承認の契約が<a href="/keiyakuMaster/list"><span th:text="${miShoninCount}"></span></a>件あります。
+	<transition>
+	<div id="overlay" v-show="showContent">
+		<div id="content" class="text-center">
+			<p>契約数ランキング</p>
+			<ul th:each="entity:${rankingList}" class="list-unstyled">
+				<img id="ranking_icon" src="/images/ranking_1.png"><li th:text="${entity[0]}">name</li>
+			</ul>
+			<input type="button" class="btn btn-outline-secondary" v-on:click="closeModal" value="閉じる">
 		</div>
 	</div>
+	</transition>
+
+	<div class="col-12 col-sm-12 col-lg-12 text-center">
+		<input type="button" class="btn btn-outline-secondary my-3" v-on:click="openModal" value="契約数ランキング">
+		<p>お知らせ</p>
+		<div id="newsDiv" class="w-50 m-auto">
+		<table class="table">
+		    <tr th:each="entity:${list}">
+		      <td th:text="${entity.kokaistartdate}">name</td>
+		      <td><a th:href="@{'/news/detail?id=' + ${entity.id}}" th:text="${entity.title}">name</a></td>
+		    </tr>
+	    </table>
+		</div>
+	</div>
+
+	<th:block th:if="${!miShoninCount.equals('0')}">
+	<div class="col-12 col-sm-12 col-lg-12 text-center my-3">
+		<p><span class="text-warning">⚠</span>︎未承認の契約が<a href="/keiyakuMaster/list"><span th:text="${miShoninCount}"></span></a>件あります。</p>
+	</div>
+	</th:block>
 
 	<div class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
@@ -41,11 +66,36 @@
 			<a href="/accesslog/list" class="list-group-item list-group-item-action">システムアクセスログ</a>
 		</div>
 	</div>
+	<div class="col-12 col-sm-6 col-lg-3">
+		<div class="menu_container list-group">
+			<a href="/systemUser/list" class="list-group-item list-group-item-action active disabled"><i class="far fa-user pr-2 text-white"></i>お知らせ</a>
+			<a href="/news/list" class="list-group-item list-group-item-action">お知らせ</a>
+		</div>
+	</div>
 
 	<div class="col-12 col-sm-12 col-lg-12">
 		<footer th:replace="~{layout/component :: footer}"></footer>
 	</div>
-
 </div>
+
+<script>
+new Vue({
+	  el: '#app',
+	  data: {
+	    showContent: false
+	  },
+	  mounted: function() {
+		  this.openModal()
+	  },
+	  methods:{
+		  openModal: function(){
+	      this.showContent = true
+	    },
+	    closeModal: function(){
+	      this.showContent = false
+	    }
+	  }
+	})
+</script>
 </body>
 </html>

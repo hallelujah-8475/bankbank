@@ -22,10 +22,52 @@ header, footer {
 	margin: 5px;
 }
 
-#shoninDiv {
-	height: 50px;
-	width: 600px;
-	border: solid 1px;
-	background-color: yellow;
-	margin: 0 auto;
+#newsDiv {
+	height: 200px;
+	overflow: scroll;
+}
+
+#overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:999;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content{
+  z-index:999;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+}
+
+#ranking_icon {
+	width:50px;
+	height:50px;
+}
+
+/* 表示アニメーションをする前のスタイル */
+.v-enter {
+  opacity: 0;
+}
+
+/* 表示アニメーション後のスタイル */
+.v-enter-to {
+  opacity: 1;
+}
+
+/* 表示アニメーション動作中のスタイル */
+.v-enter-active {
+  transition: all 500ms;
 }
