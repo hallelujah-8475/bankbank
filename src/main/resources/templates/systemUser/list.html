@@ -6,6 +6,31 @@
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('システム管理者情報一覧')}"></th:block>
 	<div class="row justify-content-start">
+		<div class="w-100 m-2">
+			<form method="post" th:action="@{/systemUser/list}" th:object="${systemUserListForm}">
+			<table class="table-bordered w-100">
+				<tr>
+					<td class="p-2 text-center">
+						<label class="m-0">名前</label>
+					</td>
+					<td class="p-2">
+						<input class="w-100" type="text" name="name" th:value="${systemUserListForm.name}">
+					</td>
+					<td class="p-2 text-center">
+						<label class="m-0">権限</label>
+					</td>
+					<td class="p-2">
+						<input type="radio" name="role" value="" th:checked="${systemUserListForm.role} == ''" >全て&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="role" value="ROLE_USER" th:checked="${systemUserListForm.role} == 'ROLE_USER'" >ROLE_USER&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="role" value="ROLE_ADMIN" th:checked="${systemUserListForm.role} == 'ROLE_ADMIN'">ROLE_ADMIN
+					</td>
+					<td class="p-2 text-center ">
+						<input type="submit" value="検索" class="btn btn-outline-secondary">
+					</td>
+				</tr>
+			</table>
+			</form>
+		</div>
 		<a href="/systemUser/edit" class="btn btn-outline-secondary mb-3">新規登録</a>
 		<form action="/systemUser/csvImport" th:action="@{/systemUser/csvImport}" method="post" enctype="multipart/form-data">
 			<input type="file" name="csvFile" accept=".csv" class="btn btn-outline-secondary mb-3 ml-1" value="CSVファイル選択">
@@ -16,11 +41,13 @@
 		      <th>ID</th>
 		      <th>氏名</th>
 		      <th>年齢</th>
+		      <th>権限</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td ><a th:href="@{'/systemUser/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
 		      <td th:text="${entity.name}">name</td>
 		      <td th:text="${entity.age}">age</td>
+		      <td th:text="${entity.role}">age</td>
 		    </tr>
 	    </table>
 	    <a href="/" class="btn btn-outline-secondary mb-3">戻る</a>

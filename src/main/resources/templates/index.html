@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout/component :: head('メニュー')}">
 <body>
-<div class="row" id="app">
 <th:block th:replace="~{layout/component :: header}"></th:block>
+<div class="row" id="app">
 
-	<transition>
+<!-- 	<transition>
 	<div id="overlay" v-show="showContent">
 		<div id="content" class="text-center">
 			<p>契約数ランキング</p>
@@ -15,7 +15,7 @@
 			<input type="button" class="btn btn-outline-secondary" v-on:click="closeModal" value="閉じる">
 		</div>
 	</div>
-	</transition>
+	</transition> -->
 
 	<div class="col-12 col-sm-12 col-lg-12 text-center">
 		<input type="button" class="btn btn-outline-secondary my-3" v-on:click="openModal" value="契約数ランキング">
@@ -68,7 +68,7 @@
 	</div>
 	<div class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
-			<a href="/systemUser/list" class="list-group-item list-group-item-action active disabled"><i class="far fa-user pr-2 text-white"></i>お知らせ</a>
+			<a href="/systemUser/list" class="list-group-item list-group-item-action active disabled"><i class="fas fa-rss-square pr-2 text-white"></i>お知らせ</a>
 			<a href="/news/list" class="list-group-item list-group-item-action">お知らせ</a>
 		</div>
 	</div>

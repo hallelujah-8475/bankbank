@@ -6,6 +6,23 @@
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('商品')}"></th:block>
 	<div class="row justify-content-start">
+		<div class="w-100 m-2">
+			<form method="post" th:action="@{/shohinMaster/list}" th:object="${shohinMasterListForm}">
+			<table class="table-bordered w-100">
+				<tr>
+					<td class="p-2 text-center">
+						<label class="m-0">商品名</label>
+					</td>
+					<td class="p-2">
+						<input class="w-100" type="text" name="name" th:value="${shohinMasterListForm.name}">
+					</td>
+					<td class="p-2 text-center ">
+						<input type="submit" value="検索" class="btn btn-outline-secondary">
+					</td>
+				</tr>
+			</table>
+			</form>
+		</div>
 		<a href="/shohinMaster/edit" class="btn btn-outline-secondary mb-3">新規登録</a>
 		<table class="table table-striped table-sm">
 		    <tr>

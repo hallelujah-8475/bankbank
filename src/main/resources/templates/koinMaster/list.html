@@ -12,11 +12,15 @@
 		      <th>ID</th>
 		      <th>氏名</th>
 		      <th>年齢</th>
+		      <th>部署</th>
+		      <th>支店</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td ><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
 		      <td th:text="${entity.koinname}">name</td>
 		      <td th:text="${entity.age}">age</td>
+		      <td th:text="${entity.busho}">age</td>
+		      <td th:text="${entity.shitenid}">age</td>
 		    </tr>
 	    </table>
 	    <a href="/" class="btn btn-outline-secondary mb-3">戻る</a>

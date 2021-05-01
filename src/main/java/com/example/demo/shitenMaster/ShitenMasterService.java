@@ -12,8 +12,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.haizokuMaster.HaizokuMasterListForm;
-
 @Service
 @Transactional
 public class ShitenMasterService {
@@ -54,16 +52,13 @@ public class ShitenMasterService {
 
 	}
 
-    public List<ShitenMaster> findUsers(HaizokuMasterListForm haizokuMasterListForm) {
+    public List<ShitenMaster> findUsers(ShitenMasterListForm shitenMasterListForm) {
 
     	List<ShitenMaster> list = new ArrayList<ShitenMaster>();
 
-    	list = shitenMasterRepositry.findAll(Specification.where(shitenMasterSpecifications.nameContains(haizokuMasterListForm.getShitenid())));
-
-    	return list;
+		list = shitenMasterRepositry.findAll(Specification
+				.where(shitenMasterSpecifications.shitennameContains(shitenMasterListForm.getShitenname()))
+				.and(shitenMasterSpecifications.prefectureContains(shitenMasterListForm.getPrefecture())));
+		return list;
     }
-
-
-
-
 }

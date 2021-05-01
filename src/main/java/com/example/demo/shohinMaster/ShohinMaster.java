@@ -7,41 +7,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Data
 @Entity
 @Table(name = "shohinmaster")
 public class ShohinMaster {
 
-	  @Id
-	  @GeneratedValue(strategy=GenerationType.IDENTITY)
-	  @Column
-	  private long id;
+	@Getter
+	@Setter
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
+	private long id;
 
-	  @Column
-	  private int shohinid;
+	@Getter
+	@Setter
+	@Column
+	private int shohinid;
 
-	  @Column
-	  private String name;
-
-	  public long getId() {
-	    return id;
-	  }
-	  public void setId(long id) {
-	    this.id = id;
-	  }
-	  public String getName() {
-	    return name;
-	  }
-	  public void setName(String name) {
-	    this.name = name;
-	  }
-	public int getShohinid() {
-		return shohinid;
-	}
-	public void setShohinid(int shohinid) {
-		this.shohinid = shohinid;
-	}
-
+	@Getter
+	@Setter
+	@Column
+	private String name;
 
 }

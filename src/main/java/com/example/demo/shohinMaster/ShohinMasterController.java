@@ -96,18 +96,18 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping(value = "/shohinMaster/list")
-	public String list(Model model) {
-        var list = shohinMasterService.findAll();
+	public String list(Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm) {
+        var list = shohinMasterService.findUsers(shohinMasterListForm);
         model.addAttribute("list", list);
         return "/shohinMaster/list";
 	}
 
 	@RequestMapping("/shohinMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm) {
 
 		this.shohinMasterRepository.deleteById(id);
 
-		return this.list(model);
+		return this.list(model, shohinMasterListForm);
 	}
 
 	@RequestMapping("/shohinMaster/returnEdit")

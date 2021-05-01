@@ -85,20 +85,20 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping(value = "/clientMaster/list")
-	public String list(Model model) {
-        var list = clientMasterService.findAll();
+	public String list(Model model, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm) {
+        var list = clientMasterService.findUsers(clientMasterListForm);
         model.addAttribute("list", list);
         return "/clientMaster/list";
 	}
 
 	@RequestMapping("/clientMaster/delete")
-	public String delete(Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
+	public String delete(Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm) {
 
 		var sessionEditForm = (ClientMasterForm) session.getAttribute("clientMasterForm");
 
 		this.clientMasterRepository.deleteById(sessionEditForm.getId());
 
-		return this.list(model);
+		return this.list(model, clientMasterListForm);
 	}
 
 	@RequestMapping("/clientMaster/returnEdit")

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,15 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.accesslog.AccessLog;
 import com.example.demo.accesslog.AccessLogService;
 import com.opencsv.exceptions.CsvException;
 
@@ -42,10 +37,10 @@ public class SystemUserController {
 	@Autowired
 	private AccessLogService accessLogService;
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(systemUserValidator);
-	}
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		binder.addValidators(systemUserValidator);
+//	}
 
 	@RequestMapping(value = "/systemUser/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm, HttpSession session) {
@@ -114,35 +109,24 @@ public class SystemUserController {
 
 		this.systemUserService.save(systemUser);
 
-		AccessLog accesslog = new AccessLog();
-
-		LocalDateTime date1 = LocalDateTime.now();
-		DateTimeFormatter dtformat1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		String fdate1 = dtformat1.format(date1);
-
-		 accesslog.setActsystemuserid(1);
-		 accesslog.setActdatetime(fdate1);
-		 accesslog.setActcontent("【システムユーザー】更新");
-		 accesslog.setActresult("成功");
-
-		this.accessLogService.save(accesslog);
+		accessLogService.save(1, "【システムユーザー】更新", "成功");
 
 		return "/systemUser/finish";
 	}
 
 	@RequestMapping(value = "/systemUser/list")
-	public String list(Model model) {
-        var list = systemUserService.findAll();
+	public String list(Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm) {
+        var list = systemUserService.findUsers(systemUserListForm);
         model.addAttribute("list", list);
         return "/systemUser/list";
 	}
 
 	@RequestMapping("/systemUser/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm) {
 
 		this.systemUserRepository.deleteById(id);
 
-		return this.list(model);
+		return this.list(model, systemUserListForm);
 	}
 
 	@RequestMapping("/systemUser/returnEdit")
@@ -176,7 +160,7 @@ public class SystemUserController {
 	}
 
 	@RequestMapping("/systemUser/csvImport")
-	public String csvImport(@RequestParam("csvFile") MultipartFile multipartFile, Model model) throws IOException, CsvException {
+	public String csvImport(@RequestParam("csvFile") MultipartFile multipartFile, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm) throws IOException, CsvException {
 
 		String line = null;
 		InputStream stream = multipartFile.getInputStream();
@@ -201,7 +185,7 @@ public class SystemUserController {
         	}
         }
 
-		return this.list(model);
+		return this.list(model, systemUserListForm);
 	}
 
 }

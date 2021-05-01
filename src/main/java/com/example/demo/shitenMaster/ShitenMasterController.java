@@ -85,20 +85,20 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping(value = "/shitenMaster/list")
-	public String list(Model model) {
-        var list = shitenMasterService.findAll();
+	public String list(Model model, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm) {
+        var list = shitenMasterService.findUsers(shitenMasterListForm);
         model.addAttribute("list", list);
         return "/shitenMaster/list";
 	}
 
 	@RequestMapping("/shitenMaster/delete")
-	public String delete(Model model, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
+	public String delete(Model model, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm) {
 
 		var sessionEditForm = (ShitenMasterForm) session.getAttribute("shitenMasterForm");
 
 		this.shitenMasterRepository.deleteById(sessionEditForm.getId());
 
-		return this.list(model);
+		return this.list(model, shitenMasterListForm);
 	}
 
 	@RequestMapping("/shitenMaster/returnEdit")
