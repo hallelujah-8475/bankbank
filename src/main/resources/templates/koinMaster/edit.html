@@ -55,40 +55,46 @@ function returnDetail() {
 				<tr>
 					<td>
 						<label>名前</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="koinname" th:field="*{koinname}">
-						<span th:if="${#fields.hasErrors('koinname')}" th:errors="*{koinname}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('koinname')}" th:errors="*{koinname}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>年齢</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="number" name="age" th:field="*{age}">
-						<span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>部署</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<select name="busho">
 							<option th:each="entity : ${bushoList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{busho}"></option>
 						</select>
+						<span class="text-danger" th:if="${#fields.hasErrors('busho')}" th:errors="*{busho}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>支店</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<select name="shitenid">
 							<option th:each="entity : ${list}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
 						</select>
 						<input type="hidden" name="shitenname" th:field="*{shitenname}">
+						<span class="text-danger" th:if="${#fields.hasErrors('shitenid')}" th:errors="*{shitenid}">エラー</span>
 					</td>
 				</tr>
 			</table>

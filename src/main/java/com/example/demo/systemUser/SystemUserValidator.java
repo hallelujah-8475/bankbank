@@ -1,5 +1,6 @@
 package com.example.demo.systemUser;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -15,13 +16,27 @@ public class SystemUserValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 
-//		var form = SystemUserForm.class.cast(target);
+		var form = SystemUserForm.class.cast(target);
 
-//		if(form.getName() != null) {
-//			errors.rejectValue("name", "systemUser.validate.test");
-//		}
+		if(StringUtils.isBlank(form.getName())) {
+			errors.rejectValue("name", "org.hibernate.validator.constraints.NotBlank.message");
+		}
+
+		if(form.getAge() == 0) {
+			errors.rejectValue("age", "org.hibernate.validator.constraints.NotBlank.message");
+		}
+
+		if(StringUtils.isBlank(form.getLoginid())) {
+			errors.rejectValue("loginid", "org.hibernate.validator.constraints.NotBlank.message");
+		}
+
+		if(StringUtils.isBlank(form.getPassword())) {
+			errors.rejectValue("password", "org.hibernate.validator.constraints.NotBlank.message");
+		}
+
+		if(StringUtils.isBlank(form.getRole())) {
+			errors.rejectValue("role", "org.hibernate.validator.constraints.NotBlank.message");
+		}
 
 	}
-
-
 }

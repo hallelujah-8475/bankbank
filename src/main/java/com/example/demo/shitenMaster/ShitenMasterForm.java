@@ -2,129 +2,61 @@ package com.example.demo.shitenMaster;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ShitenMasterForm implements Serializable {
 
+	@Getter
+	@Setter
 	private Long id;
 
-	@NotBlank
+	@Getter
+	@Setter
 	private String shitenname;
 
-	@NotNull
+	@Getter
+	@Setter
 	private int postcode1;
 
-	@NotNull
+	@Getter
+	@Setter
 	private int postcode2;
 
-	@NotBlank
+	@Getter
+	@Setter
 	private String prefecture;
 
-	@NotBlank
+	@Getter
+	@Setter
 	private String address1;
 
-	@NotBlank
+	@Getter
+	@Setter
 	private String address2;
 
-	@NotNull
+	@Getter
+	@Setter
 	private int phonenumber1;
 
-	@NotNull
+	@Getter
+	@Setter
 	private int phonenumber2;
 
-	@NotNull
+	@Getter
+	@Setter
 	private int atmcount;
 
-	@NotNull
+	@Getter
+	@Setter
 	private int parkingflg;
 
-	@NotBlank
+	@Getter
+	@Setter
 	private String biko;
 
+	@Getter
+	@Setter
 	private int shitenid;
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getShitenname() {
-		return shitenname;
-	}
-	public void setShitenname(String shitenname) {
-		this.shitenname = shitenname;
-	}
-	public int getPostcode1() {
-		return postcode1;
-	}
-	public void setPostcode1(int postcode1) {
-		this.postcode1 = postcode1;
-	}
-	public int getPostcode2() {
-		return postcode2;
-	}
-	public void setPostcode2(int postcode2) {
-		this.postcode2 = postcode2;
-	}
-	public String getPrefecture() {
-		return prefecture;
-	}
-	public void setPrefecture(String prefecture) {
-		this.prefecture = prefecture;
-	}
-	public String getAddress1() {
-		return address1;
-	}
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-	public String getAddress2() {
-		return address2;
-	}
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-	public int getPhonenumber1() {
-		return phonenumber1;
-	}
-	public void setPhonenumber1(int phonenumber1) {
-		this.phonenumber1 = phonenumber1;
-	}
-	public int getPhonenumber2() {
-		return phonenumber2;
-	}
-	public void setPhonenumber2(int phonenumber2) {
-		this.phonenumber2 = phonenumber2;
-	}
-	public int getAtmcount() {
-		return atmcount;
-	}
-	public void setAtmcount(int atmcount) {
-		this.atmcount = atmcount;
-	}
-	public int getParkingflg() {
-		return parkingflg;
-	}
-	public void setParkingflg(int parkingflg) {
-		this.parkingflg = parkingflg;
-	}
-	public String getBiko() {
-		return biko;
-	}
-	public void setBiko(String biko) {
-		this.biko = biko;
-	}
-	public int getShitenid() {
-		return shitenid;
-	}
-	public void setShitenid(int shitenid) {
-		this.shitenid = shitenid;
-	}
-
-
-
 
 }

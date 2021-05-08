@@ -55,55 +55,61 @@ function returnDetail() {
 				<tr>
 					<td>
 						<label>支店名</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="shitenname" th:field="*{shitenname}"><br>
-						<span th:if="${#fields.hasErrors('shitenname')}" th:errors="*{shitenname}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('shitenname')}" th:errors="*{shitenname}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>郵便番号</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="text" name="postcode1" th:field="*{postcode1}">ー<input type="text" name="postcode2" th:field="*{postcode2}" onKeyUp="AjaxZip3.zip2addr('postcode1','postcode2','prefecture','address1','address2');"><br>
-						<span th:if="${#fields.hasErrors('postcode1')}" th:errors="*{postcode1}">エラー</span>
+						<input type="text" name="postcode1" th:field="*{postcode1}">　ー　<input type="text" name="postcode2" th:field="*{postcode2}" onKeyUp="AjaxZip3.zip2addr('postcode1','postcode2','prefecture','address1','address2');"><br>
+						<span class="text-danger" th:if="${#fields.hasErrors('postcode1')}" th:errors="*{postcode1}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>都道府県</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="prefecture" th:field="*{prefecture}"><br>
-						<span th:if="${#fields.hasErrors('prefecture')}" th:errors="prefecture">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('prefecture')}" th:errors="*{prefecture}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>住所１</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="address1" th:field="*{address1}"><br>
-						<span th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>住所2</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="address2" th:field="*{address2}"><br>
-						<span th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>電話番号</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="text" name="phonenumber1" th:field="*{phonenumber1}">-<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br><br>
-						<span th:if="${#fields.hasErrors('phonenumber1')}" th:errors="*{phonenumber1}">エラー</span>
+						<input type="text" name="phonenumber1" th:field="*{phonenumber1}">　ー　<input type="text" name="phonenumber2" th:field="*{phonenumber2}"><br><br>
+						<span class="text-danger" th:if="${#fields.hasErrors('phonenumber1')}" th:errors="*{phonenumber1}">エラー</span>
 					</td>
 				</tr>
 				<tr>
@@ -112,7 +118,7 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="number" name="atmcount" th:field="*{atmcount}"><br>
-						<span th:if="${#fields.hasErrors('atmcount')}" th:errors="*{atmcount}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('atmcount')}" th:errors="*{atmcount}">エラー</span>
 					</td>
 				</tr>
 				<tr>
@@ -121,7 +127,7 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="checkbox" value="1" name="parkingflg" th:field="*{parkingflg}"><br>
-						<span th:if="${#fields.hasErrors('parkingflg')}" th:errors="*{parkingflg}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('parkingflg')}" th:errors="*{parkingflg}">エラー</span>
 					</td>
 				</tr>
 				<tr>
@@ -130,7 +136,7 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="text" name="biko" th:field="*{biko}">
-						<span th:if="${#fields.hasErrors('biko')}" th:errors="*{biko}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('biko')}" th:errors="*{biko}">エラー</span>
 					</td>
 				</tr>
 			</table>

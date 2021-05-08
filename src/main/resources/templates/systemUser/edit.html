@@ -24,46 +24,51 @@
 				<tr>
 					<td>
 						<label>名前</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="name" th:field="*{name}">
-						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>年齢</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="number" name="age" th:field="*{age}">
-						<span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
+						<input type="number" name="age" th:field="*{age}" min="18">
+						<span class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>ログインID</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="loginid" th:field="*{loginid}">
-						<span th:if="${#fields.hasErrors('loginid')}" th:errors="*{loginid}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('loginid')}" th:errors="*{loginid}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>パスワード</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="text" name="password" th:field="*{password}">
-						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label>権限</label>
+						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
 						<input type="checkbox" value="ROLE_ADMIN" name="role" th:field="*{role}" th:text="${role == 'ROLE_ADMIN'} ? 'checked' : '' ">
-						<span th:if="${#fields.hasErrors('role')}" th:errors="*{role}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">エラー</span>
 					</td>
 				</tr>
 			</table>

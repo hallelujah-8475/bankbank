@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +40,13 @@ public class KeiyakuMasterController {
 	@Autowired
 	private KeiyakuMasterRepository keiyakuMasterRepository;
 
-	@Autowired
-	private KeiyakuMasterValidator keiyakuMasterValidator;
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(keiyakuMasterValidator);
-	}
+//	@Autowired
+//	private KeiyakuMasterValidator keiyakuMasterValidator;
+//
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		binder.addValidators(keiyakuMasterValidator);
+//	}
 
 	private void setShohinSelectTag(Model model) {
 
@@ -151,9 +149,9 @@ public class KeiyakuMasterController {
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
-		if(result.hasErrors()) {
-			return "/keiyakuMaster/edit";
-		}
+//		if(result.hasErrors()) {
+//			return "/keiyakuMaster/edit";
+//		}
 
 		return "/keiyakuMaster/editCheck";
 	}

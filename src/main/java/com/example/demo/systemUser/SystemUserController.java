@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +39,10 @@ public class SystemUserController {
 	@Autowired
 	private AccessLogService accessLogService;
 
-//	@InitBinder
-//	public void initBinder(WebDataBinder binder) {
-//		binder.addValidators(systemUserValidator);
-//	}
+	@InitBinder("systemUserForm")
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(systemUserValidator);
+	}
 
 	@RequestMapping(value = "/systemUser/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm, HttpSession session) {
@@ -83,9 +85,9 @@ public class SystemUserController {
 
 		session.setAttribute("systemUserForm", systemUserForm);
 
-//		if(result.hasErrors()) {
-//			return "/systemUser/edit";
-//		}
+		if(result.hasErrors()) {
+			return "/systemUser/edit";
+		}
 
 		return "/systemUser/editCheck";
 	}

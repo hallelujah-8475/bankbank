@@ -23,6 +23,7 @@ public class MessageConfig extends WebMvcAutoConfiguration {
 	private String[] getBasenames() {
 		var list = new ArrayList<String>();
 
+		list.add("classpath:ValidationMessages");
 		list.add("classpath:messages/systemUser");
 
 		return list.toArray(new String[list.size()]);

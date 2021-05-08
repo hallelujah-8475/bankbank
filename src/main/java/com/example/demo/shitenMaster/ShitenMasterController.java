@@ -6,6 +6,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,14 @@ public class ShitenMasterController {
 
 	@Autowired
 	private ShitenMasterRepository shitenMasterRepository;
+
+	@Autowired
+	private ShitenMasterValidator shitenMasterValidator;
+
+	@InitBinder("shitenMasterForm")
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(shitenMasterValidator);
+	}
 
 	@RequestMapping(value = "/shitenMaster/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
@@ -57,9 +69,13 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping("/shitenMaster/editCheck")
-	public String editCheck(@ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
+	public String editCheck(@Validated @ModelAttribute ShitenMasterForm shitenMasterForm, BindingResult result, HttpSession session) {
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
+
+		if(result.hasErrors()) {
+			return "/shitenMaster/edit";
+		}
 
 		return "/shitenMaster/editCheck";
 	}

@@ -10,165 +10,78 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "shitenmaster")
 public class ShitenMaster implements Serializable{
 
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 
-
+	@Getter
+	@Setter
 	@Column
 	private String shitenname;
 
+	@Getter
+	@Setter
 	@Column
 	private int postcode1;
 
+	@Getter
+	@Setter
 	@Column
 	private int postcode2;
 
+	@Getter
+	@Setter
 	@Column
 	private String prefecture;
 
+	@Getter
+	@Setter
 	@Column
 	private String address1;
 
+	@Getter
+	@Setter
 	@Column
 	private String address2;
 
+	@Getter
+	@Setter
 	@Column
 	private int phonenumber1;
 
+	@Getter
+	@Setter
 	@Column
 	private int phonenumber2;
 
+	@Getter
+	@Setter
 	@Column
 	private int atmcount;
 
+	@Getter
+	@Setter
 	@Column
 	private int parkingflg;
 
+	@Getter
+	@Setter
 	@Column
 	private String biko;
 
+	@Getter
+	@Setter
 	@Column
 	private int shitenid;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getShitenname() {
-		return shitenname;
-	}
-
-	public void setShitenname(String shitenname) {
-		this.shitenname = shitenname;
-	}
-
-	public int getPostcode1() {
-		return postcode1;
-	}
-
-	public void setPostcode1(int postcode1) {
-		this.postcode1 = postcode1;
-	}
-
-	public int getPostcode2() {
-		return postcode2;
-	}
-
-	public void setPostcode2(int postcode2) {
-		this.postcode2 = postcode2;
-	}
-
-	public String getPrefecture() {
-		return prefecture;
-	}
-
-	public void setPrefecture(String prefecture) {
-		this.prefecture = prefecture;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public int getPhonenumber1() {
-		return phonenumber1;
-	}
-
-	public void setPhonenumber1(int phonenumber1) {
-		this.phonenumber1 = phonenumber1;
-	}
-
-	public int getPhonenumber2() {
-		return phonenumber2;
-	}
-
-	public void setPhonenumber2(int phonenumber2) {
-		this.phonenumber2 = phonenumber2;
-	}
-
-	public int getAtmcount() {
-		return atmcount;
-	}
-
-	public void setAtmcount(int atmcount) {
-		this.atmcount = atmcount;
-	}
-
-	public int getParkingflg() {
-		return parkingflg;
-	}
-
-	public void setParkingflg(int parkingflg) {
-		this.parkingflg = parkingflg;
-	}
-
-	public String getBiko() {
-		return biko;
-	}
-
-	public void setBiko(String biko) {
-		this.biko = biko;
-	}
-
-	public int getShitenid() {
-		return shitenid;
-	}
-
-	public void setShitenid(int shitenid) {
-		this.shitenid = shitenid;
-	}
-
-//	public List<KoinMaster> getKoinlist() {
-//		return koinlist;
-//	}
-//
-//	public void setKoinlist(List<KoinMaster> koinlist) {
-//		this.koinlist = koinlist;
-//	}
-
 
 }
