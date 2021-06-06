@@ -17,7 +17,11 @@ public class AccessLogListForm implements Serializable {
 
 	@Getter
 	@Setter
-	private String actdatetime;
+	private String actdatetimeFrom;
+
+	@Getter
+	@Setter
+	private String actdatetimeTo;
 
 	@Getter
 	@Setter

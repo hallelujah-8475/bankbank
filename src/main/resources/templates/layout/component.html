@@ -20,7 +20,7 @@
 				<ul class="list-group list-group-horizontal list-unstyled m-3 float-right">
 					<li class="pr-3" sec:authorize="hasRole('ROLE_USER')">一般</li>
 					<li class="pr-3" sec:authorize="hasRole('ROLE_ADMIN')">管理者</li>
-					<li class="pr-3" th:text="${userName}"></li>
+					<li class="pr-3" sec:authentication="name"></li>
 					<li><input type="submit" value="ログアウト" class="btn btn-outline-secondary"></li>
 				</ul>
 				</form>

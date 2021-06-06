@@ -5,7 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,9 @@ public class AccessLogService {
 
 	@Autowired
 	AccessLogRepository accessLogRepository;
+
+	@Autowired
+	AccessLogSpecifications accessLogSpecifications;
 
 	public AccessLog save(long id, String content, String result) {
 
@@ -35,5 +41,13 @@ public class AccessLogService {
 	public List<AccessLog> findAll() {
 		return accessLogRepository.findAll(Sort.by("id"));
 	}
+
+    public Page<AccessLog> findUsers(AccessLogListForm accessLogListForm, Pageable pageable) {
+
+    	return accessLogRepository.findAll(Specification
+    										.where(accessLogSpecifications.actdatetimeFromContains(accessLogListForm.getActdatetimeFrom()))
+    										.and(accessLogSpecifications.actdatetimeToContains(accessLogListForm.getActdatetimeTo()))
+    										,pageable);
+    }
 
 }

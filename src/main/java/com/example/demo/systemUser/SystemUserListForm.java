@@ -16,4 +16,20 @@ public class SystemUserListForm implements Serializable {
 	@Getter
 	@Setter
 	private String role;
+
+	@Getter
+	@Setter
+	private boolean first;
+
+	@Getter
+	@Setter
+	private int totalPages;
+
+	@Getter
+	@Setter
+	private int number;
+
+	@Getter
+	@Setter
+	private boolean last;
 }

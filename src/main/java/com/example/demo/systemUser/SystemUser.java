@@ -47,4 +47,5 @@ public class SystemUser implements Serializable {
 	@Setter
 	@Column
 	private String role;
+
 }

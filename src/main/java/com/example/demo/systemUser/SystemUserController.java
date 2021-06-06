@@ -9,6 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +41,9 @@ public class SystemUserController {
 
 	@Autowired
 	private AccessLogService accessLogService;
+
+    @Autowired
+    HttpSession session;
 
 	@InitBinder("systemUserForm")
 	public void initBinder(WebDataBinder binder) {
@@ -116,10 +122,25 @@ public class SystemUserController {
 		return "/systemUser/finish";
 	}
 
+	@RequestMapping(value = "/systemUser/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		SystemUserListForm systemUserListForm = (SystemUserListForm)session.getAttribute("systemUserListForm");
+
+		return this.list(model, systemUserListForm, pageable);
+	}
+
 	@RequestMapping(value = "/systemUser/list")
-	public String list(Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm) {
-        var list = systemUserService.findUsers(systemUserListForm);
-        model.addAttribute("list", list);
+	public String list(Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		session.setAttribute("systemUserListForm", systemUserListForm);
+
+		Page<SystemUser> list = systemUserService.findUsers(systemUserListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+        model.addAttribute("systemUserListForm",systemUserListForm);
+        model.addAttribute("page",PagenationHelper.createPagenation(list));
+
         return "/systemUser/list";
 	}
 

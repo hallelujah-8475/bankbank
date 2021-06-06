@@ -6,6 +6,50 @@
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('システムアクセスログ')}"></th:block>
 	<div class="row justify-content-start">
+		<div class="w-100 m-2">
+			<form method="post" th:action="@{/accesslog/list}" th:object="${accesslogListForm}">
+			<table class="table-bordered w-100">
+				<tr>
+					<td class="p-2 text-center">
+						<label class="m-0">日時</label>
+					</td>
+					<td class="p-2">
+						<input class="w-40" type="date" name="actdatetimeFrom" th:value="${accesslogListForm.actdatetimeFrom}">
+						〜
+						<input class="w-40" type="date" name="actdatetimeTo" th:value="${accesslogListForm.actdatetimeTo}">
+					</td>
+					<td class="p-2 text-center">
+						<input type="submit" value="検索" class="btn btn-outline-secondary">
+					</td>
+				</tr>
+			</table>
+			</form>
+		</div>
+
+		<form method="post" th:action="@{/accesslog/pagenate}" th:object="${page}">
+		<div>
+		  <ul>
+		    <li style="display:inline;">
+		      <span th:if="${page.first}">&lt;&lt;前</span>
+		      <a th:if="${!page.first}" th:href="@{/accesslog/pagenate(page = ${page.number} - 1)}">
+		        &lt;&lt;前
+		      </a>
+		    </li>
+		    <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" style="display:inline; margin-left:10px;">
+		      <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+		      <a th:if="${i} != ${page.number}" th:href="@{/accesslog/pagenate(page = ${i})}">
+		        <span th:text="${i+1}">1</span>
+		      </a>
+		    </li>
+		    <li style="display:inline; margin-left:10px;">
+		      <span th:if="${page.last}">次&gt;&gt;</span>
+		      <a th:if="${!page.last}" th:href="@{/accesslog/pagenate(page = (${page.number} + 1))}">
+		        次&gt;&gt;
+		      </a>
+		    </li>
+		  </ul>
+		</div>
+		</form>
 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>ID</th>
