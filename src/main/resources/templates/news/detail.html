@@ -58,7 +58,7 @@ function deleteCheck() {
 					<label>対象支店</label>
 				</td>
 				<td>
-					<span th:text="*{shitenid}"></span>
+					<span th:text="*{shitenname}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -66,7 +66,7 @@ function deleteCheck() {
 					<label>公開</label>
 				</td>
 				<td>
-					<span th:text="*{kokaiflg}"></span>
+					<span th:text="*{kokaiflg} == 1 ? '公開' : '非公開'"></span>
 				</td>
 			</tr>
 		</table>

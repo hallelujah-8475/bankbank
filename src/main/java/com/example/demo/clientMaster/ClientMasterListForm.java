@@ -16,4 +16,8 @@ public class ClientMasterListForm implements Serializable {
 	@Getter
 	@Setter
 	private String prefecture;
+
+	@Getter
+	@Setter
+	private int yoshinlevel;
 }

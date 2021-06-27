@@ -69,6 +69,15 @@ function returnEdit() {
 					<input type="hidden" name="shitenid" th:field="*{shitenid}">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>入社日</label>
+				</td>
+				<td>
+					<span th:text="*{nyushastartdate}"></span>
+					<input type="hidden" name="nyushastartdate" th:field="*{nyushastartdate}">
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<input type="submit" value="送信" class="btn btn-outline-secondary">

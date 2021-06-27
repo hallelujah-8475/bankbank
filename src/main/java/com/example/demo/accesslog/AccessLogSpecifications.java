@@ -12,25 +12,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccessLogSpecifications {
 
-    public Specification<AccessLog> actdatetimeFromContains(String name) {
+    public Specification<AccessLog> actdatetimeContains(String actdatetimeFrom, String actdatetimeTo) {
 
-    	return StringUtils.isBlank(name) ? null : new Specification<AccessLog>() {
+    	final String actdatetimeFromConvert = StringUtils.isBlank(actdatetimeFrom) ? "" : actdatetimeFrom.replace("-", "/") + " 00:00:00";
+    	final String actdatetimeToConvert = StringUtils.isBlank(actdatetimeTo) ? "" : actdatetimeTo.replace("-", "/") + " 23:59:59";
+
+    	return StringUtils.isBlank(actdatetimeFrom) && StringUtils.isBlank(actdatetimeTo) ? null : new Specification<AccessLog>() {
 
             @Override
             public Predicate toPredicate(Root<AccessLog> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.like(root.get("actdatetime"), "%" + name + "%");
+                return cb.between(root.get("actdatetime"), actdatetimeFromConvert, actdatetimeToConvert);
             }
-    	};
-    }
-
-    public Specification<AccessLog> actdatetimeToContains(String name) {
-
-    	return StringUtils.isBlank(name) ? null : new Specification<AccessLog>() {
-
-    		@Override
-    		public Predicate toPredicate(Root<AccessLog> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-    			return cb.like(root.get("actdatetime"), "%" + name + "%");
-    		}
     	};
     }
 

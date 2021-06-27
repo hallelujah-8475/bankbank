@@ -1,6 +1,5 @@
 package com.example.demo.koinMaster;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,12 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.example.demo.haizokuMaster.HaizokuMasterListForm;
 
 @Service
 @Transactional
@@ -42,6 +41,11 @@ public class KoinMasterService {
 		return this.koinMasterRepositry.findById(id);
 	}
 
+	public KoinMaster findByKoinid(int koinid) {
+
+		return this.koinMasterRepositry.findByKoinid(koinid);
+	}
+
 	public int findByMaxKoinId() {
 
 		return (Integer)entityManager
@@ -50,14 +54,12 @@ public class KoinMasterService {
 
 	}
 
-    public List<KoinMaster> findUsers(HaizokuMasterListForm haizokuMasterListForm) {
+    public Page<KoinMaster> findUsers(KoinMasterListForm koinMasterListForm, Pageable pageable) {
 
-    	List<KoinMaster> list = new ArrayList<KoinMaster>();
-
-    	list = koinMasterRepositry.findAll(Specification
-    										.where(koinMasterSpecifications.shitenIdContains(haizokuMasterListForm.getShitenid()))
-    										.and(koinMasterSpecifications.koinNameContains(haizokuMasterListForm.getKoinname())));
-    	return list;
+    	return koinMasterRepositry.findAll(Specification
+    										.where(koinMasterSpecifications.shitenIdContains(koinMasterListForm.getShitenid()))
+    										.and(koinMasterSpecifications.koinNameContains(koinMasterListForm.getKoinname()))
+    										,pageable);
     }
 
 

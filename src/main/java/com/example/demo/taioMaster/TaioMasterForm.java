@@ -6,76 +6,56 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class TaioMasterForm implements Serializable {
 
+	@Getter
+	@Setter
 	private Long id;
 
+	@Getter
+	@Setter
 	@NotNull
 	private int taioid;
 
+	@Getter
+	@Setter
 	@NotBlank
 	private String taiostartdate;
 
+	@Getter
+	@Setter
 	@NotBlank
 	private String taioenddate;
 
+	@Getter
+	@Setter
 	@NotNull
 	private int clientid;
 
+	@Getter
+	@Setter
 	@NotNull
 	private int shitenid;
 
+	@Getter
+	@Setter
 	@NotNull
 	private int koinid;
 
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public int getClientid() {
-		return clientid;
-	}
-	public void setClientid(int clientid) {
-		this.clientid = clientid;
-	}
-	public int getTaioid() {
-		return taioid;
-	}
-	public void setTaioid(int taioid) {
-		this.taioid = taioid;
-	}
-	public String getTaiostartdate() {
-		return taiostartdate;
-	}
-	public void setTaiostartdate(String taiostartdate) {
-		this.taiostartdate = taiostartdate;
-	}
-	public String getTaioenddate() {
-		return taioenddate;
-	}
-	public void setTaioenddate(String taioenddate) {
-		this.taioenddate = taioenddate;
-	}
-	public int getShitenid() {
-		return shitenid;
-	}
-	public void setShitenid(int shitenid) {
-		this.shitenid = shitenid;
-	}
-	public int getKoinid() {
-		return koinid;
-	}
-	public void setKoinid(int koinid) {
-		this.koinid = koinid;
-	}
+	@Getter
+	@Setter
+	private String koinname;
 
+	@Getter
+	@Setter
+	private String clientname;
 
-
-
-
-
-
-
+	@Getter
+	@Setter
+	private String shitenname;
 }

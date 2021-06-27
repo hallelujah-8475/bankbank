@@ -119,9 +119,9 @@ public class TaioMasterController {
 			taioMasterForm.setClientid(taioMaster.getClientid());
 			taioMasterForm.setShitenid(taioMaster.getShitenid());
 			taioMasterForm.setKoinid(taioMaster.getKoinid());
-
-
-
+			taioMasterForm.setShitenname(shitenMasterService.findByShitenid(taioMaster.getShitenid()).getShitenname());
+			taioMasterForm.setKoinname(koinMasterService.findByKoinid(taioMaster.getKoinid()).getKoinname());
+			taioMasterForm.setClientname(clientMasterService.findByClientid(taioMaster.getClientid()).getName());
 		}
 
 		session.setAttribute("taioMasterForm", taioMasterForm);
@@ -145,7 +145,9 @@ public class TaioMasterController {
 			taioMasterForm.setClientid(taioMaster.getClientid());
 			taioMasterForm.setShitenid(taioMaster.getShitenid());
 			taioMasterForm.setKoinid(taioMaster.getKoinid());
-
+			taioMasterForm.setShitenname(shitenMasterService.findByShitenid(taioMaster.getShitenid()).getShitenname());
+			taioMasterForm.setKoinname(koinMasterService.findByKoinid(taioMaster.getKoinid()).getKoinname());
+			taioMasterForm.setClientname(clientMasterService.findByClientid(taioMaster.getClientid()).getName());
 		}
 
 		this.setShitenSelectTag(model);

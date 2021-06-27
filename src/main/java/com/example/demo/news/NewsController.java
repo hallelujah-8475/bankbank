@@ -1,9 +1,15 @@
 package com.example.demo.news;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.accesslog.AccessLogService;
+import com.example.demo.shitenMaster.ShitenMaster;
+import com.example.demo.shitenMaster.ShitenMasterService;
+import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
 public class NewsController {
@@ -27,6 +36,25 @@ public class NewsController {
 	@Autowired
 	private AccessLogService accessLogService;
 
+	@Autowired
+	private ShitenMasterService shitenMasterService;
+
+	@Autowired
+    HttpSession session;
+
+    private void setSelectTag(Model model) {
+
+        var list = shitenMasterService.findAll();
+
+        Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
+
+        for(ShitenMaster entity : list) {
+
+        	optionMap.put(entity.getShitenid(), entity.getShitenname());
+        }
+
+        model.addAttribute("optionMapList", optionMap);
+    }
 
 	@RequestMapping(value = "/news/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
@@ -39,6 +67,7 @@ public class NewsController {
 
 			BeanUtils.copyProperties(news, newsForm);
 			newsForm.setId(id);
+			newsForm.setShitenname(shitenMasterService.findByShitenid(newsForm.getShitenid()).getShitenname());
 		}
 
 		session.setAttribute("newsForm", newsForm);
@@ -47,7 +76,7 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/edit")
-	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = false) Long id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
 
 		if(id == null) {
 			// 新規登録
@@ -57,7 +86,10 @@ public class NewsController {
 
 			BeanUtils.copyProperties(news, newsForm);
 			newsForm.setId(id);
+			newsForm.setShitenname(shitenMasterService.findByShitenid(newsForm.getShitenid()).getShitenname());
 		}
+
+		this.setSelectTag(model);
 
 		session.setAttribute("newsForm", newsForm);
 
@@ -93,19 +125,36 @@ public class NewsController {
 		return "/news/finish";
 	}
 
+	@RequestMapping(value = "/news/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		NewsListForm newsListForm = (NewsListForm)session.getAttribute("newsListForm");
+
+		return this.list(model, newsListForm, pageable);
+	}
+
 	@RequestMapping(value = "/news/list")
-	public String list(Model model) {
-        var list = newsService.findAll();
-        model.addAttribute("list", list);
+	public String list(Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		session.setAttribute("newsListForm", newsListForm);
+
+		Page<News> list = newsService.findUsers(newsListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+        model.addAttribute("newsListForm",newsListForm);
+        model.addAttribute("page",PagenationHelper.createPagenation(list));
+
+        this.setSelectTag(model);
+
         return "/news/list";
 	}
 
 	@RequestMapping("/news/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
 
 		this.newsRepository.deleteById(id);
 
-		return this.list(model);
+		return this.list(model, newsListForm, pageable);
 	}
 
 	@RequestMapping("/news/returnEdit")
@@ -119,6 +168,8 @@ public class NewsController {
 		}
 
 		model.addAttribute("newsForm", sessionEditForm);
+
+		this.setSelectTag(model);
 
 		return "/news/edit";
 	}

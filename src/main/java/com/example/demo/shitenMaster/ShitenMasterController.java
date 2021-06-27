@@ -4,6 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
 public class ShitenMasterController {
@@ -31,6 +36,9 @@ public class ShitenMasterController {
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(shitenMasterValidator);
 	}
+
+    @Autowired
+    HttpSession session;
 
 	@RequestMapping(value = "/shitenMaster/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
@@ -100,21 +108,36 @@ public class ShitenMasterController {
 		return "/shitenMaster/finish";
 	}
 
+	@RequestMapping(value = "/shitenMaster/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		ShitenMasterListForm shitenMasterListForm = (ShitenMasterListForm)session.getAttribute("shitenMasterListForm");
+
+		return this.list(model, shitenMasterListForm, pageable);
+	}
+
 	@RequestMapping(value = "/shitenMaster/list")
-	public String list(Model model, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm) {
-        var list = shitenMasterService.findUsers(shitenMasterListForm);
-        model.addAttribute("list", list);
+	public String list(Model model, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		session.setAttribute("shitenMasterListForm", shitenMasterListForm);
+
+		Page<ShitenMaster> list = shitenMasterService.findUsers(shitenMasterListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+        model.addAttribute("shitenMasterListForm",shitenMasterListForm);
+        model.addAttribute("page",PagenationHelper.createPagenation(list));
+
         return "/shitenMaster/list";
 	}
 
 	@RequestMapping("/shitenMaster/delete")
-	public String delete(Model model, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm) {
+	public String delete(Model model, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		var sessionEditForm = (ShitenMasterForm) session.getAttribute("shitenMasterForm");
 
 		this.shitenMasterRepository.deleteById(sessionEditForm.getId());
 
-		return this.list(model, shitenMasterListForm);
+		return this.list(model, shitenMasterListForm, pageable);
 	}
 
 	@RequestMapping("/shitenMaster/returnEdit")

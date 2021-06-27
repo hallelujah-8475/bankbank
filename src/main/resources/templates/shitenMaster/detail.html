@@ -82,10 +82,10 @@
 			</tr>
 			<tr>
 				<td>
-					<label>パーキングフラグ</label>
+					<label>パーキング</label>
 				</td>
 				<td>
-					<span th:text="*{parkingflg}"></span>
+					<span th:text="*{parkingflg} == 1 ? 'あり' : 'なし'"></span>
 				</td>
 			</tr>
 			<tr>

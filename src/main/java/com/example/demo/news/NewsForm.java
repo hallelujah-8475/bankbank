@@ -40,5 +40,7 @@ public class NewsForm implements Serializable {
 	@Setter
 	private int kokaiflg;
 
-
+	@Getter
+	@Setter
+	private String shitenname;
 }

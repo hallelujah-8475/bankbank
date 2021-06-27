@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.keiyakuMaster.KeiyakuMasterRepository;
+import com.example.demo.news.NewsService;
 
 @Controller
 public class LoginController {
@@ -19,6 +20,9 @@ public class LoginController {
 
 	@Autowired
     HttpSession session;
+
+	@Autowired
+	private NewsService newsService;
 
 	@RequestMapping(value = "/login")
 	private String login() {
@@ -43,6 +47,9 @@ public class LoginController {
     	var miShoninCount = keiyakuMasterRepositry.countByShoninflg(0);
 
     	model.addAttribute("miShoninCount", Integer.toString(miShoninCount));
+
+        var list = newsService.findAll();
+        model.addAttribute("list", list);
 
 		return "index";
 	}

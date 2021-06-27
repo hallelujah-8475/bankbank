@@ -56,7 +56,10 @@
 						<label>対象支店</label>
 					</td>
 					<td>
-						<input type="number" name="shitenid" th:field="*{shitenid}">
+						<select name="shitenid">
+							<option th:each="entity : ${optionMapList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
+						</select>
+						<input type="hidden" name="shitenname" th:field="*{shitenname}">
 						<span th:if="${#fields.hasErrors('shitenid')}" th:errors="*{shitenid}">エラー</span>
 					</td>
 				</tr>
@@ -65,7 +68,8 @@
 						<label>公開</label>
 					</td>
 					<td>
-						<input type="number" name="kokaiflg" th:field="*{kokaiflg}">
+						<input type="radio" name="kokaiflg" th:field="*{kokaiflg}" th:checked="${kokaiflg} == 1" value="1">公開
+						<input type="radio" name="kokaiflg" th:field="*{kokaiflg}" th:checked="${kokaiflg} == 0" value="0">非公開
 						<span th:if="${#fields.hasErrors('kokaiflg')}" th:errors="*{kokaiflg}">エラー</span>
 					</td>
 				</tr>

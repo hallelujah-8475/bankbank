@@ -38,9 +38,9 @@
 		      <th>名前</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		      <td th:text="${entity.shitenmaster.shitenname}">name</td>
- 		      <td th:text="${entity.age}">name</td>
-		      <td th:text="${entity.koinname}">name</td>
+		      <td><a th:href="@{'/shitenMaster/detail?id=' + ${entity.shitenmaster.id}}" th:text="${entity.shitenmaster.shitenname}">name</a></td>
+ 		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.age}">name</a></td>
+		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.koinname}">name</a></td>
 		    </tr>
 	    </table>
 	    <a href="/" class="btn btn-outline-secondary">戻る</a>

@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +24,9 @@ public class AccessLogService {
 
 	@Autowired
 	AccessLogSpecifications accessLogSpecifications;
+
+	@PersistenceContext
+	EntityManager entityManager;
 
 	public AccessLog save(long id, String content, String result) {
 
@@ -45,9 +51,7 @@ public class AccessLogService {
     public Page<AccessLog> findUsers(AccessLogListForm accessLogListForm, Pageable pageable) {
 
     	return accessLogRepository.findAll(Specification
-    										.where(accessLogSpecifications.actdatetimeFromContains(accessLogListForm.getActdatetimeFrom()))
-    										.and(accessLogSpecifications.actdatetimeToContains(accessLogListForm.getActdatetimeTo()))
+    										.where(accessLogSpecifications.actdatetimeContains(accessLogListForm.getActdatetimeFrom(), accessLogListForm.getActdatetimeTo()))
     										,pageable);
     }
-
 }

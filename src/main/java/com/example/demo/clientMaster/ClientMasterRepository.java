@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClientMasterRepository extends JpaRepository<ClientMaster, Long>, JpaSpecificationExecutor<ClientMaster> {
+
+	ClientMaster findByClientid(int clientid);
 }

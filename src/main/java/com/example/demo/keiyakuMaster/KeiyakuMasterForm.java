@@ -6,95 +6,63 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class KeiyakuMasterForm implements Serializable {
 
+	@Getter
+	@Setter
 	protected Long id;
 
+	@Getter
+	@Setter
 	@NotNull
 	protected int keiyakuid;
 
+	@Getter
+	@Setter
 	@NotNull
 	protected int shohinid;
 
+	@Getter
+	@Setter
 	@NotNull
 	protected int price;
 
+	@Getter
+	@Setter
 	@NotNull
 	protected int kinri;
 
+	@Getter
+	@Setter
 	@NotBlank
 	protected String returnlimit;
 
+	@Getter
+	@Setter
 	@NotNull
 	protected int clientid;
 
+	@Getter
+	@Setter
 	@NotNull
 	protected int koinid;
 
-	public Long getId() {
-		return id;
-	}
+	@Getter
+	@Setter
+	private String koinname;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Getter
+	@Setter
+	private String clientname;
 
-	public int getKeiyakuid() {
-		return keiyakuid;
-	}
-
-	public void setKeiyakuid(int keiyakuid) {
-		this.keiyakuid = keiyakuid;
-	}
-
-	public int getShohinid() {
-		return shohinid;
-	}
-
-	public void setShohinid(int shohinid) {
-		this.shohinid = shohinid;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public int getKinri() {
-		return kinri;
-	}
-
-	public void setKinri(int kinri) {
-		this.kinri = kinri;
-	}
-
-	public String getReturnlimit() {
-		return returnlimit;
-	}
-
-	public void setReturnlimit(String returnlimit) {
-		this.returnlimit = returnlimit;
-	}
-
-	public int getClientid() {
-		return clientid;
-	}
-
-	public void setClientid(int clientid) {
-		this.clientid = clientid;
-	}
-
-	public int getKoinid() {
-		return koinid;
-	}
-
-	public void setKoinid(int koinid) {
-		this.koinid = koinid;
-	}
-
+	@Getter
+	@Setter
+	private String shohinname;
 
 
 }

@@ -34,6 +34,4 @@ public class HaizokuMasterListForm implements Serializable {
 		this.shitenid = shitenid;
 	}
 
-
-
 }

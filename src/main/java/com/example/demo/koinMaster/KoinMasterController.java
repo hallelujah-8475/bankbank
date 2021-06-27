@@ -7,6 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.constant.BushoKbn;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterService;
+import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
 public class KoinMasterController {
@@ -37,6 +41,9 @@ public class KoinMasterController {
 	@Autowired
 	private KoinMasterValidator koinMasterValidator;
 
+    @Autowired
+    HttpSession session;
+
 	@InitBinder("koinMasterForm")
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(koinMasterValidator);
@@ -48,33 +55,35 @@ public class KoinMasterController {
 
         Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
 
+        optionMap.put(0, "選択してください");
+
         for(ShitenMaster entity : list) {
 
         	optionMap.put(entity.getShitenid(), entity.getShitenname());
         }
 
-        model.addAttribute("list", optionMap);
+        model.addAttribute("optionMapList", optionMap);
     }
 
-    private void setBushoSelectTag(Model model) {
+	private void setBushoSelectTag(Model model) {
 
-    	model.addAttribute("bushoList", BushoKbn.getOptionMap());
-    }
+		model.addAttribute("bushoList", BushoKbn.getOptionMap());
+	}
 
 	@RequestMapping(value = "/koinMaster/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id,
 			@ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm,
-			HttpSession session,Model model) {
+			HttpSession session, Model model) {
 
-		if(id == null) {
+		if (id == null) {
 			// 新規登録
-		}else {
+		} else {
 			// 更新
 			var koinMaster = koinMasterRepository.findById(id).get();
 
 			BeanUtils.copyProperties(koinMaster, koinMasterForm);
 			koinMasterForm.setId(id);
-			var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
+			var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
 			koinMasterForm.setShitenname(entity.getShitenname());
 		}
 
@@ -84,17 +93,18 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping(value = "/koinMaster/edit")
-	private String edit(Model model, @RequestParam(name = "id", required = false) Long id, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = false) Long id,
+			@ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
 
-		if(id == null) {
+		if (id == null) {
 			// 新規登録
-		}else {
+		} else {
 			// 更新
 			var koinMaster = koinMasterRepository.findById(id).get();
 
 			BeanUtils.copyProperties(koinMaster, koinMasterForm);
 			koinMasterForm.setId(id);
-			var entity = (ShitenMaster)shitenMasterService.findByShitenId(koinMasterForm.getShitenid());
+			var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
 			koinMasterForm.setShitenname(entity.getShitenname());
 		}
 
@@ -107,11 +117,12 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping("/koinMaster/editCheck")
-	public String editCheck(@Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result, HttpSession session) {
+	public String editCheck(@Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result,
+			HttpSession session) {
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return "/koinMaster/edit";
 		}
 
@@ -123,7 +134,7 @@ public class KoinMasterController {
 
 		var koinMaster = new KoinMaster();
 
-		if(koinMasterForm.getId() == null) {
+		if (koinMasterForm.getId() == null) {
 			int maxId = koinMasterService.findByMaxKoinId();
 
 			koinMasterForm.setId((long) 0);
@@ -137,27 +148,47 @@ public class KoinMasterController {
 		return "/koinMaster/finish";
 	}
 
+	@RequestMapping(value = "/koinMaster/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+
+		KoinMasterListForm koinMasterListForm = (KoinMasterListForm) session.getAttribute("koinMasterListForm");
+
+		return this.list(model, koinMasterListForm, pageable);
+	}
+
 	@RequestMapping(value = "/koinMaster/list")
-	public String list(Model model) {
-        var list = koinMasterService.findAll();
-        model.addAttribute("list", list);
-        return "/koinMaster/list";
+	public String list(Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
+			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+
+		session.setAttribute("koinMasterListForm", koinMasterListForm);
+
+		Page<KoinMaster> list = koinMasterService.findUsers(koinMasterListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+		model.addAttribute("koinMasterListForm", koinMasterListForm);
+		model.addAttribute("page", PagenationHelper.createPagenation(list));
+
+		this.setSelectTag(model);
+
+		return "/koinMaster/list";
 	}
 
 	@RequestMapping("/koinMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
+			@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.koinMasterRepository.deleteById(id);
 
-		return this.list(model);
+		return this.list(model, koinMasterListForm, pageable);
 	}
 
 	@RequestMapping("/koinMaster/returnEdit")
-	public String returnEdit(Model model, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
+	public String returnEdit(Model model, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm,
+			HttpSession session) {
 
 		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
 
-		if(sessionEditForm == null) {
+		if (sessionEditForm == null) {
 
 			return "redirect:/koinMaster/edit";
 		}
@@ -175,14 +206,14 @@ public class KoinMasterController {
 
 		var sessionEditForm = (KoinMasterForm) session.getAttribute("koinMasterForm");
 
-		if(sessionEditForm == null) {
+		if (sessionEditForm == null) {
 
 			return "redirect:/koinMaster/detail";
 		}
 
-        var entity = (ShitenMaster)shitenMasterService.findByShitenId(sessionEditForm.getShitenid());
+		var entity = (ShitenMaster) shitenMasterService.findByShitenid(sessionEditForm.getShitenid());
 
-        sessionEditForm.setShitenname(entity.getShitenname());
+		sessionEditForm.setShitenname(entity.getShitenname());
 
 		model.addAttribute("koinMasterForm", sessionEditForm);
 

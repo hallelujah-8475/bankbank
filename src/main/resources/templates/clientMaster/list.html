@@ -11,7 +11,7 @@
 			<table class="table-bordered w-100">
 				<tr>
 					<td class="p-2 text-center">
-						<label class="m-0">支店名</label>
+						<label class="m-0">顧客名</label>
 					</td>
 					<td class="p-2">
 						<input class="w-100" type="text" name="name" th:value="${clientMasterListForm.name}">
@@ -30,18 +30,70 @@
 			</form>
 		</div>
 		<a href="/clientMaster/edit" class="btn btn-outline-secondary mb-3">新規登録</a>
+		<div class="w-100 m-2">
+			<!-- ページング -->
+			<form method="post" th:action="@{/clientMaster/pagenate}" th:object="${page}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li th:if="${!page.first}" class="page-item">
+			      <a th:href="@{/clientMaster/pagenate(page = ${page.number} - 1)}" class="page-link" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			        <span class="sr-only">Previous</span>
+			      </a>
+			    </li>
+			    <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" class="page-item">
+			    	<a th:if="${i} == ${page.number}" th:text="${i + 1}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    	<a th:if="${i} != ${page.number}" th:href="@{/clientMaster/pagenate(page = ${i})}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    </li>
+			    <li th:if="${!page.last}" class="page-item">
+			      <a th:href="@{/clientMaster/pagenate(page = (${page.number} + 1))}" class="page-link" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			        <span class="sr-only">Next</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+			</form>
+			<!-- ページング -->
+		</div>
 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>ID</th>
 		      <th>顧客名</th>
 		      <th>都道府県名</th>
 		    </tr>
-		    <tr th:each="entity:${list}">
+		    <tr th:each="entity:${list}" th:classappend="${entity.yoshinlevel == 5} ? 'table-danger' : ''">
 		      <td ><a th:href="@{'/clientMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
 		      <td th:text="${entity.name}">name</td>
 		      <td th:text="${entity.prefecture}">name</td>
 		    </tr>
 	    </table>
+		<div class="w-100 m-2">
+			<!-- ページング -->
+			<form method="post" th:action="@{/clientMaster/pagenate}" th:object="${page}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li th:if="${!page.first}" class="page-item">
+			      <a th:href="@{/clientMaster/pagenate(page = ${page.number} - 1)}" class="page-link" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			        <span class="sr-only">Previous</span>
+			      </a>
+			    </li>
+			    <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" class="page-item">
+			    	<a th:if="${i} == ${page.number}" th:text="${i + 1}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    	<a th:if="${i} != ${page.number}" th:href="@{/clientMaster/pagenate(page = ${i})}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    </li>
+			    <li th:if="${!page.last}" class="page-item">
+			      <a th:href="@{/clientMaster/pagenate(page = (${page.number} + 1))}" class="page-link" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			        <span class="sr-only">Next</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+			</form>
+			<!-- ページング -->
+		</div>
 	    <a href="/" class="btn btn-outline-secondary">戻る</a>
 	</div>
 </div>

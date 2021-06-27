@@ -5,12 +5,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
 public class ClientMasterController {
@@ -20,6 +25,9 @@ public class ClientMasterController {
 
 	@Autowired
 	private ClientMasterRepository clientMasterRepository;
+
+    @Autowired
+    HttpSession session;
 
 	@RequestMapping(value = "/clientMaster/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
@@ -84,21 +92,36 @@ public class ClientMasterController {
 		return "/clientMaster/finish";
 	}
 
+	@RequestMapping(value = "/clientMaster/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		ClientMasterListForm clientMasterListForm = (ClientMasterListForm)session.getAttribute("clientMasterListForm");
+
+		return this.list(model, clientMasterListForm, pageable);
+	}
+
 	@RequestMapping(value = "/clientMaster/list")
-	public String list(Model model, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm) {
-        var list = clientMasterService.findUsers(clientMasterListForm);
-        model.addAttribute("list", list);
+	public String list(Model model, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		session.setAttribute("clientMasterListForm", clientMasterListForm);
+
+		Page<ClientMaster> list = clientMasterService.findUsers(clientMasterListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+        model.addAttribute("clientMasterListForm",clientMasterListForm);
+        model.addAttribute("page",PagenationHelper.createPagenation(list));
+
         return "/clientMaster/list";
 	}
 
 	@RequestMapping("/clientMaster/delete")
-	public String delete(Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm) {
+	public String delete(Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		var sessionEditForm = (ClientMasterForm) session.getAttribute("clientMasterForm");
 
 		this.clientMasterRepository.deleteById(sessionEditForm.getId());
 
-		return this.list(model, clientMasterListForm);
+		return this.list(model, clientMasterListForm, pageable);
 	}
 
 	@RequestMapping("/clientMaster/returnEdit")

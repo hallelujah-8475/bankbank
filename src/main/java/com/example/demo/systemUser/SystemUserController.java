@@ -123,7 +123,7 @@ public class SystemUserController {
 	}
 
 	@RequestMapping(value = "/systemUser/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		SystemUserListForm systemUserListForm = (SystemUserListForm)session.getAttribute("systemUserListForm");
 
@@ -131,7 +131,7 @@ public class SystemUserController {
 	}
 
 	@RequestMapping(value = "/systemUser/list")
-	public String list(Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		session.setAttribute("systemUserListForm", systemUserListForm);
 
@@ -145,11 +145,11 @@ public class SystemUserController {
 	}
 
 	@RequestMapping("/systemUser/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.systemUserRepository.deleteById(id);
 
-		return this.list(model, systemUserListForm);
+		return this.list(model, systemUserListForm, pageable);
 	}
 
 	@RequestMapping("/systemUser/returnEdit")
@@ -183,7 +183,7 @@ public class SystemUserController {
 	}
 
 	@RequestMapping("/systemUser/csvImport")
-	public String csvImport(@RequestParam("csvFile") MultipartFile multipartFile, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm) throws IOException, CsvException {
+	public String csvImport(@RequestParam("csvFile") MultipartFile multipartFile, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) throws IOException, CsvException {
 
 		String line = null;
 		InputStream stream = multipartFile.getInputStream();
@@ -208,7 +208,7 @@ public class SystemUserController {
         	}
         }
 
-		return this.list(model, systemUserListForm);
+		return this.list(model, systemUserListForm, pageable);
 	}
 
 }

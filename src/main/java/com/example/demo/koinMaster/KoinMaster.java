@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.demo.constant.BushoKbn;
 import com.example.demo.shitenMaster.ShitenMaster;
 
 import lombok.Data;
@@ -56,8 +57,23 @@ public class KoinMaster implements Serializable {
 
 	@Getter
 	@Setter
+	@Column
+	private String nyushastartdate;
+
+	@Getter
+	@Setter
+	@Column
+	private String haizokustartdate;
+
+	@Getter
+	@Setter
 	@OneToOne
 	@JoinColumn(name = "shitenid", referencedColumnName = "shitenid", insertable = false, updatable = false)
 	private ShitenMaster shitenmaster;
+
+	public String getBushoname() {
+
+		return BushoKbn.getLabel(this.busho);
+	}
 
 }

@@ -44,4 +44,8 @@ public class KoinMasterForm implements Serializable {
 		return BushoKbn.getLabel(this.busho);
 	}
 
+	@Getter
+	@Setter
+	private String nyushastartdate;
+
 }

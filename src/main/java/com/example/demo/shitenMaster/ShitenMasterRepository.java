@@ -10,4 +10,6 @@ public interface ShitenMasterRepository extends JpaRepository<ShitenMaster, Long
 
 	public ShitenMaster findById(long id);
 
+	public ShitenMaster findByShitenid(int shitenid);
+
 }

@@ -1,5 +1,7 @@
 package com.example.demo.shohinMaster;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import lombok.Setter;
 @Data
 @Entity
 @Table(name = "shohinmaster")
-public class ShohinMaster {
+public class ShohinMaster implements Serializable {
 
 	@Getter
 	@Setter

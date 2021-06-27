@@ -1,6 +1,5 @@
 package com.example.demo.shohinMaster;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,11 @@ public class ShohinMasterService {
 		return shohinMasterRepositry.findAll(Sort.by("id"));
 	}
 
+	public ShohinMaster findByShohinid(int shohinid) {
+
+		return this.shohinMasterRepositry.findByShohinid(shohinid);
+	}
+
 	public Optional<ShohinMaster> findById(Long id) {
 
 		return this.shohinMasterRepositry.findById(id);
@@ -47,14 +53,11 @@ public class ShohinMasterService {
 	            .getSingleResult();
 	}
 
-    public List<ShohinMaster> findUsers(ShohinMasterListForm shohinMasterListForm) {
+    public Page<ShohinMaster> findUsers(ShohinMasterListForm shohinMasterListForm, Pageable pageable) {
 
-    	List<ShohinMaster> list = new ArrayList<ShohinMaster>();
-
-		list = shohinMasterRepositry.findAll(Specification
-				.where(shohinMasterSpecifications.nameContains(shohinMasterListForm.getName())));
-
-		return list;
+    	return shohinMasterRepositry.findAll(Specification
+				.where(shohinMasterSpecifications.nameContains(shohinMasterListForm.getName()))
+				,pageable);
     }
 
 }

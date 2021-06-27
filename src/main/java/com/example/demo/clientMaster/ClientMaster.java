@@ -8,158 +8,79 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Data
 @Entity
 @Table(name = "clientmaster")
 public class ClientMaster {
 
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
 	private long id;
 
+	@Getter
+	@Setter
 	@Column
 	private int clientid;
 
+	@Getter
+	@Setter
 	@Column
 	private String name;
 
+	@Getter
+	@Setter
 	@Column
 	private String daihyoname;
 
+	@Getter
+	@Setter
 	@Column
 	private int daihyoage;
 
+	@Getter
+	@Setter
 	@Column
 	private int yoshinlevel;
 
+	@Getter
+	@Setter
 	@Column
 	private int postcode1;
 
+	@Getter
+	@Setter
 	@Column
 	private int postcode2;
 
+	@Getter
+	@Setter
 	@Column
 	private String prefecture;
 
+	@Getter
+	@Setter
 	@Column
 	private String address1;
 
+	@Getter
+	@Setter
 	@Column
 	private String address2;
 
+	@Getter
+	@Setter
 	@Column
 	private int phonenumber1;
 
+	@Getter
+	@Setter
 	@Column
 	private int phonenumber2;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getPostcode1() {
-		return postcode1;
-	}
-
-	public void setPostcode1(int postcode1) {
-		this.postcode1 = postcode1;
-	}
-
-	public int getPostcode2() {
-		return postcode2;
-	}
-
-	public void setPostcode2(int postcode2) {
-		this.postcode2 = postcode2;
-	}
-
-	public String getPrefecture() {
-		return prefecture;
-	}
-
-	public void setPrefecture(String prefecture) {
-		this.prefecture = prefecture;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public int getPhonenumber1() {
-		return phonenumber1;
-	}
-
-	public void setPhonenumber1(int phonenumber1) {
-		this.phonenumber1 = phonenumber1;
-	}
-
-	public int getPhonenumber2() {
-		return phonenumber2;
-	}
-
-	public void setPhonenumber2(int phonenumber2) {
-		this.phonenumber2 = phonenumber2;
-	}
-
-	public int getClientid() {
-		return clientid;
-	}
-
-	public void setClientid(int clientid) {
-		this.clientid = clientid;
-	}
-
-	public String getDaihyoname() {
-		return daihyoname;
-	}
-
-	public void setDaihyoname(String daihyoname) {
-		this.daihyoname = daihyoname;
-	}
-
-	public int getDaihyoage() {
-		return daihyoage;
-	}
-
-	public void setDaihyoage(int daihyoage) {
-		this.daihyoage = daihyoage;
-	}
-
-	public int getYoshinlevel() {
-		return yoshinlevel;
-	}
-
-	public void setYoshinlevel(int yoshinlevel) {
-		this.yoshinlevel = yoshinlevel;
-	}
-
-
-
-
 }

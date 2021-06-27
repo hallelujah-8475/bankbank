@@ -3,6 +3,9 @@ package com.example.demo.shohinMaster;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.systemUser.PagenationHelper;
+
 @Controller
 public class ShohinMasterController {
 
@@ -20,6 +25,9 @@ public class ShohinMasterController {
 
 	@Autowired
 	private ShohinMasterRepository shohinMasterRepository;
+
+    @Autowired
+    HttpSession session;
 
 	@RequestMapping(value = "/shohinMaster/detail")
 	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm, HttpSession session) {
@@ -95,19 +103,34 @@ public class ShohinMasterController {
 		return "/shohinMaster/finish";
 	}
 
+	@RequestMapping(value = "/shohinMaster/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		ShohinMasterListForm shohinMasterListForm = (ShohinMasterListForm)session.getAttribute("shohinMasterListForm");
+
+		return this.list(model, shohinMasterListForm, pageable);
+	}
+
 	@RequestMapping(value = "/shohinMaster/list")
-	public String list(Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm) {
-        var list = shohinMasterService.findUsers(shohinMasterListForm);
-        model.addAttribute("list", list);
+	public String list(Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		session.setAttribute("shohinMasterListForm", shohinMasterListForm);
+
+		Page<ShohinMaster> list = shohinMasterService.findUsers(shohinMasterListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+        model.addAttribute("shohinMasterListForm",shohinMasterListForm);
+        model.addAttribute("page",PagenationHelper.createPagenation(list));
+
         return "/shohinMaster/list";
 	}
 
 	@RequestMapping("/shohinMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
 
 		this.shohinMasterRepository.deleteById(id);
 
-		return this.list(model, shohinMasterListForm);
+		return this.list(model, shohinMasterListForm, pageable);
 	}
 
 	@RequestMapping("/shohinMaster/returnEdit")

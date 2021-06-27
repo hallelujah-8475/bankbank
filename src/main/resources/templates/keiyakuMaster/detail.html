@@ -26,10 +26,10 @@
 			</tr>
 			<tr>
 				<td>
-					<label>商品ID</label>
+					<label>商品</label>
 				</td>
-				<td>
-					<input type="text" readonly class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
+				<td th:text="*{shohinname}">
+					<input type="hidden" class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
 				</td>
 			</tr>
 			<tr>
@@ -58,18 +58,18 @@
 			</tr>
 			<tr>
 				<td>
-					<label>顧客ID</label>
+					<label>顧客</label>
 				</td>
-				<td>
-					<input type="text" readonly class="form-control-plaintext" name="clientid" th:field="*{clientid}">
+				<td th:text="*{clientname}">
+					<input type="hidden" class="form-control-plaintext" name="clientid" th:field="*{clientid}">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label>行員ID</label>
+					<label>行員</label>
 				</td>
-				<td>
-					<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
+				<td th:text="*{koinname}">
+					<input type="hidden" class="form-control-plaintext" name="koinid" th:field="*{koinid}">
 				</td>
 			</tr>
 		</table>

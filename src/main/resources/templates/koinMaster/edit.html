@@ -91,10 +91,20 @@ function returnDetail() {
 					</td>
 					<td>
 						<select name="shitenid">
-							<option th:each="entity : ${list}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
+							<option th:each="entity : ${optionMapList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
 						</select>
 						<input type="hidden" name="shitenname" th:field="*{shitenname}">
 						<span class="text-danger" th:if="${#fields.hasErrors('shitenid')}" th:errors="*{shitenid}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>入社日</label>
+						<span class="badge badge-danger">必須</span>
+					</td>
+					<td>
+						<input type="date" name="nyushastartdate" th:field="*{nyushastartdate}">
+						<span th:if="${#fields.hasErrors('nyushastartdate')}" th:errors="*{nyushastartdate}">エラー</span>
 					</td>
 				</tr>
 			</table>

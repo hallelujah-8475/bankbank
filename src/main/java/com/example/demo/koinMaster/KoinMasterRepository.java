@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KoinMasterRepository extends JpaRepository<KoinMaster, Long>, JpaSpecificationExecutor<KoinMaster> {
 
+	KoinMaster findByKoinid(int koinid);
+
 }

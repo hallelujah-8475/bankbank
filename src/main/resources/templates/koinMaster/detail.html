@@ -56,6 +56,14 @@
 					<span th:text="*{shitenname}"></span>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>入社日</label>
+				</td>
+				<td>
+					<span th:text="*{nyushastartdate}"></span>
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<a th:href="@{'/koinMaster/edit?id=' + ${koinMasterForm.id}}" class="btn btn-outline-secondary">編集</a>

@@ -3,9 +3,13 @@ package com.example.demo.keiyakuMaster;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +25,7 @@ import com.example.demo.koinMaster.KoinMaster;
 import com.example.demo.koinMaster.KoinMasterService;
 import com.example.demo.shohinMaster.ShohinMaster;
 import com.example.demo.shohinMaster.ShohinMasterService;
+import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
 public class KeiyakuMasterController {
@@ -39,6 +44,12 @@ public class KeiyakuMasterController {
 
 	@Autowired
 	private KeiyakuMasterRepository keiyakuMasterRepository;
+
+	@Autowired
+	HttpServletRequest request;
+
+    @Autowired
+    HttpSession session;
 
 //	@Autowired
 //	private KeiyakuMasterValidator keiyakuMasterValidator;
@@ -106,8 +117,9 @@ public class KeiyakuMasterController {
 			keiyakuMasterForm.setReturnlimit(keiyakuMaster.getReturnlimit());
 			keiyakuMasterForm.setClientid(keiyakuMaster.getClientid());
 			keiyakuMasterForm.setKoinid(keiyakuMaster.getKoinid());
-
-
+			keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMaster.getKoinid()).getKoinname());
+			keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMaster.getClientid()).getName());
+			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getClientid()).getName());
 		}
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
@@ -132,7 +144,9 @@ public class KeiyakuMasterController {
 			keiyakuMasterForm.setReturnlimit(keiyakuMaster.getReturnlimit());
 			keiyakuMasterForm.setClientid(keiyakuMaster.getClientid());
 			keiyakuMasterForm.setKoinid(keiyakuMaster.getKoinid());
-
+			keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMaster.getKoinid()).getKoinname());
+			keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMaster.getClientid()).getName());
+			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getClientid()).getName());
 		}
 
 		this.setShohinSelectTag(model);
@@ -183,19 +197,39 @@ public class KeiyakuMasterController {
 		return "/keiyakuMaster/finish";
 	}
 
+	@RequestMapping(value = "/keiyakuMaster/pagenate")
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		KeiyakuMasterListForm keiyakuMasterListForm = (KeiyakuMasterListForm)session.getAttribute("keiyakuMasterListForm");
+
+		return this.list(model, keiyakuMasterListForm, pageable);
+	}
+
 	@RequestMapping(value = "/keiyakuMaster/list")
-	public String list(Model model) {
-        var list = keiyakuMasterService.findAll();
-        model.addAttribute("list", list);
+	public String list(Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+		session.setAttribute("keiyakuMasterListForm", keiyakuMasterListForm);
+
+		if(request.getParameter("fromMenu") != null) {
+
+			keiyakuMasterListForm.setShoninflg(99);
+		}
+
+		Page<KeiyakuMaster> list = keiyakuMasterService.findUsers(keiyakuMasterListForm, pageable);
+
+		model.addAttribute("list", list.getContent());
+        model.addAttribute("keiyakuMasterListForm",keiyakuMasterListForm);
+        model.addAttribute("page",PagenationHelper.createPagenation(list));
+
         return "/keiyakuMaster/list";
 	}
 
 	@RequestMapping("/keiyakuMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model) {
+	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.keiyakuMasterRepository.deleteById(id);
 
-		return this.list(model);
+		return this.list(model, keiyakuMasterListForm, pageable);
 	}
 
 	@RequestMapping("/keiyakuMaster/returnEdit")
@@ -229,7 +263,7 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping("/keiyakuMaster/shonin")
-	public String shonin(@RequestParam(name = "id", required = false) Long id, Model model) {
+	public String shonin(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		var keiyakuMaster = keiyakuMasterRepository.findById(id).get();
 
@@ -237,7 +271,7 @@ public class KeiyakuMasterController {
 
 		keiyakuMasterService.save(keiyakuMaster);
 
-		return this.list(model);
+		return this.list(model, keiyakuMasterListForm, pageable);
 	}
 
 }

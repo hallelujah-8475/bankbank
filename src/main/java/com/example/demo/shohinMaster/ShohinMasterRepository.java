@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShohinMasterRepository extends JpaRepository<ShohinMaster, Long>, JpaSpecificationExecutor<ShohinMaster> {
 
+	ShohinMaster findByShohinid(int shohinid);
+
 
 }
