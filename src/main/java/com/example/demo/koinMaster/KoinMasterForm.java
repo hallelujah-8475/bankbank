@@ -3,6 +3,7 @@ package com.example.demo.koinMaster;
 import java.io.Serializable;
 
 import com.example.demo.constant.BushoKbn;
+import com.example.demo.constant.Yakushoku;
 
 import lombok.Data;
 import lombok.Getter;
@@ -10,6 +11,8 @@ import lombok.Setter;
 
 @Data
 public class KoinMasterForm implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
@@ -47,5 +50,22 @@ public class KoinMasterForm implements Serializable {
 	@Getter
 	@Setter
 	private String nyushastartdate;
+
+	@Getter
+	@Setter
+	private String haizokustartdate;
+
+	@Getter
+	@Setter
+	private int tenkinflg;
+
+	@Getter
+	@Setter
+	private int yakushoku;
+
+	public String getYakushokuname() {
+
+		return Yakushoku.getLabel(this.yakushoku);
+	}
 
 }

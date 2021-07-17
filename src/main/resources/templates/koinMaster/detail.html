@@ -64,6 +64,14 @@
 					<span th:text="*{nyushastartdate}"></span>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>役職</label>
+				</td>
+				<td>
+					<span th:text="*{yakushokuname}"></span>
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<a th:href="@{'/koinMaster/edit?id=' + ${koinMasterForm.id}}" class="btn btn-outline-secondary">編集</a>

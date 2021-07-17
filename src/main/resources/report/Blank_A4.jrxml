@@ -6,100 +6,29 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="product_name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="410" splitType="Stretch">
+	<detail>
+		<band height="224" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="80" width="100" height="30" uuid="44641a20-7805-4427-8439-21140f0753f9"/>
+				<textElement>
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Client_name}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="210" y="20" width="100" height="30" uuid="a19ace77-8088-43d2-a240-ec20fa6d6149"/>
+				<reportElement x="100" y="40" width="100" height="30" uuid="a19ace77-8088-43d2-a240-ec20fa6d6149"/>
 				<textElement>
 					<font fontName="IPAexg"/>
 				</textElement>
 				<text><![CDATA[帳票のテスト]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="80" y="10" width="100" height="30" uuid="c88ea135-0210-41ba-b174-1a352ff529f9">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ecf73158-16bd-4d91-a5d0-249b76a418b2"/>
-				</reportElement>
-				<textElement>
-					<font fontName="IPAexg"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+				<reportElement x="320" y="70" width="100" height="30" uuid="ed379783-626c-4fc4-8502-b2f76af88eb2"/>
+				<textFieldExpression><![CDATA["テキスト・フィールド"]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="80" y="30" width="71" height="295" uuid="b94858f5-4f1d-44a7-8382-89978335db46"/>
-			</line>
-			<line>
-				<reportElement x="146" y="42" width="122" height="48" uuid="f2e12157-0a66-411e-a146-e18622c55f77">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-			</line>
-			<line>
-				<reportElement x="314" y="70" width="66" height="50" uuid="33828fc5-3cc2-41ce-94fe-03d30699a858"/>
-			</line>
-			<frame>
-				<reportElement x="380" y="210" width="200" height="200" uuid="72f5d039-cbcf-4dc4-9c7b-09fae594722c"/>
-			</frame>
-		</band>
-	</title>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="202" y="0" width="100" height="30" uuid="3d218696-c1b1-4a9b-8457-d59538668832">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ecf73158-16bd-4d91-a5d0-249b76a418b2"/>
-				</reportElement>
-				<text><![CDATA[product_name]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="224" splitType="Stretch">
-			<textField>
-				<reportElement x="268" y="99" width="100" height="30" uuid="44641a20-7805-4427-8439-21140f0753f9"/>
-				<textElement>
-					<font fontName="IPAexg"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{Client_name}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="411" y="48" width="100" height="30" uuid="76dff755-4b4a-402d-b70e-7686528e31c0"/>
-			</line>
-			<line>
-				<reportElement x="100" y="90" width="100" height="30" uuid="9151ae55-02a4-4172-950f-52bc7d2da28c"/>
-			</line>
-			<line>
-				<reportElement x="100" y="90" width="381" height="11" uuid="82720f62-705b-4a7d-850d-059d55f21877"/>
-			</line>
-			<line>
-				<reportElement x="160" y="30" width="100" height="30" uuid="f6296b58-6aa9-4498-9ee3-f7685a762bfc"/>
-			</line>
-			<line>
-				<reportElement x="534" y="107" width="100" height="30" uuid="3c17b789-e64d-4e6e-82cf-528f2cc4fe21"/>
-			</line>
-			<line>
-				<reportElement x="170" y="130" width="198" height="56" uuid="ee816734-6e6b-471d-a6f9-07b89b7be871"/>
-			</line>
-			<line>
-				<reportElement x="475" y="24" width="100" height="30" uuid="1ef8ca87-93d2-4667-b140-cc91a6e3716f"/>
-			</line>
-			<line direction="BottomUp">
-				<reportElement x="150" y="10" width="411" height="5" uuid="7ce076ad-f5c3-4cb0-b7d7-39f0329ecfa0"/>
-			</line>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="65" splitType="Stretch">
-			<line>
-				<reportElement x="470" y="14" width="91" height="51" uuid="c7ce995a-edaa-4b02-b6fa-07e6f2bbd614"/>
-			</line>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

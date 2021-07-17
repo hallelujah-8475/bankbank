@@ -32,6 +32,14 @@
 					<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>金利</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="kinri" th:field="*{kinri}">
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<a th:href="@{'/shohinMaster/edit?id=' + ${shohinMasterForm.id}}" class="btn btn-outline-secondary">編集</a>

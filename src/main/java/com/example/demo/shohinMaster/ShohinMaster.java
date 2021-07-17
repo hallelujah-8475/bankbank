@@ -23,7 +23,7 @@ public class ShohinMaster implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private long id;
+	private int id;
 
 	@Getter
 	@Setter
@@ -34,5 +34,10 @@ public class ShohinMaster implements Serializable {
 	@Setter
 	@Column
 	private String name;
+
+	@Getter
+	@Setter
+	@Column
+	private int kinri;
 
 }

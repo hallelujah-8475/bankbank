@@ -78,6 +78,24 @@ function returnEdit() {
 					<input type="hidden" name="nyushastartdate" th:field="*{nyushastartdate}">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>配属日</label>
+				</td>
+				<td>
+					<span th:text="*{haizokustartdate}"></span>
+					<input type="hidden" name="haizokustartdate" th:field="*{haizokustartdate}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>役職</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="yakushoku" th:value="*{yakushoku}" th:field="*{yakushokuname}">
+					<input type="hidden" name="yakushoku" th:field="*{yakushoku}">
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<input type="submit" value="送信" class="btn btn-outline-secondary">

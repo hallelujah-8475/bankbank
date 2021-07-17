@@ -24,7 +24,7 @@ function returnDetail() {
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('契約一覧')}"></th:block>
 	<div class="row justify-content-start">
-		<form method="post" th:action="@{/keiyakuMaster/editCheck}" th:object="${keiyakuMasterForm}">
+		<form method="post" th:action="@{/keiyakuMaster/editCheck}" th:object="${keiyakuMasterForm}" enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
 					<td>
@@ -91,6 +91,12 @@ function returnDetail() {
 						<select name="koinid">
 							<option th:each="entity : ${koinList}" th:value="${entity.key}" th:text="${entity.value}"></option>
 						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label>添付ファイル</label></td>
+					<td>
+						<input type="file" name="filedata" th:field="*{filedata}">
 					</td>
 				</tr>
 			</table>

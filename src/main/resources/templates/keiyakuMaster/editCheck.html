@@ -13,15 +13,91 @@ function returnEdit() {
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('契約一覧')}"></th:block>
 	<div class="row justify-content-start">
-	<form method="post" th:action="@{/keiyakuMaster/finish}" th:object="${keiyakuMasterForm}">
-		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
-		<input type="text" readonly class="form-control-plaintext" name="keiyakuid" th:field="*{keiyakuid}">
-		<input type="text" readonly class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
-		<input type="text" readonly class="form-control-plaintext" name="price" th:field="*{price}">
-		<input type="text" readonly class="form-control-plaintext" name="kinri" th:field="*{kinri}">
-		<input type="text" readonly class="form-control-plaintext" name="returnlimit" th:field="*{returnlimit}">
-		<input type="text" readonly class="form-control-plaintext" name="clientid" th:field="*{clientid}">
-		<input type="text" readonly class="form-control-plaintext" name="koinid" th:field="*{koinid}">
+	<form method="post" th:action="@{/keiyakuMaster/finish}" th:object="${keiyakuMasterForm}" enctype="multipart/form-data">
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{id}">
+					<input type="hidden" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>契約ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{keiyakuid}">
+					<input type="hidden" name="keiyakuid" th:field="*{keiyakuid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>商品</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{shohinname}">
+					<input type="hidden" name="shohinid" th:field="*{shohinid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>金額</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{price}">
+					<input type="hidden" name="price" th:field="*{price}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>金利</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{kinri}">
+					<input type="hidden" name="kinri" th:field="*{kinri}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>返済期限	</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" name="returnlimit" th:field="*{returnlimit}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>顧客</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{clientname}">
+					<input type="hidden" name="clientid" th:field="*{clientid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>行員</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{koinname}">
+					<input type="hidden" name="koinid" th:field="*{koinid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>添付ファイル</label>
+				</td>
+				<td>
+					<img th:src="${'data:image/png;base64,'+image}" alt="">
+					<input type="hidden" name="filedataString" th:value="*{filedataString}">
+					<input type="hidden" name="filename" th:field="*{filename}">
+				</td>
+			</tr>
+		</table>
+		<!-- <img th:src="${'data:image/png;base64,'+image}" alt=""> -->
 		<div class="mb-3">
 			<input type="submit" value="送信" class="btn btn-outline-secondary">
 			<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">

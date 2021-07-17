@@ -2,6 +2,7 @@ package com.example.demo.shohinMaster;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,19 +31,11 @@ public class ShohinMasterController {
     HttpSession session;
 
 	@RequestMapping(value = "/shohinMaster/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm, HttpSession session) {
+	private String detail(@RequestParam("id") int id, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
-			// 更新
-			var shohinMaster = shohinMasterRepository.findById(id).get();
+		var shohinMaster = shohinMasterRepository.findById(id).get();
 
-			shohinMasterForm.setId(id);
-			shohinMasterForm.setName(shohinMaster.getName());
-			shohinMasterForm.setShohinid(shohinMaster.getShohinid());
-
-		}
+		BeanUtils.copyProperties(shohinMaster, shohinMasterForm);
 
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
 
@@ -50,18 +43,16 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping(value = "/shohinMaster/edit")
-	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm, HttpSession session) {
+	private String edit(@RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm, HttpSession session) {
 
-		if(id == null) {
+		if(id == 0) {
 			// 新規登録
 		}else {
 			// 更新
 			var shohinMaster = shohinMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(shohinMaster, shohinMasterForm);
 			shohinMasterForm.setId(id);
-			shohinMasterForm.setShohinid(shohinMaster.getShohinid());
-			shohinMasterForm.setName(shohinMaster.getName());
-
 		}
 
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
@@ -82,21 +73,17 @@ public class ShohinMasterController {
 	}
 
 	@PostMapping("/shohinMaster/finish")
-	public String finish(HttpSession session) {
-		var sessionEditForm = (ShohinMasterForm) session.getAttribute("shohinMasterForm");
+	public String finish(HttpSession session, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm) {
 
 		var shohinMaster = new ShohinMaster();
 
-		if(sessionEditForm.getId() == null) {
+		if (shohinMasterForm.getId() == 0) {
 			int maxId = shohinMasterService.findByMaxShohinId();
 
-			shohinMaster.setShohinid(maxId + 1);
-		}else {
-			shohinMaster.setId(sessionEditForm.getId());
-			shohinMaster.setShohinid(sessionEditForm.getShohinid());
+			shohinMasterForm.setShohinid(maxId + 1);
 		}
 
-		shohinMaster.setName(sessionEditForm.getName());
+		BeanUtils.copyProperties(shohinMasterForm, shohinMaster);
 
 		this.shohinMasterService.save(shohinMaster);
 
@@ -126,7 +113,7 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping("/shohinMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
 
 		this.shohinMasterRepository.deleteById(id);
 

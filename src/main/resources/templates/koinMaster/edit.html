@@ -107,6 +107,27 @@ function returnDetail() {
 						<span th:if="${#fields.hasErrors('nyushastartdate')}" th:errors="*{nyushastartdate}">エラー</span>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<label>配属日</label>
+						<span class="badge badge-danger">必須</span>
+					</td>
+					<td>
+						<input type="date" name="haizokustartdate" th:field="*{haizokustartdate}">
+						<span th:if="${#fields.hasErrors('haizokustartdate')}" th:errors="*{haizokustartdate}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>役職</label>
+					</td>
+					<td>
+						<select name="yakushoku">
+							<option th:each="entity : ${yakushokuList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{yakushoku}"></option>
+						</select>
+						<span class="text-danger" th:if="${#fields.hasErrors('yakushoku')}" th:errors="*{yakushoku}">エラー</span>
+					</td>
+				</tr>
 			</table>
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">

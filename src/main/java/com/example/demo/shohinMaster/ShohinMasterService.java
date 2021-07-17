@@ -1,7 +1,6 @@
 package com.example.demo.shohinMaster;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,11 +38,6 @@ public class ShohinMasterService {
 	public ShohinMaster findByShohinid(int shohinid) {
 
 		return this.shohinMasterRepositry.findByShohinid(shohinid);
-	}
-
-	public Optional<ShohinMaster> findById(Long id) {
-
-		return this.shohinMasterRepositry.findById(id);
 	}
 
 	public int findByMaxShohinId() {

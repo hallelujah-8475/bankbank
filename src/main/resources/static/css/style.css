@@ -71,3 +71,25 @@ header, footer {
 .v-enter-active {
   transition: all 500ms;
 }
+
+#loader-bg {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #ffffff;
+  z-index: 1;
+}
+#loader {
+  display: none;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+}
+
+#keiyakuLogo {
+	width: 50%;
+	margin-top: 30px;
+}

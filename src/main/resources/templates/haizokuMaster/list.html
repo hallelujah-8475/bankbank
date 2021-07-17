@@ -31,18 +31,72 @@
 			</table>
 			</form>
 		</div>
+		<div class="w-100 m-2">
+			<!-- ページング -->
+			<form method="post" th:action="@{/haizokuMaster/pagenate}" th:object="${page}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li th:if="${!page.first}" class="page-item">
+			      <a th:href="@{/haizokuMaster/pagenate(page = ${page.number} - 1)}" class="page-link" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			        <span class="sr-only">Previous</span>
+			      </a>
+			    </li>
+			    <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" class="page-item">
+			    	<a th:if="${i} == ${page.number}" th:text="${i + 1}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    	<a th:if="${i} != ${page.number}" th:href="@{/haizokuMaster/pagenate(page = ${i})}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    </li>
+			    <li th:if="${!page.last}" class="page-item">
+			      <a th:href="@{/haizokuMaster/pagenate(page = (${page.number} + 1))}" class="page-link" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			        <span class="sr-only">Next</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+			</form>
+			<!-- ページング -->
+		</div>
 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>支店名</th>
 		      <th>年齢</th>
 		      <th>名前</th>
+		      <th>役職</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td><a th:href="@{'/shitenMaster/detail?id=' + ${entity.shitenmaster.id}}" th:text="${entity.shitenmaster.shitenname}">name</a></td>
  		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.age}">name</a></td>
 		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.koinname}">name</a></td>
+		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.yakushokuname}">name</a></td>
 		    </tr>
 	    </table>
+		<div class="w-100 m-2">
+			<!-- ページング -->
+			<form method="post" th:action="@{/haizokuMaster/pagenate}" th:object="${page}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li th:if="${!page.first}" class="page-item">
+			      <a th:href="@{/haizokuMaster/pagenate(page = ${page.number} - 1)}" class="page-link" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			        <span class="sr-only">Previous</span>
+			      </a>
+			    </li>
+			    <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" class="page-item">
+			    	<a th:if="${i} == ${page.number}" th:text="${i + 1}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    	<a th:if="${i} != ${page.number}" th:href="@{/haizokuMaster/pagenate(page = ${i})}" class="page-link"><span th:text="${i+1}">1</span></a>
+			    </li>
+			    <li th:if="${!page.last}" class="page-item">
+			      <a th:href="@{/haizokuMaster/pagenate(page = (${page.number} + 1))}" class="page-link" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			        <span class="sr-only">Next</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+			</form>
+			<!-- ページング -->
+		</div>
 	    <a href="/" class="btn btn-outline-secondary">戻る</a>
 	</div>
 </div>

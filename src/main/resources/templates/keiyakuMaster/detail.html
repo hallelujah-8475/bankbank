@@ -72,6 +72,15 @@
 					<input type="hidden" class="form-control-plaintext" name="koinid" th:field="*{koinid}">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>添付ファイル</label>
+				</td>
+				<td>
+					<img th:src="${'data:image/png;base64,'+image}" alt="">
+					<input type="hidden" name="filedata" th:field="*{filedata}">
+				</td>
+			</tr>
 		</table>
 		<div class="mb-3">
 			<a th:href="@{'/keiyakuMaster/edit?id=' + ${keiyakuMasterForm.id}}" class="btn btn-outline-secondary">編集</a>

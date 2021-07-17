@@ -36,7 +36,7 @@ public class AccessLogService {
 		DateTimeFormatter dtformat1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String fdate1 = dtformat1.format(date1);
 
-		 accesslog.setActsystemuserid(1);
+//		 accesslog.setActsystemuserid(1);
 		 accesslog.setActdatetime(fdate1);
 		 accesslog.setActcontent(content);
 		 accesslog.setActresult(result);

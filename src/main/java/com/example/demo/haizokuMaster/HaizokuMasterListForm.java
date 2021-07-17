@@ -2,36 +2,35 @@ package com.example.demo.haizokuMaster;
 
 import java.io.Serializable;
 
+import com.example.demo.constant.Yakushoku;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class HaizokuMasterListForm implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Getter
+	@Setter
 	private String koinname;
 
+	@Getter
+	@Setter
 	private int shitenid;
 
+	@Getter
+	@Setter
 	private String age;
 
-	public String getKoinname() {
-		return koinname;
-	}
+	@Getter
+	@Setter
+	private int yakushoku;
 
-	public void setKoinname(String koinname) {
-		this.koinname = koinname;
-	}
+	public String getYakushokuname() {
 
-	public String getAge() {
-		return age;
+		return Yakushoku.getLabel(this.yakushoku);
 	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public int getShitenid() {
-		return shitenid;
-	}
-
-	public void setShitenid(int shitenid) {
-		this.shitenid = shitenid;
-	}
-
 }

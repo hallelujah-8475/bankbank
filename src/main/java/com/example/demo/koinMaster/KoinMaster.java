@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.example.demo.constant.BushoKbn;
+import com.example.demo.constant.Yakushoku;
 import com.example.demo.shitenMaster.ShitenMaster;
 
 import lombok.Data;
@@ -74,6 +75,21 @@ public class KoinMaster implements Serializable {
 	public String getBushoname() {
 
 		return BushoKbn.getLabel(this.busho);
+	}
+
+	@Getter
+	@Setter
+	@Column
+	private int tenkinflg;
+
+	@Getter
+	@Setter
+	@Column
+	private int yakushoku;
+
+	public String getYakushokuname() {
+
+		return Yakushoku.getLabel(this.yakushoku);
 	}
 
 }

@@ -13,6 +13,8 @@ import lombok.Setter;
 @Data
 public class KeiyakuMasterForm implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Getter
 	@Setter
 	protected Long id;
@@ -63,6 +65,19 @@ public class KeiyakuMasterForm implements Serializable {
 	@Getter
 	@Setter
 	private String shohinname;
+
+	@Getter
+	@Setter
+	private byte[] filedata;
+
+	@Getter
+	@Setter
+	private String filename;
+
+	@Getter
+	@Setter
+	private String filedataString;
+
 
 
 }

@@ -52,6 +52,15 @@ function returnDetail() {
 						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<label>金利</label>
+					</td>
+					<td>
+						<input type="number" name="kinri" th:field="*{kinri}">
+						<span th:if="${#fields.hasErrors('kinri')}" th:errors="*{kinri}">エラー</span>
+					</td>
+				</tr>
 			</table>
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">

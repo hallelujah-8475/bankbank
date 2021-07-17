@@ -2,6 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/component :: head('タイムカード')}"></head>
 <script>
+$(function() {
+
+	var param = location.search;
+
+	if(param == '?fromDevice') {
+
+	 	 $(function() {
+	 		  var h = $(window).height();
+
+	 		  $('#wrap').css('display','none');
+	 		  $('#loader-bg ,#loader').height(h).css('display','block');
+	 	});
+
+ 		$(window).load(function () {
+
+ 			const d1 = new Date();
+ 			while (true) {
+ 			  const d2 = new Date();
+ 			  if (d2 - d1 > 3000) {
+ 			    break;
+ 			  }
+ 			}
+
+ 			 $('#loader-bg').delay(900).fadeOut(800);
+ 			 $('#loader').delay(600).fadeOut(300);
+
+ 			 $('#wrap').css('display', 'block');
+ 		});
+	}
+})
+
 function entryCheck(id, workstarttime) {
 
 	var resultString = '';
@@ -20,6 +51,14 @@ function entryCheck(id, workstarttime) {
 }
 </script>
 <body>
+<div class="container">
+	<div id="loader-bg">
+	  <div id="loader">
+			<img id="keiyakuLogo" src="/images/timecard_logo.png">
+	  </div>
+	</div>
+</div>
+<div id="wrap">
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('タイムカード')}"></th:block>
@@ -45,5 +84,6 @@ function entryCheck(id, workstarttime) {
 	</div>
 </div>
 <footer th:replace="~{layout/component :: footer}"></footer>
+</div>
 </body>
 </html>

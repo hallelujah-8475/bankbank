@@ -14,9 +14,48 @@ function returnEdit() {
 	<th:block th:replace="~{layout/component :: container_top('商品')}"></th:block>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/shohinMaster/finish}" th:object="${shohinMasterForm}">
-		<input type="text" readonly class="form-control-plaintext" name="id" th:field="*{id}">
-		<input type="text" readonly class="form-control-plaintext" name="shohinid" th:field="*{shohinid}">
-		<input type="text" readonly class="form-control-plaintext" name="name" th:field="*{name}">
+		<table class="table table-bordered">
+			<th:block th:if="${id}">
+			<tr>
+				<td>
+					<label>ID</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${id}">
+					<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+			</th:block>
+			<tr>
+				<td>
+					<label>商品ID</label>
+				</td>
+				<td>
+					<span th:text="*{shohinid}"></span>
+					<input type="hidden" name="shohinid" th:field="*{shohinid}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>商品名</label>
+				</td>
+				<td>
+					<span th:text="*{name}"></span>
+					<input type="hidden" name="name" th:field="*{name}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>金利</label>
+				</td>
+				<td>
+					<span th:text="*{kinri}"></span>
+					<input type="hidden" name="kinri" th:field="*{kinri}">
+				</td>
+			</tr>
+		</table>
 		<div class="mb-3">
 			<input type="submit" value="送信" class="btn btn-outline-secondary">
 			<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnEdit()">

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.constant.BushoKbn;
+import com.example.demo.constant.Yakushoku;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterService;
 import com.example.demo.systemUser.PagenationHelper;
@@ -65,7 +66,12 @@ public class KoinMasterController {
         model.addAttribute("optionMapList", optionMap);
     }
 
-	private void setBushoSelectTag(Model model) {
+    private void setYakushokuSelectTag(Model model) {
+
+    	model.addAttribute("yakushokuList", Yakushoku.getOptionMap());
+    }
+
+    private void setBushoSelectTag(Model model) {
 
 		model.addAttribute("bushoList", BushoKbn.getOptionMap());
 	}
@@ -112,6 +118,7 @@ public class KoinMasterController {
 
 		this.setSelectTag(model);
 		this.setBushoSelectTag(model);
+		this.setYakushokuSelectTag(model);
 
 		return "/koinMaster/edit";
 	}
@@ -120,6 +127,8 @@ public class KoinMasterController {
 	public String editCheck(@Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result,
 			HttpSession session) {
 
+		var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
+		koinMasterForm.setShitenname(entity.getShitenname());
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
 		if (result.hasErrors()) {
@@ -197,6 +206,7 @@ public class KoinMasterController {
 
 		this.setSelectTag(model);
 		this.setBushoSelectTag(model);
+		this.setYakushokuSelectTag(model);
 
 		return "/koinMaster/edit";
 	}

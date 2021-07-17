@@ -5,10 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +36,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 public class TaioMasterController {
@@ -242,87 +239,38 @@ public class TaioMasterController {
 	}
 
 	@RequestMapping(value = "/taioMaster/report", method = RequestMethod.GET)
-	public String getReport(HttpServletResponse response, HttpSession session) {
+	public String getReport(HttpServletResponse response, HttpSession session) throws FileNotFoundException, IOException, JRException {
 
 		TaioMasterForm sessionEditForm = (TaioMasterForm) session.getAttribute("taioMasterForm");
-
 		var taioMaster = taioMasterRepository.findById(sessionEditForm.getId()).get();
 
-		/**▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼　データ作成部　▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼**/
-        //ヘッダーデータ作成
+		// パラメータ
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("Client_name", "山本証券");
+        params.put("Client_name", Integer.toString(taioMaster.getKoinid()));
 
-        //フィールドデータ作成
-//        SampleProductDao dao = new SampleProductDao();
-//        List<SampleProductModel> fields = dao.findByAll();
-        List<String> fields = new ArrayList<String>();
-        fields.add("テスト");
+        // ファイル読み込み
+        InputStream input = new FileInputStream(resource.getResource("classpath:report/Blank_A4.jrxml").getFile());
 
-        /**▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲　データ作成部　▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲**/
-        /**▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼　帳票出力部　▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼**/
-        //データを検索し帳票を出力
-        byte[] output  = OrderReporting2(params, fields);
-        /**▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲　データ作成部　▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲**/
+        // コンパイル
+        JasperReport jasperReport = JasperCompileManager.compileReport(input);
 
-        /**▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼　データ作成データダウンロード部 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼**/
+        // 生成
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+        // byteで出力
+        byte[] byteData = JasperExportManager.exportReportToPdf(jasperPrint);
+
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=" + "sample.pdf");
-        response.setContentLength(output.length);
+        response.setContentLength(byteData.length);
 
         OutputStream os = null;
-        try {
-            os = response.getOutputStream();
-            os.write(output);
-            os.flush();
 
-            os.close();
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-        /**▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲　データ作成部　▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲**/
-
+        os = response.getOutputStream();
+        os.write(byteData);
+        os.flush();
+        os.close();
 
         return null;
 	}
-
-	/**
-     * ジャスパーレポートコンパイル。バイナリファイルを返却する。
-     * @param data
-     * @param response
-     * @return
-     */
-	private byte[] OrderReporting2(HashMap<String, Object> param, List<String> data) {
-        InputStream input;
-        try {
-            //帳票ファイルを取得
-            input = new FileInputStream(resource.getResource("classpath:report/Blank_A4.jrxml").getFile());
-            //リストをフィールドのデータソースに
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
-            //帳票をコンパイル
-            JasperReport jasperReport = JasperCompileManager.compileReport(input);
-
-            JasperPrint jasperPrint;
-            //パラメーターとフィールドデータを注入
-            jasperPrint = JasperFillManager.fillReport(jasperReport, param, new JREmptyDataSource());
-            //帳票をByte形式で出力
-            return  JasperExportManager.exportReportToPdf(jasperPrint);
-
-        } catch (FileNotFoundException e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
-        } catch (JRException e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-    }
-
 }

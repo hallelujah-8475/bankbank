@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.example.demo.shohinMaster.ShohinMaster;
 
@@ -75,4 +78,15 @@ public class KeiyakuMaster implements Serializable {
 	@JoinColumn(name = "shohinid", referencedColumnName = "shohinid", insertable = false, updatable = false)
 	private ShohinMaster shohinmaster;
 
+	@Getter
+	@Setter
+	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
+	@Column(name="filedata")
+	private byte[] filedata;
+
+	@Getter
+	@Setter
+	@Column
+	private String filename;
 }

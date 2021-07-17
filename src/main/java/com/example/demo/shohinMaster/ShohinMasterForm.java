@@ -6,37 +6,31 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class ShohinMasterForm implements Serializable {
 
-	private Long id;
+	private static final long serialVersionUID = 1L;
 
+	@Getter
+	@Setter
+	private int id;
+
+	@Getter
+	@Setter
 	@NotBlank
 	private String name;
 
+	@Getter
+	@Setter
 	@NotNull
 	private int shohinid;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getShohinid() {
-		return shohinid;
-	}
-
-	public void setShohinid(int shohinid) {
-		this.shohinid = shohinid;
-	}
+	@Getter
+	@Setter
+	@NotNull
+	private int kinri;
 }

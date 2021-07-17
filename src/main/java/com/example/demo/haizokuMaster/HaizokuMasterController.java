@@ -52,7 +52,7 @@ public class HaizokuMasterController {
         model.addAttribute("optionMapList", optionMap);
     }
 	@RequestMapping(value = "/haizokuMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		HaizokuMasterListForm haizokuMasterListForm = (HaizokuMasterListForm) session.getAttribute("haizokuMasterListForm");
 
@@ -61,7 +61,7 @@ public class HaizokuMasterController {
 
 	@RequestMapping(value = "/haizokuMaster/list")
 	public String list(Model model, @ModelAttribute("haizokuMasterListForm") HaizokuMasterListForm haizokuMasterListForm,
-			@PageableDefault(page = 0, size = 5) Pageable pageable) {
+			@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		if(request.getParameter("fromMenu") != null) {
 

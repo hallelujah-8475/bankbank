@@ -1,23 +1,28 @@
 package com.example.demo.keiyakuMaster;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.clientMaster.ClientMaster;
 import com.example.demo.clientMaster.ClientMasterService;
@@ -101,7 +106,8 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session) {
+	private String detail(@RequestParam(name = "id", required = false) Long id,
+			@ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session,Model model) {
 
 		if(id == null) {
 			// 新規登録
@@ -109,17 +115,14 @@ public class KeiyakuMasterController {
 			// 更新
 			var keiyakuMaster =keiyakuMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(keiyakuMaster, keiyakuMasterForm);
+
 			keiyakuMasterForm.setId(id);
-			keiyakuMasterForm.setKeiyakuid(keiyakuMaster.getKeiyakuid());
-			keiyakuMasterForm.setShohinid(keiyakuMaster.getShohinid());
-			keiyakuMasterForm.setPrice(keiyakuMaster.getPrice());
-			keiyakuMasterForm.setKinri(keiyakuMaster.getKinri());
-			keiyakuMasterForm.setReturnlimit(keiyakuMaster.getReturnlimit());
-			keiyakuMasterForm.setClientid(keiyakuMaster.getClientid());
-			keiyakuMasterForm.setKoinid(keiyakuMaster.getKoinid());
 			keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMaster.getKoinid()).getKoinname());
 			keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMaster.getClientid()).getName());
-			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getClientid()).getName());
+			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getShohinid()).getName());
+
+			model.addAttribute("image", Base64.getEncoder().encodeToString(keiyakuMaster.getFiledata()));
 		}
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
@@ -136,17 +139,12 @@ public class KeiyakuMasterController {
 			// 更新
 			var keiyakuMaster =keiyakuMasterRepository.findById(id).get();
 
+			BeanUtils.copyProperties(keiyakuMaster, keiyakuMasterForm);
+
 			keiyakuMasterForm.setId(id);
-			keiyakuMasterForm.setKeiyakuid(keiyakuMaster.getKeiyakuid());
-			keiyakuMasterForm.setShohinid(keiyakuMaster.getShohinid());
-			keiyakuMasterForm.setPrice(keiyakuMaster.getPrice());
-			keiyakuMasterForm.setKinri(keiyakuMaster.getKinri());
-			keiyakuMasterForm.setReturnlimit(keiyakuMaster.getReturnlimit());
-			keiyakuMasterForm.setClientid(keiyakuMaster.getClientid());
-			keiyakuMasterForm.setKoinid(keiyakuMaster.getKoinid());
 			keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMaster.getKoinid()).getKoinname());
 			keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMaster.getClientid()).getName());
-			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getClientid()).getName());
+			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getShohinid()).getName());
 		}
 
 		this.setShohinSelectTag(model);
@@ -159,9 +157,20 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping("/keiyakuMaster/editCheck")
-	public String editCheck(HttpSession session, @Validated @ModelAttribute KeiyakuMasterForm keiyakuMasterForm, BindingResult result) {
+	public String editCheck(@RequestParam("filedata") MultipartFile file, HttpSession session, @Validated @ModelAttribute KeiyakuMasterForm keiyakuMasterForm, BindingResult result, Model model) throws IOException {
+
+		keiyakuMasterForm.setFilename(StringUtils.cleanPath(file.getOriginalFilename()));
+
+		keiyakuMasterForm.setFiledataString(Base64.getEncoder().encodeToString(file.getBytes()));
+
+		model.addAttribute("image", keiyakuMasterForm.getFiledataString());
+
+		keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMasterForm.getShohinid()).getName());
+		keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMasterForm.getClientid()).getName());
+		keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMasterForm.getKoinid()).getKoinname());
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
+
 
 //		if(result.hasErrors()) {
 //			return "/keiyakuMaster/edit";
@@ -171,26 +180,20 @@ public class KeiyakuMasterController {
 	}
 
 	@PostMapping("/keiyakuMaster/finish")
-	public String finish(HttpSession session) {
-		var sessionEditForm = (KeiyakuMasterForm) session.getAttribute("keiyakuMasterForm");
+	public String finish(HttpSession session, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm) {
 
 		var keiyakuMaster = new KeiyakuMaster();
 
-		if(sessionEditForm.getId() == null) {
+		if(keiyakuMasterForm.getId() == null) {
 			int maxId = keiyakuMasterService.findByMaxKeiyakuId();
 
-			keiyakuMaster.setKeiyakuid(maxId + 1);
-		}else {
-			keiyakuMaster.setId(sessionEditForm.getId());
-			keiyakuMaster.setKeiyakuid(sessionEditForm.getKeiyakuid());
+			keiyakuMasterForm.setId((long) 0);
+			keiyakuMasterForm.setKeiyakuid(maxId + 1);
 		}
 
-		keiyakuMaster.setShohinid(sessionEditForm.getShohinid());
-		keiyakuMaster.setPrice(sessionEditForm.getPrice());
-		keiyakuMaster.setKinri(sessionEditForm.getKinri());
-		keiyakuMaster.setReturnlimit(sessionEditForm.getReturnlimit());
-		keiyakuMaster.setClientid(sessionEditForm.getClientid());
-		keiyakuMaster.setKoinid(sessionEditForm.getKoinid());
+		keiyakuMasterForm.setFiledata(Base64.getDecoder().decode(keiyakuMasterForm.getFiledataString()));
+
+		BeanUtils.copyProperties(keiyakuMasterForm, keiyakuMaster);
 
 		this.keiyakuMasterService.save(keiyakuMaster);
 

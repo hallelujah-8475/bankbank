@@ -42,6 +42,13 @@ public class KeiyakuMasterService {
 	            .getSingleResult();
 	}
 
+	public int findByMaxId() {
+
+		return (Integer)entityManager
+				.createQuery("select COALESCE(MAX(id), 0) from KeiyakuMaster")
+				.getSingleResult();
+	}
+
 	public List<KeiyakuMaster> findByKeiyakuRanking() {
 
 		return entityManager
