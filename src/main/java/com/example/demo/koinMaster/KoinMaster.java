@@ -29,12 +29,7 @@ public class KoinMaster implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private long id;
-
-	@Getter
-	@Setter
-	@Column
-	private int koinid;
+	private int id;
 
 	@Getter
 	@Setter

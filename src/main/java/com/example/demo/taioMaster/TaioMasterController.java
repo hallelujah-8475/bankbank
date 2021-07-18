@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.clientMaster.ClientMaster;
+import com.example.demo.clientMaster.ClientMasterRepository;
 import com.example.demo.clientMaster.ClientMasterService;
 import com.example.demo.koinMaster.KoinMaster;
+import com.example.demo.koinMaster.KoinMasterRepository;
 import com.example.demo.koinMaster.KoinMasterService;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterService;
@@ -56,6 +58,12 @@ public class TaioMasterController {
 	private KoinMasterService koinMasterService;
 
 	@Autowired
+	private KoinMasterRepository koinMasterRepository;
+
+	@Autowired
+	private ClientMasterRepository clientMasterRepository;
+
+	@Autowired
     ResourceLoader resource;
 
 	private void setShitenSelectTag(Model model) {
@@ -80,7 +88,7 @@ public class TaioMasterController {
 
 		for(ClientMaster entity : list) {
 
-			optionMap.put(entity.getClientid(), entity.getName());
+			optionMap.put(entity.getId(), entity.getName());
 		}
 
 		model.addAttribute("clientList", optionMap);
@@ -94,7 +102,7 @@ public class TaioMasterController {
 
 		for(KoinMaster entity : list) {
 
-			optionMap.put(entity.getKoinid(), entity.getKoinname());
+			optionMap.put(entity.getId(), entity.getKoinname());
 		}
 
 		model.addAttribute("koinList", optionMap);
@@ -117,8 +125,8 @@ public class TaioMasterController {
 			taioMasterForm.setShitenid(taioMaster.getShitenid());
 			taioMasterForm.setKoinid(taioMaster.getKoinid());
 			taioMasterForm.setShitenname(shitenMasterService.findByShitenid(taioMaster.getShitenid()).getShitenname());
-			taioMasterForm.setKoinname(koinMasterService.findByKoinid(taioMaster.getKoinid()).getKoinname());
-			taioMasterForm.setClientname(clientMasterService.findByClientid(taioMaster.getClientid()).getName());
+			taioMasterForm.setKoinname(koinMasterRepository.findById(taioMaster.getKoinid()).getKoinname());
+			taioMasterForm.setClientname(clientMasterRepository.findById(taioMaster.getClientid()).getName());
 		}
 
 		session.setAttribute("taioMasterForm", taioMasterForm);
@@ -143,8 +151,8 @@ public class TaioMasterController {
 			taioMasterForm.setShitenid(taioMaster.getShitenid());
 			taioMasterForm.setKoinid(taioMaster.getKoinid());
 			taioMasterForm.setShitenname(shitenMasterService.findByShitenid(taioMaster.getShitenid()).getShitenname());
-			taioMasterForm.setKoinname(koinMasterService.findByKoinid(taioMaster.getKoinid()).getKoinname());
-			taioMasterForm.setClientname(clientMasterService.findByClientid(taioMaster.getClientid()).getName());
+			taioMasterForm.setKoinname(koinMasterRepository.findById(taioMaster.getKoinid()).getKoinname());
+			taioMasterForm.setClientname(clientMasterRepository.findById(taioMaster.getClientid()).getName());
 		}
 
 		this.setShitenSelectTag(model);

@@ -2,11 +2,17 @@ package com.example.demo.systemUser;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.demo.koinMaster.KoinMasterRepository;
+
 public class SystemUserDetails implements UserDetails {
+
+	@Autowired
+	private KoinMasterRepository koinMasterRepository;
 
 	private SystemUser systemUser;
 
@@ -26,7 +32,7 @@ public class SystemUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return systemUser.getName();
+		return systemUser.getLoginid();
 	}
 
 	@Override

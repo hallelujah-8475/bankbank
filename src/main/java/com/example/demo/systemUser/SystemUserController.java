@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.accesslog.AccessLogService;
+import com.example.demo.koinMaster.KoinMaster;
+import com.example.demo.koinMaster.KoinMasterRepository;
+import com.example.demo.koinMaster.KoinMasterService;
 import com.opencsv.exceptions.CsvException;
 
 @Controller
@@ -40,6 +45,12 @@ public class SystemUserController {
 	private SystemUserValidator systemUserValidator;
 
 	@Autowired
+	private KoinMasterService koinMasterService;
+
+	@Autowired
+	private KoinMasterRepository koinMasterRepository;
+
+	@Autowired
 	private AccessLogService accessLogService;
 
     @Autowired
@@ -50,18 +61,27 @@ public class SystemUserController {
 		binder.addValidators(systemUserValidator);
 	}
 
-	@RequestMapping(value = "/systemUser/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm, HttpSession session) {
+	private void setKoinSelectTag(Model model) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
-			// 更新
-			var systemUser = systemUserRepository.findById(id).get();
+		var list = koinMasterService.findAll();
 
-			BeanUtils.copyProperties(systemUser, systemUserForm);
-			systemUserForm.setId(id);
+		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
+
+		for(KoinMaster entity : list) {
+
+			optionMap.put(entity.getId(), entity.getKoinname());
 		}
+
+		model.addAttribute("koinList", optionMap);
+	}
+
+	@RequestMapping(value = "/systemUser/detail")
+	private String detail(@RequestParam("id") int id, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm, HttpSession session) {
+
+		// 更新
+		BeanUtils.copyProperties(systemUserRepository.findById(id), systemUserForm);
+
+		systemUserForm.setKoinname(koinMasterRepository.findById(systemUserForm.getKoinid()).getKoinname());
 
 		session.setAttribute("systemUserForm", systemUserForm);
 
@@ -69,25 +89,25 @@ public class SystemUserController {
 	}
 
 	@RequestMapping(value = "/systemUser/edit")
-	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
+		if(id != 0) {
 			// 更新
-			var systemUser = systemUserRepository.findById(id).get();
-
-			BeanUtils.copyProperties(systemUser, systemUserForm);
+			BeanUtils.copyProperties(systemUserRepository.findById(id), systemUserForm);
 			systemUserForm.setId(id);
 		}
 
 		session.setAttribute("systemUserForm", systemUserForm);
+
+		this.setKoinSelectTag(model);
 
 		return "/systemUser/edit";
 	}
 
 	@RequestMapping("/systemUser/editCheck")
 	public String editCheck(@Validated @ModelAttribute SystemUserForm systemUserForm, BindingResult result, HttpSession session) {
+
+		systemUserForm.setKoinname(koinMasterRepository.findById(systemUserForm.getKoinid()).getKoinname());
 
 		session.setAttribute("systemUserForm", systemUserForm);
 
@@ -102,11 +122,6 @@ public class SystemUserController {
 	public String finish(HttpSession session, @ModelAttribute("systemUserForm") SystemUserForm systemUserForm) {
 
 		var systemUser = new SystemUser();
-
-		if(systemUserForm.getId() == null) {
-
-			systemUserForm.setId((long) 0);
-		}
 
 		if(systemUserForm.getRole().equals("")) {
 
@@ -145,7 +160,7 @@ public class SystemUserController {
 	}
 
 	@RequestMapping("/systemUser/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.systemUserRepository.deleteById(id);
 
@@ -161,6 +176,8 @@ public class SystemUserController {
 
 			return "redirect:/systemUser/edit";
 		}
+
+		this.setKoinSelectTag(model);
 
 		model.addAttribute("systemUserForm", sessionEditForm);
 
@@ -198,8 +215,6 @@ public class SystemUserController {
 
         	for(int i = 0; i < splitList.length; i++) {
 
-        		systemUser.setName(splitList[i]);
-        		systemUser.setAge(Integer.parseInt(splitList[++i]));
         		systemUser.setLoginid(splitList[++i]);
         		systemUser.setPassword(splitList[++i]);
         		systemUser.setRole(splitList[++i]);

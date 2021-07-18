@@ -20,10 +20,6 @@ public class KoinMasterForm implements Serializable {
 
 	@Getter
 	@Setter
-	private int koinid;
-
-	@Getter
-	@Setter
 	private String koinname;
 
 	@Getter

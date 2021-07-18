@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface KeiyakuMasterRepository extends JpaRepository<KeiyakuMaster, Long>, JpaSpecificationExecutor<KeiyakuMaster> {
+public interface KeiyakuMasterRepository extends JpaRepository<KeiyakuMaster, Integer>, JpaSpecificationExecutor<KeiyakuMaster> {
 
 	public int countByShoninflg(int shoninflg);
+
+	public KeiyakuMaster findById(int id);
 
 }

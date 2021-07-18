@@ -1,7 +1,6 @@
 package com.example.demo.clientMaster;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,17 +34,6 @@ public class ClientMasterService {
 	public List<ClientMaster> findAll() {
 		return clientMasterRepositry.findAll(Sort.by("id"));
 	}
-
-	public ClientMaster findByClientid (int clientid) {
-
-		return this.clientMasterRepositry.findByClientid(clientid);
-	}
-
-	public Optional<ClientMaster> findById(Long id) {
-
-		return this.clientMasterRepositry.findById(id);
-	}
-
 
 	public int findByMaxClientId() {
 

@@ -33,9 +33,7 @@ public class ShohinMasterController {
 	@RequestMapping(value = "/shohinMaster/detail")
 	private String detail(@RequestParam("id") int id, @ModelAttribute("shohinMasterForm") ShohinMasterForm shohinMasterForm, HttpSession session) {
 
-		var shohinMaster = shohinMasterRepository.findById(id).get();
-
-		BeanUtils.copyProperties(shohinMaster, shohinMasterForm);
+		BeanUtils.copyProperties(shohinMasterRepository.findById(id), shohinMasterForm);
 
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
 
@@ -49,9 +47,7 @@ public class ShohinMasterController {
 			// 新規登録
 		}else {
 			// 更新
-			var shohinMaster = shohinMasterRepository.findById(id).get();
-
-			BeanUtils.copyProperties(shohinMaster, shohinMasterForm);
+			BeanUtils.copyProperties(shohinMasterRepository.findById(id), shohinMasterForm);
 			shohinMasterForm.setId(id);
 		}
 
@@ -77,12 +73,6 @@ public class ShohinMasterController {
 
 		var shohinMaster = new ShohinMaster();
 
-		if (shohinMasterForm.getId() == 0) {
-			int maxId = shohinMasterService.findByMaxShohinId();
-
-			shohinMasterForm.setShohinid(maxId + 1);
-		}
-
 		BeanUtils.copyProperties(shohinMasterForm, shohinMaster);
 
 		this.shohinMasterService.save(shohinMaster);
@@ -99,7 +89,7 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping(value = "/shohinMaster/list")
-	public String list(Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		session.setAttribute("shohinMasterListForm", shohinMasterListForm);
 
@@ -113,7 +103,7 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping("/shohinMaster/delete")
-	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.shohinMasterRepository.deleteById(id);
 

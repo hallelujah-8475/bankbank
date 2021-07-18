@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface SystemUserRepository extends JpaRepository<SystemUser, Long>, JpaSpecificationExecutor<SystemUser> {
+public interface SystemUserRepository extends JpaRepository<SystemUser, Integer>, JpaSpecificationExecutor<SystemUser> {
 
-	SystemUser findByLoginidEquals(String loginid);
+	SystemUser findByLoginid(String loginid);
+
+	SystemUser findById(int id);
+
+	SystemUser findByKoinid(int koinid);
 
 	public Page<SystemUser> findAll(Specification<SystemUser> specification, Pageable pageable);
 }

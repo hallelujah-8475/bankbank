@@ -55,6 +55,6 @@ public class TimeCard {
 	@Getter
 	@Setter
 	@OneToOne
-	@JoinColumn(name = "koinid", referencedColumnName = "koinid", insertable = false, updatable = false)
+	@JoinColumn(name = "koinid", referencedColumnName = "id", insertable = false, updatable = false)
 	private KoinMaster koinmaster;
 }

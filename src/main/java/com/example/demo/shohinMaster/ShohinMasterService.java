@@ -35,18 +35,6 @@ public class ShohinMasterService {
 		return shohinMasterRepositry.findAll(Sort.by("id"));
 	}
 
-	public ShohinMaster findByShohinid(int shohinid) {
-
-		return this.shohinMasterRepositry.findByShohinid(shohinid);
-	}
-
-	public int findByMaxShohinId() {
-
-		return (Integer)entityManager
-	            .createQuery("select COALESCE(MAX(shohinid), 0) from ShohinMaster")
-	            .getSingleResult();
-	}
-
     public Page<ShohinMaster> findUsers(ShohinMasterListForm shohinMasterListForm, Pageable pageable) {
 
     	return shohinMasterRepositry.findAll(Specification

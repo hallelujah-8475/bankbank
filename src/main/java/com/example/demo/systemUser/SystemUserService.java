@@ -1,7 +1,6 @@
 package com.example.demo.systemUser;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,16 +28,6 @@ public class SystemUserService {
 	public List<SystemUser> findAll() {
 		return systemUserRepositry.findAll(Sort.by("id"));
     }
-
-	public Optional<SystemUser> findById(Long id) {
-
-		return this.systemUserRepositry.findById(id);
-	}
-
-	public SystemUser findByLoginId(String loginid) {
-
-		return this.systemUserRepositry.findByLoginidEquals(loginid);
-	}
 
     public Page<SystemUser> findUsers(SystemUserListForm systemUserListForm, Pageable pageable) {
 

@@ -111,7 +111,7 @@ public class TimeCardController {
 
         	var timeCard = new TimeCard();
 
-        	timeCard.setKoinid(target.getKoinid());
+        	timeCard.setKoinid(target.getId());
 
         	timeCard.setWorkdate(insertDate);
 

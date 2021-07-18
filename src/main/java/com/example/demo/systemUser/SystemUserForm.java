@@ -11,15 +11,11 @@ public class SystemUserForm implements Serializable {
 
 	@Getter
 	@Setter
-	private Long id;
+	private int id;
 
 	@Getter
 	@Setter
-	private String name;
-
-	@Getter
-	@Setter
-	private int age;
+	private int koinid;
 
 	@Getter
 	@Setter
@@ -32,5 +28,9 @@ public class SystemUserForm implements Serializable {
 	@Getter
 	@Setter
 	private String role;
+
+	@Getter
+	@Setter
+	private String koinname;
 
 }

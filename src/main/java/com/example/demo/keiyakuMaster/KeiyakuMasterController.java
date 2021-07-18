@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.clientMaster.ClientMaster;
+import com.example.demo.clientMaster.ClientMasterRepository;
 import com.example.demo.clientMaster.ClientMasterService;
 import com.example.demo.koinMaster.KoinMaster;
+import com.example.demo.koinMaster.KoinMasterRepository;
 import com.example.demo.koinMaster.KoinMasterService;
 import com.example.demo.shohinMaster.ShohinMaster;
+import com.example.demo.shohinMaster.ShohinMasterRepository;
 import com.example.demo.shohinMaster.ShohinMasterService;
 import com.example.demo.systemUser.PagenationHelper;
 
@@ -42,10 +45,19 @@ public class KeiyakuMasterController {
 	private ClientMasterService clientMasterService;
 
 	@Autowired
+	private ClientMasterRepository clientMasterRepository;
+
+	@Autowired
 	private KoinMasterService koinMasterService;
 
 	@Autowired
+	private KoinMasterRepository koinMasterRepository;
+
+	@Autowired
 	private ShohinMasterService shohinMasterService;
+
+	@Autowired
+	private ShohinMasterRepository shohinMasterRepository;
 
 	@Autowired
 	private KeiyakuMasterRepository keiyakuMasterRepository;
@@ -72,7 +84,7 @@ public class KeiyakuMasterController {
 
 		for(ShohinMaster entity : list) {
 
-			optionMap.put(entity.getShohinid(), entity.getName());
+			optionMap.put(entity.getId(), entity.getName());
 		}
 
 		model.addAttribute("shohinList", optionMap);
@@ -85,7 +97,7 @@ public class KeiyakuMasterController {
 
 		for(ClientMaster entity : list) {
 
-			optionMap.put(entity.getClientid(), entity.getName());
+			optionMap.put(entity.getId(), entity.getName());
 		}
 
 		model.addAttribute("clientList", optionMap);
@@ -99,28 +111,25 @@ public class KeiyakuMasterController {
 
 		for(KoinMaster entity : list) {
 
-			optionMap.put(entity.getKoinid(), entity.getKoinname());
+			optionMap.put(entity.getId(), entity.getKoinname());
 		}
 
 		model.addAttribute("koinList", optionMap);
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id,
+	private String detail(@RequestParam("id") int id,
 			@ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session,Model model) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
+		if(id != 0) {
 			// 更新
-			var keiyakuMaster =keiyakuMasterRepository.findById(id).get();
+			var keiyakuMaster =keiyakuMasterRepository.findById(id);
 
 			BeanUtils.copyProperties(keiyakuMaster, keiyakuMasterForm);
 
-			keiyakuMasterForm.setId(id);
-			keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMaster.getKoinid()).getKoinname());
-			keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMaster.getClientid()).getName());
-			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getShohinid()).getName());
+			keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMaster.getKoinid()).getKoinname());
+			keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMaster.getClientid()).getName());
+			keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
 
 			model.addAttribute("image", Base64.getEncoder().encodeToString(keiyakuMaster.getFiledata()));
 		}
@@ -131,20 +140,17 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/edit")
-	private String edit(Model model, @RequestParam(name = "id", required = false) Long id, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
+		if(id != 0) {
 			// 更新
-			var keiyakuMaster =keiyakuMasterRepository.findById(id).get();
+			var keiyakuMaster =keiyakuMasterRepository.findById(id);
 
 			BeanUtils.copyProperties(keiyakuMaster, keiyakuMasterForm);
 
-			keiyakuMasterForm.setId(id);
-			keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMaster.getKoinid()).getKoinname());
-			keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMaster.getClientid()).getName());
-			keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMaster.getShohinid()).getName());
+			keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMaster.getKoinid()).getKoinname());
+			keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMaster.getClientid()).getName());
+			keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
 		}
 
 		this.setShohinSelectTag(model);
@@ -165,9 +171,9 @@ public class KeiyakuMasterController {
 
 		model.addAttribute("image", keiyakuMasterForm.getFiledataString());
 
-		keiyakuMasterForm.setShohinname(shohinMasterService.findByShohinid(keiyakuMasterForm.getShohinid()).getName());
-		keiyakuMasterForm.setClientname(clientMasterService.findByClientid(keiyakuMasterForm.getClientid()).getName());
-		keiyakuMasterForm.setKoinname(koinMasterService.findByKoinid(keiyakuMasterForm.getKoinid()).getKoinname());
+		keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName());
+		keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMasterForm.getClientid()).getName());
+		keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname());
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
@@ -183,13 +189,6 @@ public class KeiyakuMasterController {
 	public String finish(HttpSession session, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm) {
 
 		var keiyakuMaster = new KeiyakuMaster();
-
-		if(keiyakuMasterForm.getId() == null) {
-			int maxId = keiyakuMasterService.findByMaxKeiyakuId();
-
-			keiyakuMasterForm.setId((long) 0);
-			keiyakuMasterForm.setKeiyakuid(maxId + 1);
-		}
 
 		keiyakuMasterForm.setFiledata(Base64.getDecoder().decode(keiyakuMasterForm.getFiledataString()));
 
@@ -228,7 +227,7 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping("/keiyakuMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.keiyakuMasterRepository.deleteById(id);
 
@@ -266,9 +265,9 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping("/keiyakuMaster/shonin")
-	public String shonin(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String shonin(@RequestParam("id") int id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-		var keiyakuMaster = keiyakuMasterRepository.findById(id).get();
+		var keiyakuMaster = keiyakuMasterRepository.findById(id);
 
 		keiyakuMaster.setShoninflg(1);
 

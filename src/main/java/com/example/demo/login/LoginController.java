@@ -10,13 +10,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.keiyakuMaster.KeiyakuMasterRepository;
+import com.example.demo.koinMaster.KoinMasterRepository;
 import com.example.demo.news.NewsService;
+import com.example.demo.systemUser.SystemUserRepository;
 
 @Controller
 public class LoginController {
 
 	@Autowired
 	KeiyakuMasterRepository keiyakuMasterRepositry;
+
+	@Autowired
+	KoinMasterRepository koinMasterRepositry;
+
+	@Autowired
+	SystemUserRepository systemUserRepositry;
 
 	@Autowired
     HttpSession session;
@@ -40,9 +48,8 @@ public class LoginController {
 	private String signin(Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        //Principalからログインユーザの情報を取得
-        String userName = auth.getName();
-        model.addAttribute("userName", userName);
+
+        model.addAttribute("userName", auth.getName());
 
     	var miShoninCount = keiyakuMasterRepositry.countByShoninflg(0);
 

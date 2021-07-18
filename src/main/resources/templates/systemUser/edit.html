@@ -22,23 +22,11 @@
 						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 				</th:block>
 				<tr>
+					<td><label>行員</label></td>
 					<td>
-						<label>名前</label>
-						<span class="badge badge-danger">必須</span>
-					</td>
-					<td>
-						<input type="text" name="name" th:field="*{name}">
-						<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>年齢</label>
-						<span class="badge badge-danger">必須</span>
-					</td>
-					<td>
-						<input type="number" name="age" th:field="*{age}" min="18">
-						<span class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">エラー</span>
+						<select name="koinid">
+							<option th:each="entity : ${koinList}" th:value="${entity.key}" th:text="${entity.value}" th:selected="${entity.key} == *{koinid}"></option>
+						</select>
 					</td>
 				</tr>
 				<tr>

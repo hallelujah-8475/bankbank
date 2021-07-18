@@ -30,12 +30,7 @@ public class KeiyakuMaster implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private long id;
-
-	@Getter
-	@Setter
-	@Column
-	private int keiyakuid;
+	private int id;
 
 	@Getter
 	@Setter
@@ -75,7 +70,7 @@ public class KeiyakuMaster implements Serializable {
 	@Getter
 	@Setter
 	@OneToOne
-	@JoinColumn(name = "shohinid", referencedColumnName = "shohinid", insertable = false, updatable = false)
+	@JoinColumn(name = "shohinid", referencedColumnName = "id", insertable = false, updatable = false)
 	private ShohinMaster shohinmaster;
 
 	@Getter

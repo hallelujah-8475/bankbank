@@ -27,10 +27,5 @@ public class ShohinMasterForm implements Serializable {
 	@Getter
 	@Setter
 	@NotNull
-	private int shohinid;
-
-	@Getter
-	@Setter
-	@NotNull
 	private int kinri;
 }

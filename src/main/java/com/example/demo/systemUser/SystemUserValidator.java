@@ -18,14 +18,6 @@ public class SystemUserValidator implements Validator {
 
 		var form = SystemUserForm.class.cast(target);
 
-		if(StringUtils.isBlank(form.getName())) {
-			errors.rejectValue("name", "org.hibernate.validator.constraints.NotBlank.message");
-		}
-
-		if(form.getAge() == 0) {
-			errors.rejectValue("age", "org.hibernate.validator.constraints.NotBlank.message");
-		}
-
 		if(StringUtils.isBlank(form.getLoginid())) {
 			errors.rejectValue("loginid", "org.hibernate.validator.constraints.NotBlank.message");
 		}

@@ -14,22 +14,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.systemUser.SystemUser;
 import com.example.demo.systemUser.SystemUserDetails;
-import com.example.demo.systemUser.SystemUserService;
+import com.example.demo.systemUser.SystemUserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
-    //DBからユーザ情報を検索するメソッドを実装したクラス
 	@Autowired
-	private SystemUserService systemUserService;
+	private SystemUserRepository systemUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String loginid) throws UsernameNotFoundException {
 
-        SystemUser user = systemUserService.findByLoginId(userName);
+        SystemUser systemUser = systemUserRepository.findByLoginid(loginid);
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User" + userName + "was not found in the database");
+        if (systemUser == null) {
+            throw new UsernameNotFoundException("User" + loginid + "was not found in the database");
         }
         //権限のリスト
         //AdminやUserなどが存在するが、今回は利用しないのでUSERのみを仮で設定
@@ -44,9 +43,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         //UserDetailsはインタフェースなのでUserクラスのコンストラクタで生成したユーザオブジェクトをキャスト
 //        UserDetails userDetails = (UserDetails)new User(user.getName(), encoder.encode(user.getPassword()),grantList);
 
-        user.setPassword(encoder.encode(user.getPassword()));
+        systemUser.setPassword(encoder.encode(systemUser.getPassword()));
 
-        var systemUserDetails = new SystemUserDetails(user);
+        var systemUserDetails = new SystemUserDetails(systemUser);
 
         return systemUserDetails;
     }

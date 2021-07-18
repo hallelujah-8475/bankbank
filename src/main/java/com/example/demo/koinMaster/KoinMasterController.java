@@ -77,21 +77,13 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping(value = "/koinMaster/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id,
+	private String detail(@RequestParam("id") int id,
 			@ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm,
 			HttpSession session, Model model) {
 
-		if (id == null) {
-			// 新規登録
-		} else {
-			// 更新
-			var koinMaster = koinMasterRepository.findById(id).get();
-
-			BeanUtils.copyProperties(koinMaster, koinMasterForm);
-			koinMasterForm.setId(id);
-			var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
-			koinMasterForm.setShitenname(entity.getShitenname());
-		}
+		BeanUtils.copyProperties(koinMasterRepository.findById(id), koinMasterForm);
+		var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
+		koinMasterForm.setShitenname(entity.getShitenname());
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
@@ -99,17 +91,14 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping(value = "/koinMaster/edit")
-	private String edit(Model model, @RequestParam(name = "id", required = false) Long id,
+	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id,
 			@ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
 
-		if (id == null) {
+		if (id == 0) {
 			// 新規登録
 		} else {
 			// 更新
-			var koinMaster = koinMasterRepository.findById(id).get();
-
-			BeanUtils.copyProperties(koinMaster, koinMasterForm);
-			koinMasterForm.setId(id);
+			BeanUtils.copyProperties(koinMasterRepository.findById(id), koinMasterForm);
 			var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
 			koinMasterForm.setShitenname(entity.getShitenname());
 		}
@@ -142,13 +131,6 @@ public class KoinMasterController {
 	public String finish(HttpSession session, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm) {
 
 		var koinMaster = new KoinMaster();
-
-		if (koinMasterForm.getId() == null) {
-			int maxId = koinMasterService.findByMaxKoinId();
-
-			koinMasterForm.setId((long) 0);
-			koinMasterForm.setKoinid(maxId + 1);
-		}
 
 		BeanUtils.copyProperties(koinMasterForm, koinMaster);
 
@@ -183,7 +165,7 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping("/koinMaster/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
 			@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.koinMasterRepository.deleteById(id);

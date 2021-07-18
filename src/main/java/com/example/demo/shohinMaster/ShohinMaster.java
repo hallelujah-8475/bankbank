@@ -28,11 +28,6 @@ public class ShohinMaster implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private int shohinid;
-
-	@Getter
-	@Setter
-	@Column
 	private String name;
 
 	@Getter

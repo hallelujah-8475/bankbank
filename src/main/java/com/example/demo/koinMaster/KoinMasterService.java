@@ -1,7 +1,6 @@
 package com.example.demo.koinMaster;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,24 +33,6 @@ public class KoinMasterService {
 
 	public List<KoinMaster> findAll() {
 		return koinMasterRepositry.findAll(Sort.by("id"));
-	}
-
-	public Optional<KoinMaster> findById(Long id) {
-
-		return this.koinMasterRepositry.findById(id);
-	}
-
-	public KoinMaster findByKoinid(int koinid) {
-
-		return this.koinMasterRepositry.findByKoinid(koinid);
-	}
-
-	public int findByMaxKoinId() {
-
-		return (Integer)entityManager
-	            .createQuery("select COALESCE(MAX(koinid), 0) from KoinMaster")
-	            .getSingleResult();
-
 	}
 
     public Page<KoinMaster> findUsers(KoinMasterListForm koinMasterListForm, Pageable pageable) {

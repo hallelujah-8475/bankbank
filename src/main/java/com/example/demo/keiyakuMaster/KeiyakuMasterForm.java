@@ -17,12 +17,7 @@ public class KeiyakuMasterForm implements Serializable {
 
 	@Getter
 	@Setter
-	protected Long id;
-
-	@Getter
-	@Setter
-	@NotNull
-	protected int keiyakuid;
+	protected int id;
 
 	@Getter
 	@Setter
@@ -77,7 +72,4 @@ public class KeiyakuMasterForm implements Serializable {
 	@Getter
 	@Setter
 	private String filedataString;
-
-
-
 }

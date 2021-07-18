@@ -30,16 +30,14 @@ public class ClientMasterController {
     HttpSession session;
 
 	@RequestMapping(value = "/clientMaster/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
+	private String detail(@RequestParam("id") int id, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
+		if(id != 0) {
+
 			// 更新
-			var clientMaster = clientMasterRepository.findById(id).get();
+			var clientMaster = clientMasterRepository.findById(id);
 
 			BeanUtils.copyProperties(clientMaster, clientMasterForm);
-			clientMasterForm.setId(id);
 		}
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
@@ -48,16 +46,13 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping(value = "/clientMaster/edit")
-	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
+	private String edit(@RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
+		if(id != 0) {
 			// 更新
-			var clientMaster = clientMasterRepository.findById(id).get();
+			var clientMaster = clientMasterRepository.findById(id);
 
 			BeanUtils.copyProperties(clientMaster, clientMasterForm);
-			clientMasterForm.setId(id);
 		}
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
@@ -77,13 +72,6 @@ public class ClientMasterController {
 	public String finish(HttpSession session, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm) {
 
 		var clientMaster = new ClientMaster();
-
-		if(clientMasterForm.getId() == null) {
-			int maxId = clientMasterService.findByMaxClientId();
-
-			clientMasterForm.setId((long) 0);
-			clientMasterForm.setClientid(maxId + 1);
-		}
 
 		BeanUtils.copyProperties(clientMasterForm, clientMaster);
 
@@ -115,11 +103,9 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping("/clientMaster/delete")
-	public String delete(Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-		var sessionEditForm = (ClientMasterForm) session.getAttribute("clientMasterForm");
-
-		this.clientMasterRepository.deleteById(sessionEditForm.getId());
+		this.clientMasterRepository.deleteById(id);
 
 		return this.list(model, clientMasterListForm, pageable);
 	}

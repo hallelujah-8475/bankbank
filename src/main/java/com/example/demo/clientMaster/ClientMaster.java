@@ -22,12 +22,7 @@ public class ClientMaster {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
-	private long id;
-
-	@Getter
-	@Setter
-	@Column
-	private int clientid;
+	private int id;
 
 	@Getter
 	@Setter
