@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.constant.BushoKbn;
 import com.example.demo.constant.Yakushoku;
 import com.example.demo.shitenMaster.ShitenMaster;
+import com.example.demo.shitenMaster.ShitenMasterRepository;
 import com.example.demo.shitenMaster.ShitenMasterService;
 import com.example.demo.systemUser.PagenationHelper;
 
@@ -35,6 +36,9 @@ public class KoinMasterController {
 
 	@Autowired
 	private ShitenMasterService shitenMasterService;
+	
+	@Autowired
+	private ShitenMasterRepository shitenMasterRepository;
 
 	@Autowired
 	private KoinMasterRepository koinMasterRepository;
@@ -60,7 +64,7 @@ public class KoinMasterController {
 
         for(ShitenMaster entity : list) {
 
-        	optionMap.put(entity.getShitenid(), entity.getShitenname());
+        	optionMap.put(entity.getId(), entity.getShitenname());
         }
 
         model.addAttribute("optionMapList", optionMap);
@@ -82,7 +86,7 @@ public class KoinMasterController {
 			HttpSession session, Model model) {
 
 		BeanUtils.copyProperties(koinMasterRepository.findById(id), koinMasterForm);
-		var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
+		var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
 		koinMasterForm.setShitenname(entity.getShitenname());
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
@@ -99,7 +103,7 @@ public class KoinMasterController {
 		} else {
 			// 更新
 			BeanUtils.copyProperties(koinMasterRepository.findById(id), koinMasterForm);
-			var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
+			var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
 			koinMasterForm.setShitenname(entity.getShitenname());
 		}
 
@@ -116,7 +120,7 @@ public class KoinMasterController {
 	public String editCheck(@Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result,
 			HttpSession session) {
 
-		var entity = (ShitenMaster) shitenMasterService.findByShitenid(koinMasterForm.getShitenid());
+		var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
 		koinMasterForm.setShitenname(entity.getShitenname());
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
@@ -203,7 +207,7 @@ public class KoinMasterController {
 			return "redirect:/koinMaster/detail";
 		}
 
-		var entity = (ShitenMaster) shitenMasterService.findByShitenid(sessionEditForm.getShitenid());
+		var entity = (ShitenMaster) shitenMasterRepository.findById(sessionEditForm.getShitenid());
 
 		sessionEditForm.setShitenname(entity.getShitenname());
 

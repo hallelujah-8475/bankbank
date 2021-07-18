@@ -87,6 +87,15 @@ function returnEdit() {
 					<input type="hidden" name="filename" th:field="*{filename}">
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label>稟議推薦事由</label>
+				</td>
+				<td>
+					<span th:text="*{ringitext}"></span>
+					<input type="hidden" name="ringitext" th:field="*{ringitext}">
+				</td>
+			</tr>
 		</table>
 		<!-- <img th:src="${'data:image/png;base64,'+image}" alt=""> -->
 		<div class="mb-3">

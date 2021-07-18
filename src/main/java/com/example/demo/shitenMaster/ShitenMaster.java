@@ -16,13 +16,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "shitenmaster")
 public class ShitenMaster implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private int id;
 
 	@Getter
 	@Setter
@@ -78,10 +80,4 @@ public class ShitenMaster implements Serializable{
 	@Setter
 	@Column
 	private String biko;
-
-	@Getter
-	@Setter
-	@Column
-	private int shitenid;
-
 }

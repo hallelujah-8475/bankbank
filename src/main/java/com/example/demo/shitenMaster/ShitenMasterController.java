@@ -41,17 +41,11 @@ public class ShitenMasterController {
     HttpSession session;
 
 	@RequestMapping(value = "/shitenMaster/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
+	private String detail(@RequestParam("id") int id, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
-			// 更新
-			var shitenMaster = shitenMasterRepository.findById(id).get();
+		var shitenMaster = shitenMasterRepository.findById(id);
 
-			BeanUtils.copyProperties(shitenMaster, shitenMasterForm);
-			shitenMasterForm.setId(id);
-		}
+		BeanUtils.copyProperties(shitenMaster, shitenMasterForm);
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
 
@@ -59,16 +53,13 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping(value = "/shitenMaster/edit")
-	private String edit(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
+	private String edit(@RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
+		if(id != 0) {
 			// 更新
-			var shitenMaster = shitenMasterRepository.findById(id).get();
+			var shitenMaster = shitenMasterRepository.findById(id);
 
 			BeanUtils.copyProperties(shitenMaster, shitenMasterForm);
-			shitenMasterForm.setId(id);
 		}
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
@@ -93,14 +84,6 @@ public class ShitenMasterController {
 
 		var shitenMaster = new ShitenMaster();
 
-		if(shitenMasterForm.getId() == null) {
-
-			int maxId = shitenMasterService.findByMaxShitenId();
-
-			shitenMasterForm.setId((long) 0);
-			shitenMasterForm.setShitenid(maxId + 1);
-		}
-
 		BeanUtils.copyProperties(shitenMasterForm, shitenMaster);
 
 		this.shitenMasterService.save(shitenMaster);
@@ -109,7 +92,7 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping(value = "/shitenMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		ShitenMasterListForm shitenMasterListForm = (ShitenMasterListForm)session.getAttribute("shitenMasterListForm");
 
@@ -117,7 +100,7 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping(value = "/shitenMaster/list")
-	public String list(Model model, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		session.setAttribute("shitenMasterListForm", shitenMasterListForm);
 

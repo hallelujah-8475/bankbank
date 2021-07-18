@@ -72,4 +72,8 @@ public class KeiyakuMasterForm implements Serializable {
 	@Getter
 	@Setter
 	private String filedataString;
+	
+	@Getter
+	@Setter
+	private String ringitext;
 }

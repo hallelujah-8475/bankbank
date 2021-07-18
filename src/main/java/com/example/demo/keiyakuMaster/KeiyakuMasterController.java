@@ -1,15 +1,22 @@
 package com.example.demo.keiyakuMaster;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +42,14 @@ import com.example.demo.shohinMaster.ShohinMaster;
 import com.example.demo.shohinMaster.ShohinMasterRepository;
 import com.example.demo.shohinMaster.ShohinMasterService;
 import com.example.demo.systemUser.PagenationHelper;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 @Controller
 public class KeiyakuMasterController {
@@ -67,6 +83,9 @@ public class KeiyakuMasterController {
 
     @Autowired
     HttpSession session;
+    
+	@Autowired
+    ResourceLoader resource;
 
 //	@Autowired
 //	private KeiyakuMasterValidator keiyakuMasterValidator;
@@ -82,6 +101,8 @@ public class KeiyakuMasterController {
 
 		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
 
+		optionMap.put(0, "");
+		
 		for(ShohinMaster entity : list) {
 
 			optionMap.put(entity.getId(), entity.getName());
@@ -95,6 +116,8 @@ public class KeiyakuMasterController {
 
 		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
 
+		optionMap.put(0, "");
+		
 		for(ClientMaster entity : list) {
 
 			optionMap.put(entity.getId(), entity.getName());
@@ -109,6 +132,8 @@ public class KeiyakuMasterController {
 
 		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
 
+		optionMap.put(0, "");
+		
 		for(KoinMaster entity : list) {
 
 			optionMap.put(entity.getId(), entity.getKoinname());
@@ -274,6 +299,42 @@ public class KeiyakuMasterController {
 		keiyakuMasterService.save(keiyakuMaster);
 
 		return this.list(model, keiyakuMasterListForm, pageable);
+	}
+	
+	@RequestMapping(value = "/keiyakuMaster/report", method = RequestMethod.GET)
+	public String getReport(HttpServletResponse response, HttpSession session) throws FileNotFoundException, IOException, JRException {
+
+//		TaioMasterForm sessionEditForm = (TaioMasterForm) session.getAttribute("taioMasterForm");
+//		var taioMaster = taioMasterRepository.findById(sessionEditForm.getId()).get();
+
+		// パラメータ
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("Client_name", "test");
+
+        // ファイル読み込み
+        InputStream input = new FileInputStream(resource.getResource("classpath:report/Blank_A4.jrxml").getFile());
+
+        // コンパイル
+        JasperReport jasperReport = JasperCompileManager.compileReport(input);
+
+        // 生成
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+        // byteで出力
+        byte[] byteData = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=" + "sample.pdf");
+        response.setContentLength(byteData.length);
+
+        OutputStream os = null;
+
+        os = response.getOutputStream();
+        os.write(byteData);
+        os.flush();
+        os.close();
+
+        return null;
 	}
 
 }

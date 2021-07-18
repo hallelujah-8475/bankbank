@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.shitenMaster.ShitenMaster;
+import com.example.demo.shitenMaster.ShitenMasterRepository;
 import com.example.demo.shitenMaster.ShitenMasterService;
 import com.example.demo.systemUser.PagenationHelper;
 
@@ -38,6 +39,9 @@ public class NewsController {
 
 	@Autowired
 	private ShitenMasterService shitenMasterService;
+	
+	@Autowired
+	private ShitenMasterRepository shitenMasterRepository;
 
 	@Autowired
     HttpSession session;
@@ -50,7 +54,7 @@ public class NewsController {
 
         for(ShitenMaster entity : list) {
 
-        	optionMap.put(entity.getShitenid(), entity.getShitenname());
+        	optionMap.put(entity.getId(), entity.getShitenname());
         }
 
         model.addAttribute("optionMapList", optionMap);
@@ -67,7 +71,7 @@ public class NewsController {
 
 			BeanUtils.copyProperties(news, newsForm);
 			newsForm.setId(id);
-			newsForm.setShitenname(shitenMasterService.findByShitenid(newsForm.getShitenid()).getShitenname());
+			newsForm.setShitenname(shitenMasterRepository.findById(newsForm.getShitenid()).getShitenname());
 		}
 
 		session.setAttribute("newsForm", newsForm);
@@ -86,7 +90,7 @@ public class NewsController {
 
 			BeanUtils.copyProperties(news, newsForm);
 			newsForm.setId(id);
-			newsForm.setShitenname(shitenMasterService.findByShitenid(newsForm.getShitenid()).getShitenname());
+			newsForm.setShitenname(shitenMasterRepository.findById(newsForm.getShitenid()).getShitenname());
 		}
 
 		this.setSelectTag(model);

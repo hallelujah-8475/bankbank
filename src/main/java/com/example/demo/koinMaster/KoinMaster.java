@@ -64,7 +64,7 @@ public class KoinMaster implements Serializable {
 	@Getter
 	@Setter
 	@OneToOne
-	@JoinColumn(name = "shitenid", referencedColumnName = "shitenid", insertable = false, updatable = false)
+	@JoinColumn(name = "shitenid", referencedColumnName = "id", insertable = false, updatable = false)
 	private ShitenMaster shitenmaster;
 
 	public String getBushoname() {

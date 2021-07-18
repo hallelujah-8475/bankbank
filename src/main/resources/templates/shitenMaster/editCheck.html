@@ -28,19 +28,6 @@ function returnEdit() {
 			<th:block th:unless="${id}">
 					<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 			</th:block>
-			<th:block th:if="${id}">
-			<tr>
-				<td>
-					<label>支店ID</label>
-				</td>
-				<td>
-					<input type="text" readonly class="form-control-plaintext" id="shitenid" name="shitenid" th:field="*{shitenid}">
-				</td>
-			</tr>
-			</th:block>
-			<th:block th:unless="${shitenid}">
-					<input type="hidden" class="form-control-plaintext" id="shitenid" name="shitenid" th:field="*{shitenid}">
-			</th:block>
 			<tr>
 				<td>
 					<label>名前</label>

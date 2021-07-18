@@ -35,19 +35,6 @@ public class ShitenMasterService {
 		return shitenMasterRepositry.findAll(Sort.by("id"));
 	}
 
-	public ShitenMaster findByShitenid(int shitenid) {
-
-		return this.shitenMasterRepositry.findByShitenid(shitenid);
-	}
-
-	public int findByMaxShitenId() {
-
-		return (Integer)entityManager
-	            .createQuery("select MAX(shitenid) from ShitenMaster")
-	            .getSingleResult();
-
-	}
-
     public Page<ShitenMaster> findUsers(ShitenMasterListForm shitenMasterListForm, Pageable pageable) {
 
 		return shitenMasterRepositry.findAll(Specification

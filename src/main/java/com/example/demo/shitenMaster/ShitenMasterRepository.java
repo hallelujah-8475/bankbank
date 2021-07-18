@@ -6,10 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ShitenMasterRepository extends JpaRepository<ShitenMaster, Long>, JpaSpecificationExecutor<ShitenMaster> {
+public interface ShitenMasterRepository extends JpaRepository<ShitenMaster,  Integer>, JpaSpecificationExecutor<ShitenMaster> {
 
-	public ShitenMaster findById(long id);
-
-	public ShitenMaster findByShitenid(int shitenid);
-
+	public ShitenMaster findById(int id);
 }

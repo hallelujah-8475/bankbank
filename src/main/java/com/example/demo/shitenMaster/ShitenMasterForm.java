@@ -6,10 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class ShitenMasterForm implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
-	private Long id;
+	private int id;
 
 	@Getter
 	@Setter
@@ -54,9 +56,4 @@ public class ShitenMasterForm implements Serializable {
 	@Getter
 	@Setter
 	private String biko;
-
-	@Getter
-	@Setter
-	private int shitenid;
-
 }

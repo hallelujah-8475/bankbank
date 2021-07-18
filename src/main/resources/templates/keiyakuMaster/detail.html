@@ -4,7 +4,8 @@
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
-	<th:block th:replace="~{layout/component :: container_top('契約一覧')}"></th:block>
+	<th:block th:replace="~{layout/component :: container_top('契約詳細')}"></th:block>
+	<a href="/keiyakuMaster/report" class="btn btn-outline-secondary mb-3">帳票出力</a>
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/keiyakuMaster/finish}" th:object="${keiyakuMasterForm}">
 		<table class="table table-bordered">

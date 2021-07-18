@@ -38,7 +38,7 @@ function returnDetail() {
 					<td><label>商品</label></td>
 					<td>
 						<select name="shohinid">
-							<option th:each="entity : ${shohinList}" th:value="${entity.key}" th:text="${entity.value}"></option>
+							<option th:each="entity : ${shohinList}" th:value="${entity.key}" th:text="${#strings.isEmpty(entity.value) ? '選択してください' : entity.value}" th:selected="${entity.key} == *{shohinid}"></option>
 						</select>
 					</td>
 				</tr>
@@ -73,7 +73,7 @@ function returnDetail() {
 					<td><label>顧客</label></td>
 					<td>
 						<select name="clientid">
-							<option th:each="entity : ${clientList}" th:value="${entity.key}" th:text="${entity.value}"></option>
+							<option th:each="entity : ${clientList}" th:value="${entity.key}" th:text="${#strings.isEmpty(entity.value) ? '選択してください' : entity.value}" th:selected="${entity.key} == *{clientid}"></option>
 						</select>
 					</td>
 				</tr>
@@ -81,7 +81,7 @@ function returnDetail() {
 					<td><label>行員</label></td>
 					<td>
 						<select name="koinid">
-							<option th:each="entity : ${koinList}" th:value="${entity.key}" th:text="${entity.value}"></option>
+							<option th:each="entity : ${koinList}" th:value="${entity.key}" th:text="${#strings.isEmpty(entity.value) ? '選択してください' : entity.value}" th:selected="${entity.key} == *{koinid}"></option>
 						</select>
 					</td>
 				</tr>
@@ -89,6 +89,13 @@ function returnDetail() {
 					<td><label>添付ファイル</label></td>
 					<td>
 						<input type="file" name="filedata" th:field="*{filedata}">
+					</td>
+				</tr>
+				<tr>
+					<td><label>稟議推薦事由</label></td>
+					<td>
+						<textarea name="ringitext" th:field="*{ringitext}"></textarea>
+						<span th:if="${#fields.hasErrors('ringitext')}" th:errors="*{ringitext}">エラー</span>
 					</td>
 				</tr>
 			</table>

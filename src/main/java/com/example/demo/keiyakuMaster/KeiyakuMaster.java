@@ -24,6 +24,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "keiyakumaster")
 public class KeiyakuMaster implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
@@ -84,4 +86,9 @@ public class KeiyakuMaster implements Serializable {
 	@Setter
 	@Column
 	private String filename;
+	
+	@Getter
+	@Setter
+	@Column
+	private String ringitext;
 }

@@ -46,7 +46,7 @@ public class HaizokuMasterController {
 
         for(ShitenMaster entity : list) {
 
-        	optionMap.put(entity.getShitenid(), entity.getShitenname());
+        	optionMap.put(entity.getId(), entity.getShitenname());
         }
 
         model.addAttribute("optionMapList", optionMap);
