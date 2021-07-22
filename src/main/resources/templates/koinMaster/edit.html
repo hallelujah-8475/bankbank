@@ -39,19 +39,6 @@ function returnDetail() {
 				<th:block th:unless="${id}">
 						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 				</th:block>
-				<th:block th:if="${id}">
-				<tr>
-					<td>
-						<label>行員ID</label>
-					</td>
-					<td>
-						<input type="text" readonly class="form-control-plaintext" id="koinid" name="koinid" th:field="*{koinid}">
-					</td>
-				</tr>
-				</th:block>
-				<th:block th:unless="${id}">
-						<input type="hidden" class="form-control-plaintext" id="koinid" name="koinid" th:field="*{koinid}">
-				</th:block>
 				<tr>
 					<td>
 						<label>名前</label>

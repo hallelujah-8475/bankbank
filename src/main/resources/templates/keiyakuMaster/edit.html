@@ -35,6 +35,13 @@ function returnDetail() {
 					</td>
 				</tr>
 				<tr>
+					<td><label>区分</label></td>
+					<td>
+						<input type="radio" name="keiyakukbn" value="1" th:checked="${keiyakuMasterForm.keiyakukbn} == 1">融資
+						<input type="radio" name="keiyakukbn" value="2" th:checked="${keiyakuMasterForm.keiyakukbn} == 2">預金
+					</td>
+				</tr>
+				<tr>
 					<td><label>商品</label></td>
 					<td>
 						<select name="shohinid">
@@ -67,6 +74,22 @@ function returnDetail() {
 					<td>
 						<input type="date" name="returnlimit" th:field="*{returnlimit}">
 						<span th:if="${#fields.hasErrors('returnlimit')}" th:errors="*{returnlimit}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>資金使途</label>
+					</td>
+					<td>
+						<input type="text" name="shikinshitotext" th:field="*{shikinshitotext}">
+						<span th:if="${#fields.hasErrors('shikinshitotext')}" th:errors="*{shikinshitotext}">エラー</span>
+					</td>
+				</tr>
+				<tr>
+					<td><label>効果と展望</label></td>
+					<td>
+						<textarea name="kokatext" th:field="*{kokatext}"></textarea>
+						<span th:if="${#fields.hasErrors('kokatext')}" th:errors="*{kokatext}">エラー</span>
 					</td>
 				</tr>
 				<tr>

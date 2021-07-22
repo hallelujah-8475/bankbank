@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,15 +32,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.clientMaster.ClientMaster;
 import com.example.demo.clientMaster.ClientMasterRepository;
-import com.example.demo.clientMaster.ClientMasterService;
-import com.example.demo.koinMaster.KoinMaster;
+import com.example.demo.helper.Common;
 import com.example.demo.koinMaster.KoinMasterRepository;
-import com.example.demo.koinMaster.KoinMasterService;
-import com.example.demo.shohinMaster.ShohinMaster;
 import com.example.demo.shohinMaster.ShohinMasterRepository;
-import com.example.demo.shohinMaster.ShohinMasterService;
 import com.example.demo.systemUser.PagenationHelper;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -58,20 +53,11 @@ public class KeiyakuMasterController {
 	private KeiyakuMasterService keiyakuMasterService;
 
 	@Autowired
-	private ClientMasterService clientMasterService;
-
-	@Autowired
 	private ClientMasterRepository clientMasterRepository;
 
 	@Autowired
-	private KoinMasterService koinMasterService;
-
-	@Autowired
 	private KoinMasterRepository koinMasterRepository;
-
-	@Autowired
-	private ShohinMasterService shohinMasterService;
-
+	
 	@Autowired
 	private ShohinMasterRepository shohinMasterRepository;
 
@@ -86,6 +72,9 @@ public class KeiyakuMasterController {
     
 	@Autowired
     ResourceLoader resource;
+	
+	@Autowired
+	Common common;
 
 //	@Autowired
 //	private KeiyakuMasterValidator keiyakuMasterValidator;
@@ -94,53 +83,6 @@ public class KeiyakuMasterController {
 //	public void initBinder(WebDataBinder binder) {
 //		binder.addValidators(keiyakuMasterValidator);
 //	}
-
-	private void setShohinSelectTag(Model model) {
-
-		var list = shohinMasterService.findAll();
-
-		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
-
-		optionMap.put(0, "");
-		
-		for(ShohinMaster entity : list) {
-
-			optionMap.put(entity.getId(), entity.getName());
-		}
-
-		model.addAttribute("shohinList", optionMap);
-	}
-	private void setClientSelectTag(Model model) {
-
-		var list = clientMasterService.findAll();
-
-		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
-
-		optionMap.put(0, "");
-		
-		for(ClientMaster entity : list) {
-
-			optionMap.put(entity.getId(), entity.getName());
-		}
-
-		model.addAttribute("clientList", optionMap);
-	}
-
-	private void setKoinSelectTag(Model model) {
-
-		var list = koinMasterService.findAll();
-
-		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
-
-		optionMap.put(0, "");
-		
-		for(KoinMaster entity : list) {
-
-			optionMap.put(entity.getId(), entity.getKoinname());
-		}
-
-		model.addAttribute("koinList", optionMap);
-	}
 
 	@RequestMapping(value = "/keiyakuMaster/detail")
 	private String detail(@RequestParam("id") int id,
@@ -178,9 +120,9 @@ public class KeiyakuMasterController {
 			keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
 		}
 
-		this.setShohinSelectTag(model);
-		this.setClientSelectTag(model);
-		this.setKoinSelectTag(model);
+		model.addAttribute("shohinList", common.setShohinSelectTag());
+		model.addAttribute("clientList", common.setClientSelectTag());
+		model.addAttribute("koinList", common.setKoinSelectTag());
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
@@ -199,9 +141,8 @@ public class KeiyakuMasterController {
 		keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName());
 		keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMasterForm.getClientid()).getName());
 		keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname());
-
+		
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
-
 
 //		if(result.hasErrors()) {
 //			return "/keiyakuMaster/edit";
@@ -234,7 +175,7 @@ public class KeiyakuMasterController {
 
 	@RequestMapping(value = "/keiyakuMaster/list")
 	public String list(Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
-
+		
 		session.setAttribute("keiyakuMasterListForm", keiyakuMasterListForm);
 
 		if(request.getParameter("fromMenu") != null) {
@@ -304,15 +245,26 @@ public class KeiyakuMasterController {
 	@RequestMapping(value = "/keiyakuMaster/report", method = RequestMethod.GET)
 	public String getReport(HttpServletResponse response, HttpSession session) throws FileNotFoundException, IOException, JRException {
 
-//		TaioMasterForm sessionEditForm = (TaioMasterForm) session.getAttribute("taioMasterForm");
-//		var taioMaster = taioMasterRepository.findById(sessionEditForm.getId()).get();
+		var keiyakuMasterForm = (KeiyakuMasterForm) session.getAttribute("keiyakuMasterForm");
 
+		var keiyakuMaster = keiyakuMasterRepository.findById(keiyakuMasterForm.getId());
+		
 		// パラメータ
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("Client_name", "test");
-
+        
+        params.put("printdate", new SimpleDateFormat("yyyy年MM月dd日").format(new Date()));
+        params.put("moshikominin", keiyakuMaster.getClientid() != 0 ? clientMasterRepository.findById(keiyakuMaster.getClientid()).getName() : "");
+        params.put("naiyo", keiyakuMaster.getKeiyakukbn() != 0 && keiyakuMasterForm.getShohinid() != 0 ? "【" + keiyakuMaster.getKeiyakukbnlabel() + "】" + shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName() : "");        
+        params.put("kingaku", keiyakuMaster.getPrice() != 0 ? "¥" + keiyakuMaster.getPrice() : "");        
+        params.put("kinri", keiyakuMaster.getKinri() != 0 ? keiyakuMaster.getKinri() + "％" : "");        
+        params.put("hensaikigen", !org.apache.commons.lang3.StringUtils.isBlank(keiyakuMaster.getReturnlimit()) ? keiyakuMaster.getReturnlimit().replaceFirst("-", "年").replaceFirst("-", "月") + "日" : "");        
+        params.put("shikinshito", !org.apache.commons.lang3.StringUtils.isBlank(keiyakuMaster.getShikinshitotext()) ? keiyakuMaster.getShikinshitotext() : "");        
+        params.put("kokatotenbo", !org.apache.commons.lang3.StringUtils.isBlank(keiyakuMaster.getKokatext()) ? keiyakuMaster.getKokatext() : "");        
+        params.put("ringisuisenjiyu", !org.apache.commons.lang3.StringUtils.isBlank(keiyakuMaster.getRingitext()) ? keiyakuMaster.getRingitext() : "");        
+        params.put("tanto", keiyakuMasterForm.getKoinid() != 0 ? koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname() : "");        
+       
         // ファイル読み込み
-        InputStream input = new FileInputStream(resource.getResource("classpath:report/Blank_A4.jrxml").getFile());
+        InputStream input = new FileInputStream(resource.getResource("classpath:report/template.jrxml").getFile());
 
         // コンパイル
         JasperReport jasperReport = JasperCompileManager.compileReport(input);

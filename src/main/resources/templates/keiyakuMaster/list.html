@@ -106,16 +106,18 @@ function shonin(id) {
 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>ID</th>
+		      <th>契約区分</th>
 		      <th>返済期限</th>
 		      <th>金額</th>
 		      <th>商品</th>
 		      <th></th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		      <td ><a th:href="@{'/keiyakuMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
-		      <td th:text="${entity.returnlimit}">age</td>
-		      <td th:text="${entity.price}">age</td>
-		      <td th:text="${entity.shohinmaster.name}">age</td>
+		      <td ><a th:href="@{'/keiyakuMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}"></a></td>
+		      <td th:text="${entity.keiyakukbnlabel}"></td>
+		      <td th:text="${entity.returnlimit}"></td>
+		      <td th:text="${entity.price}"></td>
+		      <td th:text="${entity.shohinmaster.name}"></td>
 		      <td><input type="button" value="承認" th:disabled="${entity.shoninflg == 1}" th:attr="onclick='shonin(' + ${entity.id} + ');'"></td>
 		    </tr>
 	    </table>

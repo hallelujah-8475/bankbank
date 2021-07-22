@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface TimeCardRepository extends JpaRepository<TimeCard, Long> {
+public interface TimeCardRepository extends JpaRepository<TimeCard, Integer> {
 
 	List<TimeCard> findByWorkdateEqualsOrderById(String workdate);
+	
+	TimeCard findById(int id);
 }

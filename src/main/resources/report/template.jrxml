@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6118af73-d564-4d82-b59c-4b134a34a0c0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="printdate" class="java.lang.String"/>
+	<parameter name="moshikominin" class="java.lang.String"/>
+	<parameter name="naiyo" class="java.lang.String"/>
+	<parameter name="kingaku" class="java.lang.String"/>
+	<parameter name="kinri" class="java.lang.String"/>
+	<parameter name="hensaikigen" class="java.lang.String"/>
+	<parameter name="shikinshito" class="java.lang.String"/>
+	<parameter name="kokatotenbo" class="java.lang.String"/>
+	<parameter name="ringisuisenjiyu" class="java.lang.String"/>
+	<parameter name="tanto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="稟議計画書" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="98" width="450" height="29" uuid="44641a20-7805-4427-8439-21140f0753f9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{naiyo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="0" width="123" height="30" uuid="62c9489c-71b0-4b0e-a9f0-969e376ceea7"/>
+				<textElement>
+					<font fontName="IPAexg" size="23"/>
+				</textElement>
+				<text><![CDATA[稟議計画書]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="97" width="550" height="1" uuid="b4754095-6364-443c-8696-a9636aad56c7"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="98" width="78" height="29" uuid="3313cfd8-b7db-4d84-a2e2-9c239162a4ce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[内容]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="97" width="1" height="144" uuid="b81f0d9d-c8f8-471f-9adf-ea2e50026079"/>
+			</line>
+			<line>
+				<reportElement x="80" y="97" width="1" height="143" uuid="d2d70afb-6f78-461c-aa1f-5f99f9a796d5"/>
+			</line>
+			<line>
+				<reportElement x="2" y="126" width="550" height="1" uuid="92af111f-bdc4-455f-bc3e-51c2fb03be42"/>
+			</line>
+			<line>
+				<reportElement x="551" y="97" width="1" height="143" uuid="99148eea-85bf-4b67-8640-32aba38961c7"/>
+			</line>
+			<line>
+				<reportElement x="1" y="155" width="550" height="1" uuid="30f8f3ff-fb4e-4118-8b69-89fe835e434c"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="127" width="78" height="29" uuid="f774915c-4e22-45b5-8d65-f56e664921a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[金額]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="127" width="450" height="29" uuid="8e97ee5b-725b-42d8-b848-a73f4d0368ff"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{kingaku}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="280" y="78" width="272" height="1" uuid="64696934-3b59-4497-9d96-2263b61e0aac"/>
+			</line>
+			<textField>
+				<reportElement x="370" y="50" width="183" height="29" uuid="c680556d-2dbd-4f3c-b1d7-2187cf3b42a7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{moshikominin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="48" width="78" height="29" uuid="45510465-6101-402a-ae87-4a46bf8e4dac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[申し込み人]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="1" width="183" height="29" uuid="18a60525-a36d-42f8-98b2-62774c90bb68"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{printdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="68" width="78" height="29" uuid="e1b30357-56d0-4b24-acca-bd26dc34b8eb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[1.概要]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="155" width="78" height="29" uuid="7d473555-f2c3-4cf4-bd4e-11efe8c08b81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[金利]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="183" width="550" height="1" uuid="542220f4-7ec5-4a3f-9338-86befc0e5754"/>
+			</line>
+			<textField>
+				<reportElement x="90" y="155" width="450" height="29" uuid="576e976a-82f1-4657-8430-2f92d53b409c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{kinri}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="183" width="78" height="29" uuid="2534e407-2496-4c29-a124-32d92ef5eced"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[返済期限]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="183" width="450" height="29" uuid="e64e3a06-138c-4ca0-b49f-d438a577ae6a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hensaikigen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="210" width="78" height="29" uuid="6d85b071-6b5c-4e26-a3d5-99765bf2051a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[資金使途]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="210" width="550" height="1" uuid="8c4cdae1-29b2-4b14-a209-98b4b4ceda90"/>
+			</line>
+			<textField>
+				<reportElement x="90" y="210" width="450" height="29" uuid="ef929e95-bb72-4fd0-90ce-39fbf22b1fce"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shikinshito}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="240" width="550" height="1" uuid="de558e61-74d5-4dad-8211-a50e68a3b622"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="250" width="89" height="29" uuid="516ad502-b695-416d-b41c-c47e5a58654c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[2.効果と展望]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="350" width="550" height="1" uuid="591c6c6a-0778-4350-9cfe-05dac555a607"/>
+			</line>
+			<line>
+				<reportElement x="1" y="277" width="1" height="73" uuid="6408c84b-4fdf-47eb-8f56-e5a1491363dc"/>
+			</line>
+			<line>
+				<reportElement x="2" y="277" width="550" height="1" uuid="7d44f31d-0760-455f-870e-1538e58da1e5"/>
+			</line>
+			<line>
+				<reportElement x="551" y="278" width="1" height="72" uuid="51467209-b52d-473e-829e-ae37c4e5a62a"/>
+			</line>
+			<textField>
+				<reportElement x="10" y="284" width="530" height="60" uuid="e0ab954e-a112-471c-8290-5647c1748c17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{kokatotenbo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="363" width="89" height="29" uuid="85b9ef87-ca4e-4020-8654-ba9b68cb2a5f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[3.稟議推薦事由]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="650" width="550" height="1" uuid="1f53c918-1964-463b-a88c-6ed99c38d0f5"/>
+			</line>
+			<line>
+				<reportElement x="2" y="390" width="1" height="261" uuid="10d42008-40d7-4391-abe7-f7e1f27d36c3"/>
+			</line>
+			<line>
+				<reportElement x="2" y="390" width="550" height="1" uuid="258a1a63-a822-426c-ab25-e6c4b209f027"/>
+			</line>
+			<line>
+				<reportElement x="552" y="390" width="1" height="261" uuid="54072ca5-f54a-4b42-8a37-e78bc1cfe9f5"/>
+			</line>
+			<textField>
+				<reportElement x="10" y="396" width="530" height="249" uuid="ca49cf58-70de-4194-bddd-223546190609"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ringisuisenjiyu}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="668" width="78" height="29" uuid="404be5fa-451a-415b-a06e-29cd4ae1cfed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[担当]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="697" width="219" height="1" uuid="e52c6382-5ddf-47c4-a944-5fa21552b54c"/>
+			</line>
+			<textField>
+				<reportElement x="79" y="668" width="139" height="29" uuid="5f2b438b-2828-44af-962a-57395abb6712"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexg"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tanto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="235" y="710" width="1" height="92" uuid="78da9558-1224-466c-a57d-d279227c183d"/>
+			</line>
+			<line>
+				<reportElement x="236" y="710" width="79" height="1" uuid="7937cd1f-6960-4bd6-b762-9072f8fceb84"/>
+			</line>
+			<line>
+				<reportElement x="315" y="710" width="1" height="92" uuid="043eb7ee-3dea-4780-971d-fb85849d7926"/>
+			</line>
+			<line>
+				<reportElement x="237" y="740" width="79" height="1" uuid="5c122c8a-cb68-4319-8912-a25cfb96e690"/>
+			</line>
+			<line>
+				<reportElement x="236" y="801" width="79" height="1" uuid="c650b5a5-268c-4585-9f6d-81f4d7e1c4f6"/>
+			</line>
+			<line>
+				<reportElement x="315" y="710" width="1" height="92" uuid="ca73f1fe-7fd1-4b8b-a77b-c0b677ba35d9"/>
+			</line>
+			<line>
+				<reportElement x="315" y="710" width="79" height="1" uuid="ed7e8677-53e7-4be1-aa91-ff1950ec047c"/>
+			</line>
+			<line>
+				<reportElement x="394" y="710" width="1" height="92" uuid="04a35549-9804-4097-88fe-f158d78dfd88"/>
+			</line>
+			<line>
+				<reportElement x="316" y="740" width="79" height="1" uuid="9cd35c4f-6dc1-4861-a248-467aaa7316b3"/>
+			</line>
+			<line>
+				<reportElement x="315" y="801" width="79" height="1" uuid="929d3c7e-2d09-4ac1-84c5-5f6fa6a1b455"/>
+			</line>
+			<line>
+				<reportElement x="395" y="710" width="79" height="1" uuid="ffa96c5d-2063-4824-b10e-827cbce6f4e8"/>
+			</line>
+			<line>
+				<reportElement x="474" y="710" width="1" height="92" uuid="bda9ab3d-96ab-4044-b29f-37505be2afc5"/>
+			</line>
+			<line>
+				<reportElement x="396" y="740" width="79" height="1" uuid="ac70dda5-a5a3-43b1-9899-22beb1f8d56c"/>
+			</line>
+			<line>
+				<reportElement x="395" y="801" width="79" height="1" uuid="db392b16-b3fd-437e-b131-f55e848b19a8"/>
+			</line>
+			<line>
+				<reportElement x="474" y="710" width="79" height="1" uuid="3876069c-280e-4517-9146-7e60d8630934"/>
+			</line>
+			<line>
+				<reportElement x="553" y="710" width="1" height="92" uuid="53e8859b-f935-4293-a3c9-5815c1555d6e"/>
+			</line>
+			<line>
+				<reportElement x="475" y="740" width="79" height="1" uuid="20cbf961-06ed-4a25-bc27-321bb4f20d1a"/>
+			</line>
+			<line>
+				<reportElement x="474" y="801" width="79" height="1" uuid="086bf7e8-a801-4161-8724-8f9ce037a916"/>
+			</line>
+			<staticText>
+				<reportElement x="250" y="710" width="49" height="29" uuid="bcdf95e1-cf6a-4ddf-a5ee-dbe59ea86611"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[担当]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="710" width="49" height="29" uuid="1a7032c9-2cfe-4503-93ff-87d24efd14ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[支店長]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="711" width="49" height="29" uuid="644eb5a2-7f8e-41ea-9d64-4c6b711f2352"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[融資部]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="710" width="49" height="29" uuid="e9393571-80bc-4de8-ae89-1fdfcfc95b56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexg" size="10"/>
+				</textElement>
+				<text><![CDATA[役員]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

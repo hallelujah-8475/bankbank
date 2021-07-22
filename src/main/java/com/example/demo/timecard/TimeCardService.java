@@ -32,14 +32,14 @@ public class TimeCardService {
 		return timeCardRepositry.findAll(Sort.by("id"));
 	}
 
-	public TimeCard findByKoinIdAndWorkDate(int koinid, String date) {
+	public TimeCard findByKoinIdAndWorkDate(int id, String date) {
 
 		TimeCard target = null;
 
 		try {
 			Query query = entityManager
-					.createQuery("from TimeCard where koinid = :koinid AND workdate = :date", TimeCard.class)
-					.setParameter("koinid", koinid)
+					.createQuery("from TimeCard where id = :koinid AND workdate = :date", TimeCard.class)
+					.setParameter("id", id)
 					.setParameter("date", date);
 
 			target = (TimeCard) query.getSingleResult();
@@ -52,14 +52,6 @@ public class TimeCardService {
 
 
         return target;
-	}
-
-	public int findByMaxTimeCardId() {
-
-		return (Integer)entityManager
-	            .createQuery("select COALESCE(MAX(timecardid), 0) from TimeCard")
-	            .getSingleResult();
-
 	}
 
 	public List<String> findForKoinMasterAndTimeCard(String workDate) {

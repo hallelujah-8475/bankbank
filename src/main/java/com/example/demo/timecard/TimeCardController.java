@@ -3,6 +3,7 @@ package com.example.demo.timecard;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +28,7 @@ public class TimeCardController {
 	@RequestMapping(value = "/timecard")
 	private String index(Model model) {
 
-		Date date = new Date();
-		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
-		String insertDate = formatedDate.format(date);
-
-        var list = timeCardRepository .findByWorkdateEqualsOrderById(insertDate);
+        var list = timeCardRepository .findByWorkdateEqualsOrderById(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
 
         model.addAttribute("list", list);
 
@@ -40,60 +37,30 @@ public class TimeCardController {
 
 	@RequestMapping(value = "/timecard/list")
 	public String list(Model model) {
-		Date date = new Date();
-		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
-		String insertDate = formatedDate.format(date);
+		
+        var list = timeCardRepository .findByWorkdateEqualsOrderById(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
 
-        var list = timeCardRepository .findByWorkdateEqualsOrderById(insertDate);
         model.addAttribute("list", list);
+        
         return "/timecard/list";
 	}
 
 	@RequestMapping("/timecard/entry")
-	public String entry(@RequestParam(name = "id", required = false) int id, Model model) {
+	public String entry(@RequestParam("id") int id, Model model) {
 
-		System.out.println(id);
+		String insertTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
 
-		var timeCard = new TimeCard();
-
-		Date date = new Date();
-		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
-		String insertDate = formatedDate.format(date);
-
-		SimpleDateFormat formatedTime = new SimpleDateFormat("HH:mm:ss");
-		String insertTime = formatedTime.format(date);
-
-		var targetTimecard = timeCardService.findByKoinIdAndWorkDate(id, insertDate);
-
-		if(targetTimecard == null) {
-			int maxId = timeCardService.findByMaxTimeCardId();
-
-			timeCard.setTimecardid(maxId + 1);
-
-			timeCard.setKoinid(id);
-
-			timeCard.setWorkdate(insertDate);
+		var timeCard = timeCardRepository.findById(id);
+		
+		if(StringUtils.isBlank(timeCard.getWorkstarttime())) {
 
 	        timeCard.setWorkstarttime(insertTime);
-
 		}else {
-
-			timeCard.setId(targetTimecard.getId());
-
-			timeCard.setTimecardid(targetTimecard.getTimecardid());
-
-			timeCard.setKoinid(targetTimecard.getKoinid());
-
-			timeCard.setWorkdate(targetTimecard.getWorkdate());
-
-	        timeCard.setWorkstarttime(targetTimecard.getWorkstarttime());
 
 	        timeCard.setWorkendtime(insertTime);
 		}
 
-
         this.timeCardService.save(timeCard);
-
 
 		return this.index(model);
 	}
@@ -101,13 +68,9 @@ public class TimeCardController {
 	@RequestMapping("/timecard/reset")
 	public String reset() {
 
-		Date date = new Date();
-		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy/MM/dd");
-		String insertDate = formatedDate.format(date);
+		String insertDate = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 
-        var list = koinMasterService.findAll();
-
-        for(KoinMaster target : list) {
+        for(KoinMaster target : koinMasterService.findAll()) {
 
         	var timeCard = new TimeCard();
 
@@ -115,14 +78,8 @@ public class TimeCardController {
 
         	timeCard.setWorkdate(insertDate);
 
-        	int maxId = timeCardService.findByMaxTimeCardId();
-
-        	timeCard.setTimecardid(maxId + 1);
-
         	this.timeCardService.save(timeCard);
         }
-
-
 
         return "/timecard/list";
 	}

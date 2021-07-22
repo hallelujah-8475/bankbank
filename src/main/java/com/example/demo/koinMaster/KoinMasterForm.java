@@ -63,5 +63,4 @@ public class KoinMasterForm implements Serializable {
 
 		return Yakushoku.getLabel(this.yakushoku);
 	}
-
 }

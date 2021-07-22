@@ -26,6 +26,15 @@ function returnEdit() {
 			</tr>
 			<tr>
 				<td>
+					<label>区分</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{keiyakukbnlabel}">
+					<input type="hidden" name="keiyakukbn" th:field="*{keiyakukbn}">
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label>商品</label>
 				</td>
 				<td>
@@ -49,6 +58,24 @@ function returnEdit() {
 				<td>
 					<input type="text" readonly class="form-control-plaintext" th:field="*{kinri}">
 					<input type="hidden" name="kinri" th:field="*{kinri}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>資金使途</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{shikinshitotext}">
+					<input type="hidden" name="shikinshitotext" th:field="*{shikinshitotext}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>効果と展望</label>
+				</td>
+				<td>
+					<input type="text" readonly class="form-control-plaintext" th:field="*{kokatext}">
+					<input type="hidden" name="kokatext" th:field="*{kokatext}">
 				</td>
 			</tr>
 			<tr>

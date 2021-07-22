@@ -86,5 +86,4 @@ public class KoinMaster implements Serializable {
 
 		return Yakushoku.getLabel(this.yakushoku);
 	}
-
 }

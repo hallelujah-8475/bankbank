@@ -2,9 +2,12 @@ package com.example.demo.keiyakuMaster;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.example.demo.constant.KeiyakuKbn;
 
 import lombok.Data;
 import lombok.Getter;
@@ -76,4 +79,24 @@ public class KeiyakuMasterForm implements Serializable {
 	@Getter
 	@Setter
 	private String ringitext;
+	
+	@Getter
+	@Setter
+	@NotNull
+	protected int keiyakukbn;
+
+	public String getKeiyakukbnlabel() {
+
+		return KeiyakuKbn.getLabel(this.keiyakukbn);
+	}
+	
+	@Getter
+	@Setter
+	@Column
+	private String shikinshitotext;
+	
+	@Getter
+	@Setter
+	@Column
+	private String kokatext;
 }
