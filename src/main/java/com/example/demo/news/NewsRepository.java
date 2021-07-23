@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface NewsRepository extends JpaRepository<News, Long>, JpaSpecificationExecutor<News> {
+public interface NewsRepository extends JpaRepository<News, Integer>, JpaSpecificationExecutor<News> {
 
+	
+	public News findById(int id);
 }

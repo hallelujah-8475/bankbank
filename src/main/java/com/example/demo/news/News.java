@@ -15,13 +15,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "news")
 public class News implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private long id;
+	private int id;
 
 	@Getter
 	@Setter

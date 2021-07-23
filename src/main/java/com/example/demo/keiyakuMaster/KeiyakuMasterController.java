@@ -75,7 +75,7 @@ public class KeiyakuMasterController {
 	
 	@Autowired
 	Common common;
-
+	
 //	@Autowired
 //	private KeiyakuMasterValidator keiyakuMasterValidator;
 //
@@ -136,6 +136,22 @@ public class KeiyakuMasterController {
 
 		keiyakuMasterForm.setFiledataString(Base64.getEncoder().encodeToString(file.getBytes()));
 
+		String contenttype = "";
+		
+		if(!org.apache.commons.lang3.StringUtils.isBlank(keiyakuMasterForm.getFilename())) {
+			
+			String kakuchoshi = keiyakuMasterForm.getFilename().substring(keiyakuMasterForm.getFilename().lastIndexOf("."));	
+			
+			if(kakuchoshi.equals(".jpg")) {
+				
+				contenttype = "image/jpg";
+			}else if(kakuchoshi.equals(".png")) {
+				
+				contenttype = "image/png";
+			}
+		}
+			
+		model.addAttribute("contentype", contenttype);
 		model.addAttribute("image", keiyakuMasterForm.getFiledataString());
 
 		keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName());

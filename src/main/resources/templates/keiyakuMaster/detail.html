@@ -59,6 +59,22 @@
 			</tr>
 			<tr>
 				<td>
+					<label>資金使途</label>
+				</td>
+				<td th:text="*{shikinshitotext}">
+					<input type="hidden" class="form-control-plaintext" name="shikinshitotext" th:field="*{shikinshitotext}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>効果と展望</label>
+				</td>
+				<td dialect:brtext="*{kokatext}">
+					<input type="hidden" class="form-control-plaintext" name="kokatext" th:field="*{kokatext}">
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label>顧客</label>
 				</td>
 				<td th:text="*{clientname}">
@@ -80,6 +96,14 @@
 				<td>
 					<img th:src="${'data:image/png;base64,'+image}" alt="">
 					<input type="hidden" name="filedata" th:field="*{filedata}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>稟議推薦事由</label>
+				</td>
+				<td dialect:brtext="*{ringitext}">
+					<input type="hidden" class="form-control-plaintext" name="ringi" th:field="*{ringitext}">
 				</td>
 			</tr>
 		</table>

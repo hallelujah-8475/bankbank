@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.accesslog.AccessLogService;
+import com.example.demo.CustomDialect;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterRepository;
 import com.example.demo.shitenMaster.ShitenMasterService;
@@ -35,9 +36,6 @@ public class NewsController {
 	private NewsRepository newsRepository;
 
 	@Autowired
-	private AccessLogService accessLogService;
-
-	@Autowired
 	private ShitenMasterService shitenMasterService;
 	
 	@Autowired
@@ -45,6 +43,11 @@ public class NewsController {
 
 	@Autowired
     HttpSession session;
+	
+	 @Bean
+	 CustomDialect customDialect() {
+	   return new CustomDialect();
+	 }
 
     private void setSelectTag(Model model) {
 
@@ -61,18 +64,10 @@ public class NewsController {
     }
 
 	@RequestMapping(value = "/news/detail")
-	private String detail(@RequestParam(name = "id", required = false) Long id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
+	private String detail(@RequestParam("id") int id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
-			// 更新
-			var news = newsRepository.findById(id).get();
-
-			BeanUtils.copyProperties(news, newsForm);
-			newsForm.setId(id);
-			newsForm.setShitenname(shitenMasterRepository.findById(newsForm.getShitenid()).getShitenname());
-		}
+		BeanUtils.copyProperties(newsRepository.findById(id), newsForm);
+		newsForm.setShitenname(shitenMasterRepository.findById(newsForm.getShitenid()).getShitenname());
 
 		session.setAttribute("newsForm", newsForm);
 
@@ -80,16 +75,11 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/edit")
-	private String edit(Model model, @RequestParam(name = "id", required = false) Long id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = false) int id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
 
-		if(id == null) {
-			// 新規登録
-		}else {
-			// 更新
-			var news = newsRepository.findById(id).get();
-
-			BeanUtils.copyProperties(news, newsForm);
-			newsForm.setId(id);
+		if(id != 0) {
+			
+			BeanUtils.copyProperties(newsRepository.findById(id), newsForm);
 			newsForm.setShitenname(shitenMasterRepository.findById(newsForm.getShitenid()).getShitenname());
 		}
 
@@ -154,7 +144,7 @@ public class NewsController {
 	}
 
 	@RequestMapping("/news/delete")
-	public String delete(@RequestParam(name = "id", required = false) Long id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
 
 		this.newsRepository.deleteById(id);
 

@@ -74,7 +74,7 @@ function returnEdit() {
 					<label>効果と展望</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" th:field="*{kokatext}">
+					<span dialect:brtext="*{kokatext}"></span>
 					<input type="hidden" name="kokatext" th:field="*{kokatext}">
 				</td>
 			</tr>
@@ -109,7 +109,7 @@ function returnEdit() {
 					<label>添付ファイル</label>
 				</td>
 				<td>
-					<img th:src="${'data:image/png;base64,'+image}" alt="">
+					<img th:src="${'data:' + contenttype + ';base64,'+image}" alt="">
 					<input type="hidden" name="filedataString" th:value="*{filedataString}">
 					<input type="hidden" name="filename" th:field="*{filename}">
 				</td>
@@ -119,7 +119,7 @@ function returnEdit() {
 					<label>稟議推薦事由</label>
 				</td>
 				<td>
-					<span th:text="*{ringitext}"></span>
+					<span dialect:brtext="*{ringitext}"></span>
 					<input type="hidden" name="ringitext" th:field="*{ringitext}">
 				</td>
 			</tr>
