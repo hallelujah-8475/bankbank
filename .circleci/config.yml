@@ -1,34 +1,18 @@
 version: 2 # CircleCI 2.0 を使用します
-jobs: # 一連のステップ
-  build: # ワークフローを使用しない実行では、エントリポイントとして `build` ジョブが必要です
-
-    working_directory: ~/circleci-demo-java-spring # ステップを実行するディレクトリ
-
-    docker: # Docker でステップを実行します
-      - image: circleci/openjdk:8-jdk-stretch # このイメージをプライマリ コンテナとし、そこですべての `steps` を実行します
-
-    steps: # 一連の実行可能コマンド
-
-      - checkout # ソース コードを作業ディレクトリにチェックアウトします
-
-      - restore_cache: # 初回実行後、または `pom.xml` を変更した場合に、保存されているキャッシュを復元します
-          # 依存関係のキャッシュについては https://circleci.com/ja/docs/2.0/caching/ をお読みください
-          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
-
-      - run: mvn dependency:go-offline # プロジェクトの依存関係を取得します
-
-      - save_cache: # プロジェクトの依存関係を保存します
-          paths:
-            - ~/.m2
-          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
-
-      - run: mvn package # 実際のテストを実行します
-
-      - store_test_results: # テスト メタデータを `target/surefire-reports` ディレクトリからアップロードし、CircleCI ダッシュボードに表示されるようにします 
-      # アップロードしたテスト結果は、テスト サマリー (https://circleci.com/ja/docs/2.0/collect-test-data/) に表示されます
-          path: target/surefire-reports
-
-      - store_artifacts: # uberjar をアーティファクトとして保存します
-      # アップロードしたテスト結果は、アーティファクト (https://circleci.com/ja/docs/2.0/artifacts/) に表示されます
-          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
-      # デプロイの構成例は https://circleci.com/ja/docs/2.0/deployment-integrations/ を参照してください
+jobs:
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 6f:95:78:01:b6:31:da:8d:49:7b:61:f7:a7:cf:7b:14
+      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/アプリ名/deploy-me.sh"
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
