@@ -20,13 +20,13 @@
 	</properties>
 
 	<dependencies>
-		
+
 		<!-- 自動ビルド -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -58,7 +58,10 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -77,7 +80,6 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.4.1</version>
 		</dependency>
-
 		<!-- Jasper Report -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -88,7 +90,7 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			</dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -116,35 +118,43 @@
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
 
-       <dependency>
-        <groupId>org.springframework.session</groupId>
-        <artifactId>spring-session-jdbc</artifactId>
-        </dependency>
-
-        <!-- thymeleafがSpringSecurityのroleを参照するようにする為の設定 -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
 		<dependency>
-		    <groupId>com.opencsv</groupId>
-		    <artifactId>opencsv</artifactId>
-		    <version>5.4</version>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-jdbc</artifactId>
 		</dependency>
 
+		<!-- thymeleafがSpringSecurityのroleを参照するようにする為の設定 -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.4</version>
+		</dependency>
 	</dependencies>
 
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
-
+    <build>
+    	<finalName>bankbank</finalName>
+        <plugins>
+    <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+    </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <configuration>
+          <target>
+            <echo message="copy files"/>
+            <property name="fileDir" value="src/main/resources"/>
+            <copy file="${fileDir}/prod.application.properties" tofile="${fileDir}/application.properties" overwrite="true"/>
+          </target>
+        </configuration>
+      </plugin>
+        </plugins>
+    </build>
 </project>
