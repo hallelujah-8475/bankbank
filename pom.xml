@@ -135,26 +135,34 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7.js2</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
-    <build>
-    	<finalName>bankbank</finalName>
-        <plugins>
-    <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-    </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <configuration>
-          <target>
-            <echo message="copy files"/>
-            <property name="fileDir" value="src/main/resources"/>
-            <copy file="${fileDir}/prod.application.properties" tofile="${fileDir}/application.properties" overwrite="true"/>
-          </target>
-        </configuration>
-      </plugin>
-        </plugins>
-    </build>
+	<build>
+		<finalName>bankbank</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<configuration>
+					<target>
+						<echo message="copy files" />
+						<property name="fileDir" value="src/main/resources" />
+						<copy file="${fileDir}/prod.application.properties"
+							tofile="${fileDir}/application.properties" overwrite="true" />
+					</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
