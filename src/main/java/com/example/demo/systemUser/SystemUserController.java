@@ -85,7 +85,7 @@ public class SystemUserController {
 
 		session.setAttribute("systemUserForm", systemUserForm);
 
-		return "/systemUser/detail";
+		return "systemUser/detail";
 	}
 
 	@RequestMapping(value = "/systemUser/edit")
@@ -101,7 +101,7 @@ public class SystemUserController {
 
 		this.setKoinSelectTag(model);
 
-		return "/systemUser/edit";
+		return "systemUser/edit";
 	}
 
 	@RequestMapping("/systemUser/editCheck")
@@ -112,10 +112,10 @@ public class SystemUserController {
 		session.setAttribute("systemUserForm", systemUserForm);
 
 		if(result.hasErrors()) {
-			return "/systemUser/edit";
+			return "systemUser/edit";
 		}
 
-		return "/systemUser/editCheck";
+		return "systemUser/editCheck";
 	}
 
 	@PostMapping("/systemUser/finish")
@@ -134,7 +134,7 @@ public class SystemUserController {
 
 		accessLogService.save(1, "【システムユーザー】更新", "成功");
 
-		return "/systemUser/finish";
+		return "systemUser/finish";
 	}
 
 	@RequestMapping(value = "/systemUser/pagenate")
@@ -174,14 +174,14 @@ public class SystemUserController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/systemUser/edit";
+			return "redirect:systemUser/edit";
 		}
 
 		this.setKoinSelectTag(model);
 
 		model.addAttribute("systemUserForm", sessionEditForm);
 
-		return "/systemUser/edit";
+		return "systemUser/edit";
 	}
 
 	@RequestMapping("/systemUser/returnDetail")
@@ -196,7 +196,7 @@ public class SystemUserController {
 
 		model.addAttribute("systemUserForm", sessionEditForm);
 
-		return "/systemUser/detail";
+		return "systemUser/detail";
 	}
 
 	@RequestMapping("/systemUser/csvImport")
