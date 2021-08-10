@@ -156,7 +156,7 @@ public class SystemUserController {
         model.addAttribute("systemUserListForm",systemUserListForm);
         model.addAttribute("page",PagenationHelper.createPagenation(list));
 
-        return "/systemUser/list";
+        return "systemUser/list";
 	}
 
 	@RequestMapping("/systemUser/delete")
