@@ -78,7 +78,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.1.0</version>
+			<version>6.4.1</version>
 		</dependency>
 		<!-- Jasper Report -->
 		<dependency>
@@ -136,12 +136,6 @@
 			<version>5.4</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7.js2</version>
-		</dependency>
 
 	</dependencies>
 
