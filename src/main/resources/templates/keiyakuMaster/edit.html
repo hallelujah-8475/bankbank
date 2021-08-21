@@ -2,6 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
 <script>
+$(function() {
+	
+	ctrlByKeiyakuKbn($('input[name="keiyakukbn"]:checked').val());
+});
+
 function deleteCheck() {
 
 	var id = $('#id').val();
@@ -18,14 +23,39 @@ function returnDetail() {
 
 	return false;
 }
+
+function ctrlByKeiyakuKbn(target) {
+
+	switch(Number(target)) {
+		
+	case 1:
+		
+		$('select[name="shohinid"]').attr('disabled', ''); 
+		$('input[name="returnlimit"]').removeAttr('disabled'); 
+		$('input[name="shikinshitotext"]').removeAttr('disabled'); 
+		$('textarea[name="kokatext"]').removeAttr('disabled'); 
+		$('textarea[name="ringitext"]').removeAttr('disabled'); 
+		break;
+		
+	case 2:
+		
+		$('select[name="shohinid"]').removeAttr('disabled');
+		$('input[name="returnlimit"]').attr('disabled', ''); 
+		$('input[name="shikinshitotext"]').attr('disabled', ''); 
+		$('textarea[name="kokatext"]').attr('disabled', ''); 
+		$('textarea[name="ringitext"]').attr('disabled', ''); 
+		break;
+	}
+}
 </script>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('契約一覧')}"></th:block>
 	<div class="row justify-content-start">
-		<form method="post" th:action="@{/keiyakuMaster/editCheck}" th:object="${keiyakuMasterForm}" enctype="multipart/form-data">
+		<form class="w-100" method="post" th:action="@{/keiyakuMaster/editCheck}" th:object="${keiyakuMasterForm}" enctype="multipart/form-data">
 			<table class="table table-bordered">
+				<th:block th:if="${id}">
 				<tr>
 					<td>
 						<label>ID</label>
@@ -34,11 +64,12 @@ function returnDetail() {
 						<input type="text" readonly class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 					</td>
 				</tr>
+				</th:block>
 				<tr>
 					<td><label>区分</label></td>
 					<td>
-						<input type="radio" name="keiyakukbn" value="1" th:checked="${keiyakuMasterForm.keiyakukbn} == 1">融資
-						<input type="radio" name="keiyakukbn" value="2" th:checked="${keiyakuMasterForm.keiyakukbn} == 2">預金
+						<input type="radio" name="keiyakukbn" value="1" th:checked="${keiyakuMasterForm.keiyakukbn} == 1" onChange="ctrlByKeiyakuKbn(this.value)">融資
+						<input type="radio" name="keiyakukbn" value="2" th:checked="${keiyakuMasterForm.keiyakukbn} == 2" onChange="ctrlByKeiyakuKbn(this.value)">預金
 					</td>
 				</tr>
 				<tr>
@@ -81,14 +112,14 @@ function returnDetail() {
 						<label>資金使途</label>
 					</td>
 					<td>
-						<input type="text" name="shikinshitotext" th:field="*{shikinshitotext}">
+						<input class="w-100" type="text" name="shikinshitotext" th:field="*{shikinshitotext}">
 						<span th:if="${#fields.hasErrors('shikinshitotext')}" th:errors="*{shikinshitotext}">エラー</span>
 					</td>
 				</tr>
 				<tr>
 					<td><label>効果と展望</label></td>
 					<td>
-						<textarea name="kokatext" th:field="*{kokatext}"></textarea>
+						<textarea class="w-100" id="keiyakuTextArea" name="kokatext" th:field="*{kokatext}"></textarea>
 						<span th:if="${#fields.hasErrors('kokatext')}" th:errors="*{kokatext}">エラー</span>
 					</td>
 				</tr>
@@ -117,7 +148,7 @@ function returnDetail() {
 				<tr>
 					<td><label>稟議推薦事由</label></td>
 					<td>
-						<textarea name="ringitext" th:field="*{ringitext}"></textarea>
+						<textarea class="w-100" id="keiyakuTextArea" name="ringitext" th:field="*{ringitext}"></textarea>
 						<span th:if="${#fields.hasErrors('ringitext')}" th:errors="*{ringitext}">エラー</span>
 					</td>
 				</tr>

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import com.example.demo.constant.KeiyakuKbn;
+import com.example.demo.koinMaster.KoinMaster;
 import com.example.demo.shohinMaster.ShohinMaster;
 
 import lombok.Data;
@@ -112,4 +113,10 @@ public class KeiyakuMaster implements Serializable {
 	@Setter
 	@Column
 	private String kokatext;
+	
+	@Getter
+	@Setter
+	@OneToOne
+	@JoinColumn(name = "koinid", referencedColumnName = "id", insertable = false, updatable = false)
+	private KoinMaster koinmaster;
 }

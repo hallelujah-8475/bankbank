@@ -132,7 +132,7 @@ public class SystemUserController {
 
 		this.systemUserService.save(systemUser);
 
-		accessLogService.save(1, "【システムユーザー】更新", "成功");
+		accessLogService.save(1, "更新", "成功");
 
 		return "systemUser/finish";
 	}

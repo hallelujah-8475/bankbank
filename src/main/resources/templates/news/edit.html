@@ -6,7 +6,7 @@
 <div class="container">
 	<th:block th:replace="~{layout/component :: container_top('お知らせ')}"></th:block>
 	<div class="row justify-content-start">
-		<form method="post" th:action="@{/news/editCheck}" th:object="${newsForm}">
+		<form class="w-100" method="post" th:action="@{/news/editCheck}" th:object="${newsForm}">
 			<table class="table table-bordered">
 				<th:block th:if="${id}">
 				<tr>
@@ -26,7 +26,7 @@
 						<label>タイトル</label>
 					</td>
 					<td>
-						<input type="text" name="title" th:field="*{title}">
+						<input class="w-100" type="text" name="title" th:field="*{title}">
 						<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">エラー</span>
 					</td>
 				</tr>
@@ -35,7 +35,7 @@
 						<label>内容</label>
 					</td>
 					<td>
-						<textarea name="content" th:field="*{content}"></textarea>
+						<textarea class="w-100" id="newsTextArea" name="content" th:field="*{content}"></textarea>
 						<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">エラー</span>
 					</td>
 				</tr>

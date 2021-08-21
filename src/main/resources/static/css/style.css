@@ -93,3 +93,11 @@ header, footer {
 	width: 50%;
 	margin-top: 30px;
 }
+
+#newsTextArea {
+	height: 300px;
+}
+
+#keiyakuTextArea {
+	height: 300px;
+}

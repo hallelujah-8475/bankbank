@@ -32,7 +32,7 @@ public class TimeCardController {
 
         model.addAttribute("list", list);
 
-		return "/timecard/index";
+		return "timecard/index";
 	}
 
 	@RequestMapping(value = "/timecard/list")
@@ -81,7 +81,7 @@ public class TimeCardController {
         	this.timeCardService.save(timeCard);
         }
 
-        return "/timecard/list";
+        return "timecard/list";
 	}
 
 }

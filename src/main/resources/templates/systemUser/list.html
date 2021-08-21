@@ -69,13 +69,15 @@
 		      <th>ID</th>
 		      <th>氏名</th>
 		      <th>年齢</th>
+		      <th>ログインID</th>
 		      <th>権限</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		      <td ><a th:href="@{'/systemUser/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
-		      <td th:text="${entity.koinmaster.koinname}">name</td>
-		      <td th:text="${entity.koinmaster.age}">age</td>
-		      <td th:text="${entity.role}">age</td>
+		      <td ><a th:href="@{'/systemUser/detail?id=' + ${entity.id}}" th:text="${entity.id}"></a></td>
+		      <td th:text="${entity.koinmaster.koinname}"></td>
+		      <td th:text="${entity.koinmaster.age}"></td>
+		      <td th:text="${entity.loginid}"></td>
+		      <td th:text="${entity.role}"></td>
 		    </tr>
 	    </table>
 		<div class="w-100 m-2">

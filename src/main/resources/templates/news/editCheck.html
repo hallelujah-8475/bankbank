@@ -42,7 +42,7 @@ function returnEdit() {
 					<label>内容</label>
 				</td>
 				<td>
-					<span th:text="*{content}"></span>
+					<span dialect:brtext="*{content}"></span>
 					<input type="hidden" name="content" th:field="*{content}">
 				</td>
 			</tr>
@@ -63,7 +63,7 @@ function returnEdit() {
 					<label>対象支店</label>
 				</td>
 				<td>
-					<span th:text="*{shitenid}"></span>
+					<span th:text="*{shitenname}"></span>
 					<input type="hidden" name="shitenid" th:field="*{shitenid}">
 				</td>
 			</tr>
@@ -72,7 +72,7 @@ function returnEdit() {
 					<label>公開</label>
 				</td>
 				<td>
-					<span th:text="*{kokaiflg}"></span>
+					<span th:text="*{kokaiflg == 1 ? '公開' : '非公開'}"></span>
 					<input type="hidden" name="kokaiflg" th:field="*{kokaiflg}">
 				</td>
 			</tr>

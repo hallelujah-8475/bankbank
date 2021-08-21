@@ -23,7 +23,7 @@ public class AccessLogController {
     HttpSession session;
 
 	@RequestMapping(value = "/accesslog/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		AccessLogListForm accessLogListForm = (AccessLogListForm)session.getAttribute("accesslogListForm");
 
@@ -31,7 +31,7 @@ public class AccessLogController {
 	}
 
 	@RequestMapping(value = "/accesslog/list")
-	public String list(Model model, @ModelAttribute("accesslogListForm") AccessLogListForm accessLogListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("accesslogListForm") AccessLogListForm accessLogListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		session.setAttribute("accesslogListForm", accessLogListForm);
 
@@ -41,7 +41,7 @@ public class AccessLogController {
         model.addAttribute("accesslogListForm",accessLogListForm);
         model.addAttribute("page",PagenationHelper.createPagenation(list));
 
-        return "/accesslog/list";
+        return "accesslog/list";
 	}
 
 }

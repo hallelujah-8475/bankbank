@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
@@ -26,6 +27,9 @@ public class ClientMasterController {
 	@Autowired
 	private ClientMasterRepository clientMasterRepository;
 
+	@Autowired
+	private AccessLogService accessLogService;
+	
     @Autowired
     HttpSession session;
 
@@ -42,7 +46,7 @@ public class ClientMasterController {
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
 
-		return "/clientMaster/detail";
+		return "clientMaster/detail";
 	}
 
 	@RequestMapping(value = "/clientMaster/edit")
@@ -57,7 +61,7 @@ public class ClientMasterController {
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
 
-		return "/clientMaster/edit";
+		return "clientMaster/edit";
 	}
 
 	@RequestMapping("/clientMaster/editCheck")
@@ -65,7 +69,7 @@ public class ClientMasterController {
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
 
-		return "/clientMaster/editCheck";
+		return "clientMaster/editCheck";
 	}
 
 	@PostMapping("/clientMaster/finish")
@@ -77,7 +81,9 @@ public class ClientMasterController {
 
 		this.clientMasterService.save(clientMaster);
 
-		return "/clientMaster/finish";
+		accessLogService.save(4, "更新", "成功");
+		
+		return "clientMaster/finish";
 	}
 
 	@RequestMapping(value = "/clientMaster/pagenate")
@@ -99,7 +105,7 @@ public class ClientMasterController {
         model.addAttribute("clientMasterListForm",clientMasterListForm);
         model.addAttribute("page",PagenationHelper.createPagenation(list));
 
-        return "/clientMaster/list";
+        return "clientMaster/list";
 	}
 
 	@RequestMapping("/clientMaster/delete")
@@ -122,7 +128,7 @@ public class ClientMasterController {
 
 		model.addAttribute("clientMasterForm", sessionEditForm);
 
-		return "/clientMaster/edit";
+		return "clientMaster/edit";
 	}
 
 	@RequestMapping("/clientMaster/returnDetail")
@@ -132,12 +138,12 @@ public class ClientMasterController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/clientMaster/detail";
+			return "redirect:clientMaster/detail";
 		}
 
 		model.addAttribute("clientMasterForm", sessionEditForm);
 
-		return "/clientMaster/detail";
+		return "clientMaster/detail";
 	}
 
 }

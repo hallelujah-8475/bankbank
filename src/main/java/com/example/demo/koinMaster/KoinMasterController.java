@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.constant.BushoKbn;
 import com.example.demo.constant.Yakushoku;
 import com.example.demo.shitenMaster.ShitenMaster;
@@ -46,6 +47,9 @@ public class KoinMasterController {
 	@Autowired
 	private KoinMasterValidator koinMasterValidator;
 
+	@Autowired
+	private AccessLogService accessLogService;
+	
     @Autowired
     HttpSession session;
 
@@ -91,7 +95,7 @@ public class KoinMasterController {
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
-		return "/koinMaster/detail";
+		return "koinMaster/detail";
 	}
 
 	@RequestMapping(value = "/koinMaster/edit")
@@ -113,7 +117,7 @@ public class KoinMasterController {
 		this.setBushoSelectTag(model);
 		this.setYakushokuSelectTag(model);
 
-		return "/koinMaster/edit";
+		return "koinMaster/edit";
 	}
 
 	@RequestMapping("/koinMaster/editCheck")
@@ -125,10 +129,10 @@ public class KoinMasterController {
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
 		if (result.hasErrors()) {
-			return "/koinMaster/edit";
+			return "koinMaster/edit";
 		}
 
-		return "/koinMaster/editCheck";
+		return "koinMaster/editCheck";
 	}
 
 	@PostMapping("/koinMaster/finish")
@@ -140,7 +144,9 @@ public class KoinMasterController {
 
 		this.koinMasterService.save(koinMaster);
 
-		return "/koinMaster/finish";
+		accessLogService.save(3, "更新", "成功");
+		
+		return "koinMaster/finish";
 	}
 
 	@RequestMapping(value = "/koinMaster/pagenate")
@@ -165,7 +171,7 @@ public class KoinMasterController {
 
 		this.setSelectTag(model);
 
-		return "/koinMaster/list";
+		return "koinMaster/list";
 	}
 
 	@RequestMapping("/koinMaster/delete")
@@ -194,7 +200,7 @@ public class KoinMasterController {
 		this.setBushoSelectTag(model);
 		this.setYakushokuSelectTag(model);
 
-		return "/koinMaster/edit";
+		return "koinMaster/edit";
 	}
 
 	@RequestMapping("/koinMaster/returnDetail")
@@ -204,7 +210,7 @@ public class KoinMasterController {
 
 		if (sessionEditForm == null) {
 
-			return "redirect:/koinMaster/detail";
+			return "redirect:koinMaster/detail";
 		}
 
 		var entity = (ShitenMaster) shitenMasterRepository.findById(sessionEditForm.getShitenid());
@@ -213,7 +219,7 @@ public class KoinMasterController {
 
 		model.addAttribute("koinMasterForm", sessionEditForm);
 
-		return "/koinMaster/detail";
+		return "koinMaster/detail";
 	}
 
 }

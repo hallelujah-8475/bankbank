@@ -48,11 +48,10 @@ public class SystemUser implements Serializable {
 	@Setter
 	@Column
 	private String role;
-
+	
 	@Getter
 	@Setter
 	@OneToOne
 	@JoinColumn(name = "koinid", referencedColumnName = "id", insertable = false, updatable = false)
 	private KoinMaster koinmaster;
-
 }

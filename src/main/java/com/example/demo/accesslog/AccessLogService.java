@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class AccessLogService {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	public AccessLog save(long id, String content, String result) {
+	public AccessLog save(int contentNumber, String contentStatus, String result) {
 
 		AccessLog accesslog = new AccessLog();
 
@@ -36,9 +37,50 @@ public class AccessLogService {
 		DateTimeFormatter dtformat1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String fdate1 = dtformat1.format(date1);
 
-//		 accesslog.setActsystemuserid(1);
+		 accesslog.setActsystemuserid(SecurityContextHolder.getContext().getAuthentication().getName());
 		 accesslog.setActdatetime(fdate1);
-		 accesslog.setActcontent(content);
+
+		 String content = "";
+		 
+		 switch(contentNumber) {
+		 
+		 case 1:
+			 
+			 content = "システムユーザー";
+			 break;
+			 
+		 case 2:
+			 
+			 content = "支店";
+			 break;
+			 
+		 case 3:
+			 
+			 content = "行員";
+			 break;
+			 
+		 case 4:
+			 
+			 content = "顧客";
+			 break;
+			 
+		 case 5:
+			 
+			 content = "商品";
+			 break;
+			 
+		 case 6:
+			 
+			 content = "契約";
+			 break;
+			 
+		 case 7:
+			 
+			 content = "お知らせ";
+			 break;
+		 }
+		 
+		 accesslog.setActcontent("【" + content + "】" + contentStatus);
 		 accesslog.setActresult(result);
 
 		return this.accessLogRepository.save(accesslog);

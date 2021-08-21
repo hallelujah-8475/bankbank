@@ -78,6 +78,6 @@ public class HaizokuMasterController {
 
 		this.setSelectTag(model);
 
-		return "/haizokuMaster/list";
+		return "haizokuMaster/list";
 	}
 }

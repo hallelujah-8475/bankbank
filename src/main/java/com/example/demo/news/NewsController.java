@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.CustomDialect;
+import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterRepository;
 import com.example.demo.shitenMaster.ShitenMasterService;
@@ -41,6 +42,9 @@ public class NewsController {
 	@Autowired
 	private ShitenMasterRepository shitenMasterRepository;
 
+	@Autowired
+	private AccessLogService accessLogService;
+	
 	@Autowired
     HttpSession session;
 	
@@ -71,11 +75,11 @@ public class NewsController {
 
 		session.setAttribute("newsForm", newsForm);
 
-		return "/news/detail";
+		return "news/detail";
 	}
 
 	@RequestMapping(value = "/news/edit")
-	private String edit(Model model, @RequestParam(name = "id", required = false) int id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("newsForm") NewsForm newsForm, HttpSession session) {
 
 		if(id != 0) {
 			
@@ -87,19 +91,22 @@ public class NewsController {
 
 		session.setAttribute("newsForm", newsForm);
 
-		return "/news/edit";
+		return "news/edit";
 	}
 
 	@RequestMapping("/news/editCheck")
 	public String editCheck(@Validated @ModelAttribute NewsForm newsForm, BindingResult result, HttpSession session) {
 
+		var entity = (ShitenMaster) shitenMasterRepository.findById(newsForm.getShitenid());
+		newsForm.setShitenname(entity.getShitenname());
+		
 		session.setAttribute("newsForm", newsForm);
 
 //		if(result.hasErrors()) {
-//			return "/news/edit";
+//			return "news/edit";
 //		}
 
-		return "/news/editCheck";
+		return "news/editCheck";
 	}
 
 	@PostMapping("/news/finish")
@@ -115,12 +122,14 @@ public class NewsController {
 		BeanUtils.copyProperties(newsForm, news);
 
 		this.newsService.save(news);
+		
+		accessLogService.save(7, "更新", "成功");
 
-		return "/news/finish";
+		return "news/finish";
 	}
 
 	@RequestMapping(value = "/news/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		NewsListForm newsListForm = (NewsListForm)session.getAttribute("newsListForm");
 
@@ -128,7 +137,7 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/list")
-	public String list(Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		session.setAttribute("newsListForm", newsListForm);
 
@@ -140,11 +149,11 @@ public class NewsController {
 
         this.setSelectTag(model);
 
-        return "/news/list";
+        return "news/list";
 	}
 
 	@RequestMapping("/news/delete")
-	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		this.newsRepository.deleteById(id);
 
@@ -158,14 +167,14 @@ public class NewsController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/news/edit";
+			return "redirect:news/edit";
 		}
 
 		model.addAttribute("newsForm", sessionEditForm);
 
 		this.setSelectTag(model);
 
-		return "/news/edit";
+		return "news/edit";
 	}
 
 	@RequestMapping("/news/returnDetail")
@@ -175,12 +184,12 @@ public class NewsController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/news/detail";
+			return "redirect:news/detail";
 		}
 
 		model.addAttribute("newsForm", sessionEditForm);
 
-		return "/news/detail";
+		return "news/detail";
 	}
 
 }

@@ -16,6 +16,8 @@ import lombok.Setter;
 @Table(name = "accesslog")
 public class AccessLog implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Getter
 	@Setter
 	@Id
@@ -26,7 +28,7 @@ public class AccessLog implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private long actsystemuserid;
+	private String actsystemuserid;
 
 	@Getter
 	@Setter

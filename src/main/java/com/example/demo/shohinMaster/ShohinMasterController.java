@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
@@ -27,6 +28,9 @@ public class ShohinMasterController {
 	@Autowired
 	private ShohinMasterRepository shohinMasterRepository;
 
+	@Autowired
+	private AccessLogService accessLogService;
+	
     @Autowired
     HttpSession session;
 
@@ -37,7 +41,7 @@ public class ShohinMasterController {
 
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
 
-		return "/shohinMaster/detail";
+		return "shohinMaster/detail";
 	}
 
 	@RequestMapping(value = "/shohinMaster/edit")
@@ -53,7 +57,7 @@ public class ShohinMasterController {
 
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
 
-		return "/shohinMaster/edit";
+		return "shohinMaster/edit";
 	}
 
 	@RequestMapping("/shohinMaster/editCheck")
@@ -62,10 +66,10 @@ public class ShohinMasterController {
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
 
 		if(result.hasErrors()) {
-			return "/shohinMaster/edit";
+			return "shohinMaster/edit";
 		}
 
-		return "/shohinMaster/editCheck";
+		return "shohinMaster/editCheck";
 	}
 
 	@PostMapping("/shohinMaster/finish")
@@ -76,8 +80,10 @@ public class ShohinMasterController {
 		BeanUtils.copyProperties(shohinMasterForm, shohinMaster);
 
 		this.shohinMasterService.save(shohinMaster);
+		
+		accessLogService.save(5, "更新", "成功");
 
-		return "/shohinMaster/finish";
+		return "shohinMaster/finish";
 	}
 
 	@RequestMapping(value = "/shohinMaster/pagenate")
@@ -99,7 +105,7 @@ public class ShohinMasterController {
         model.addAttribute("shohinMasterListForm",shohinMasterListForm);
         model.addAttribute("page",PagenationHelper.createPagenation(list));
 
-        return "/shohinMaster/list";
+        return "shohinMaster/list";
 	}
 
 	@RequestMapping("/shohinMaster/delete")
@@ -117,12 +123,12 @@ public class ShohinMasterController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/shohinMaster/edit";
+			return "redirect:shohinMaster/edit";
 		}
 
 		model.addAttribute("shohinMasterForm", sessionEditForm);
 
-		return "/shohinMaster/edit";
+		return "shohinMaster/edit";
 	}
 
 	@RequestMapping("/shohinMaster/returnDetail")
@@ -132,12 +138,12 @@ public class ShohinMasterController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/shohinMaster/detail";
+			return "redirect:shohinMaster/detail";
 		}
 
 		model.addAttribute("shohinMasterForm", sessionEditForm);
 
-		return "/shohinMaster/detail";
+		return "shohinMaster/detail";
 	}
 
 }

@@ -5,17 +5,19 @@
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="row" id="app">
 
-<!-- 	<transition>
-	<div id="overlay" v-show="showContent">
-		<div id="content" class="text-center">
-			<p>契約数ランキング</p>
-			<ul th:each="entity:${rankingList}" class="list-unstyled">
-				<img id="ranking_icon" src="/images/ranking_1.png"><li th:text="${entity[0]}">name</li>
-			</ul>
-			<input type="button" class="btn btn-outline-secondary" v-on:click="closeModal" value="閉じる">
+		<transition>
+		<div id="overlay" v-show="showContent">
+			<div id="content" class="text-center">
+				<p>契約数ランキング</p>
+				<ul th:each="entity, entityStatus : ${rankingList}" class="list-unstyled">
+					<li>第<span th:text="${entityStatus.count}"></span>位</li>
+					<img th:if="${entityStatus.count == 1 || entityStatus.count == 2 ||entityStatus.count == 3}" id="ranking_icon" th:src="@{/images/ranking_{count}.png(count=${entityStatus.count})}">
+					<li th:text="${entity[0]}">name</li>
+				</ul>
+				<input type="button" class="btn btn-outline-secondary" v-on:click="closeModal" value="閉じる">
+			</div>
 		</div>
-	</div>
-	</transition> -->
+		</transition>
 
 	<div class="col-12 col-sm-12 col-lg-12 text-center">
 		<input type="button" class="btn btn-outline-secondary my-3" v-on:click="openModal" value="契約数ランキング">
@@ -31,25 +33,25 @@
 	</div>
 
 	<th:block th:if="${!miShoninCount.equals('0')}">
-	<div class="col-12 col-sm-12 col-lg-12 text-center my-3">
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-12 col-sm-12 col-lg-12 text-center my-3">
 		<p><span class="text-warning">⚠</span>︎未承認の契約が<a href="/keiyakuMaster/list"><span th:text="${miShoninCount}"></span></a>件あります。</p>
 	</div>
 	</th:block>
 
-	<div class="col-12 col-sm-6 col-lg-3">
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/haizokuMaster/list" class="list-group-item list-group-item-action active disabled"><i class="far fa-building pr-2 text-white"></i>配属情報</a>
-			<a href="/haizokuMaster/list?fromMenu" class="list-group-item list-group-item-action">配属情報一覧</a>
-			<a href="/keiyakuMaster/list?fromMenu" class="list-group-item list-group-item-action">契約一覧</a>
+			<a href="/haizokuMaster/list?fromMenu" class="list-group-item list-group-item-action">配属情報</a>
+			<a href="/keiyakuMaster/list?fromMenu" class="list-group-item list-group-item-action">契約</a>
 		</div>
 	</div>
-	<div class="col-12 col-sm-6 col-lg-3">
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/form/list" class="list-group-item list-group-item-action active disabled"><i class="far fa-address-card pr-2 text-white"></i>勤怠情報</a>
-			<a href="/timecard/list" class="list-group-item list-group-item-action">勤怠一覧</a>
+			<a href="/timecard/list" class="list-group-item list-group-item-action">勤怠</a>
 		</div>
 	</div>
-	<div class="col-12 col-sm-6 col-lg-3">
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/form/list" class="list-group-item list-group-item-action active disabled"><i class="fas fa-database pr-2 text-white"></i>マスタ情報</a>
 			<a href="/shitenMaster/list" class="list-group-item list-group-item-action">支店</a>
@@ -58,14 +60,14 @@
 			<a href="/shohinMaster/list" class="list-group-item list-group-item-action">商品</a>
 		</div>
 	</div>
-	<div class="col-12 col-sm-6 col-lg-3">
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/systemUser/list" class="list-group-item list-group-item-action active disabled"><i class="far fa-user pr-2 text-white"></i>システム管理者情報</a>
-			<a href="systemUser/list" class="list-group-item list-group-item-action">システム管理者情報一覧</a>
+			<a href="systemUser/list" class="list-group-item list-group-item-action">システム管理者情報</a>
 			<a href="/accesslog/list" class="list-group-item list-group-item-action">システムアクセスログ</a>
 		</div>
 	</div>
-	<div class="col-12 col-sm-6 col-lg-3">
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-12 col-sm-6 col-lg-3">
 		<div class="menu_container list-group">
 			<a href="/systemUser/list" class="list-group-item list-group-item-action active disabled"><i class="fas fa-rss-square pr-2 text-white"></i>お知らせ</a>
 			<a href="/news/list" class="list-group-item list-group-item-action">お知らせ</a>
@@ -82,9 +84,6 @@ new Vue({
 	  el: '#app',
 	  data: {
 	    showContent: false
-	  },
-	  mounted: function() {
-		  this.openModal()
 	  },
 	  methods:{
 		  openModal: function(){

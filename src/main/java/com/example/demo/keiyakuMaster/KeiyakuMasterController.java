@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.clientMaster.ClientMasterRepository;
 import com.example.demo.helper.Common;
 import com.example.demo.koinMaster.KoinMasterRepository;
@@ -65,6 +66,9 @@ public class KeiyakuMasterController {
 	private KeiyakuMasterRepository keiyakuMasterRepository;
 
 	@Autowired
+	private AccessLogService accessLogService;
+	
+	@Autowired
 	HttpServletRequest request;
 
     @Autowired
@@ -85,8 +89,7 @@ public class KeiyakuMasterController {
 //	}
 
 	@RequestMapping(value = "/keiyakuMaster/detail")
-	private String detail(@RequestParam("id") int id,
-			@ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session,Model model) {
+	private String detail(@RequestParam("id") int id, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session,Model model) {
 
 		if(id != 0) {
 			// 更新
@@ -103,13 +106,16 @@ public class KeiyakuMasterController {
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
-		return "/keiyakuMaster/detail";
+		return "keiyakuMaster/detail";
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/edit")
 	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session) {
 
+		keiyakuMasterForm.setKeiyakukbn(1);
+		
 		if(id != 0) {
+			
 			// 更新
 			var keiyakuMaster =keiyakuMasterRepository.findById(id);
 
@@ -126,7 +132,7 @@ public class KeiyakuMasterController {
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
-		return "/keiyakuMaster/edit";
+		return "keiyakuMaster/edit";
 	}
 
 	@RequestMapping("/keiyakuMaster/editCheck")
@@ -161,10 +167,10 @@ public class KeiyakuMasterController {
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
 //		if(result.hasErrors()) {
-//			return "/keiyakuMaster/edit";
+//			return "keiyakuMaster/edit";
 //		}
 
-		return "/keiyakuMaster/editCheck";
+		return "keiyakuMaster/editCheck";
 	}
 
 	@PostMapping("/keiyakuMaster/finish")
@@ -178,7 +184,9 @@ public class KeiyakuMasterController {
 
 		this.keiyakuMasterService.save(keiyakuMaster);
 
-		return "/keiyakuMaster/finish";
+		accessLogService.save(6, "更新", "成功");
+		
+		return "keiyakuMaster/finish";
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/pagenate")
@@ -205,7 +213,7 @@ public class KeiyakuMasterController {
         model.addAttribute("keiyakuMasterListForm",keiyakuMasterListForm);
         model.addAttribute("page",PagenationHelper.createPagenation(list));
 
-        return "/keiyakuMaster/list";
+        return "keiyakuMaster/list";
 	}
 
 	@RequestMapping("/keiyakuMaster/delete")
@@ -228,7 +236,7 @@ public class KeiyakuMasterController {
 
 		model.addAttribute("keiyakuMasterForm", sessionEditForm);
 
-		return "/keiyakuMaster/edit";
+		return "keiyakuMaster/edit";
 	}
 
 	@RequestMapping("/keiyakuMaster/returnDetail")
@@ -238,12 +246,12 @@ public class KeiyakuMasterController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/keiyakuMaster/detail";
+			return "redirect:keiyakuMaster/detail";
 		}
 
 		model.addAttribute("keiyakuMasterForm", sessionEditForm);
 
-		return "/keiyakuMaster/detail";
+		return "keiyakuMaster/detail";
 	}
 
 	@RequestMapping("/keiyakuMaster/shonin")

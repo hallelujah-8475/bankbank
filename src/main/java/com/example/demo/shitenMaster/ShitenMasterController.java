@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.systemUser.PagenationHelper;
 
 @Controller
@@ -31,6 +32,9 @@ public class ShitenMasterController {
 
 	@Autowired
 	private ShitenMasterValidator shitenMasterValidator;
+	
+	@Autowired
+	private AccessLogService accessLogService;
 
 	@InitBinder("shitenMasterForm")
 	public void initBinder(WebDataBinder binder) {
@@ -49,7 +53,7 @@ public class ShitenMasterController {
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
 
-		return "/shitenMaster/detail";
+		return "shitenMaster/detail";
 	}
 
 	@RequestMapping(value = "/shitenMaster/edit")
@@ -64,7 +68,7 @@ public class ShitenMasterController {
 
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
 
-		return "/shitenMaster/edit";
+		return "shitenMaster/edit";
 	}
 
 	@RequestMapping("/shitenMaster/editCheck")
@@ -73,10 +77,10 @@ public class ShitenMasterController {
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
 
 		if(result.hasErrors()) {
-			return "/shitenMaster/edit";
+			return "shitenMaster/edit";
 		}
 
-		return "/shitenMaster/editCheck";
+		return "shitenMaster/editCheck";
 	}
 
 	@PostMapping("/shitenMaster/finish")
@@ -87,8 +91,10 @@ public class ShitenMasterController {
 		BeanUtils.copyProperties(shitenMasterForm, shitenMaster);
 
 		this.shitenMasterService.save(shitenMaster);
+		
+		accessLogService.save(2, "更新", "成功");
 
-		return "/shitenMaster/finish";
+		return "shitenMaster/finish";
 	}
 
 	@RequestMapping(value = "/shitenMaster/pagenate")
@@ -110,7 +116,7 @@ public class ShitenMasterController {
         model.addAttribute("shitenMasterListForm",shitenMasterListForm);
         model.addAttribute("page",PagenationHelper.createPagenation(list));
 
-        return "/shitenMaster/list";
+        return "shitenMaster/list";
 	}
 
 	@RequestMapping("/shitenMaster/delete")
@@ -130,12 +136,12 @@ public class ShitenMasterController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/shitenMaster/edit";
+			return "redirect:shitenMaster/edit";
 		}
 
 		model.addAttribute("shitenMasterForm", sessionEditForm);
 
-		return "/shitenMaster/edit";
+		return "shitenMaster/edit";
 	}
 
 	@RequestMapping("/shitenMaster/returnDetail")
@@ -145,12 +151,12 @@ public class ShitenMasterController {
 
 		if(sessionEditForm == null) {
 
-			return "redirect:/shitenMaster/detail";
+			return "redirect:shitenMaster/detail";
 		}
 
 		model.addAttribute("shitenMasterForm", sessionEditForm);
 
-		return "/shitenMaster/detail";
+		return "shitenMaster/detail";
 	}
 
 }
