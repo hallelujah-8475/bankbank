@@ -1,5 +1,7 @@
 package com.example.demo.koinMaster;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -20,10 +23,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.accesslog.AccessLogService;
-import com.example.demo.constant.BushoKbn;
-import com.example.demo.constant.Yakushoku;
+import com.example.demo.helper.Common;
 import com.example.demo.shitenMaster.ShitenMaster;
 import com.example.demo.shitenMaster.ShitenMasterRepository;
 import com.example.demo.shitenMaster.ShitenMasterService;
@@ -52,36 +55,13 @@ public class KoinMasterController {
 	
     @Autowired
     HttpSession session;
+    
+	@Autowired
+	Common common;
 
 	@InitBinder("koinMasterForm")
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(koinMasterValidator);
-	}
-
-    private void setSelectTag(Model model) {
-
-        var list = shitenMasterService.findAll();
-
-        Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
-
-        optionMap.put(0, "選択してください");
-
-        for(ShitenMaster entity : list) {
-
-        	optionMap.put(entity.getId(), entity.getShitenname());
-        }
-
-        model.addAttribute("optionMapList", optionMap);
-    }
-
-    private void setYakushokuSelectTag(Model model) {
-
-    	model.addAttribute("yakushokuList", Yakushoku.getOptionMap());
-    }
-
-    private void setBushoSelectTag(Model model) {
-
-		model.addAttribute("bushoList", BushoKbn.getOptionMap());
 	}
 
 	@RequestMapping(value = "/koinMaster/detail")
@@ -92,46 +72,95 @@ public class KoinMasterController {
 		BeanUtils.copyProperties(koinMasterRepository.findById(id), koinMasterForm);
 		var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
 		koinMasterForm.setShitenname(entity.getShitenname());
+		
+		if(koinMasterForm.getFiledata() != null) {
+
+			model.addAttribute("image", Base64.getEncoder().encodeToString(koinMasterForm.getFiledata()));
+		}
 
 		session.setAttribute("koinMasterForm", koinMasterForm);
 
 		return "koinMaster/detail";
 	}
+	
+	
+	   public void setShitenSelectTag(Model model) {
 
+	        var list = shitenMasterService.findAll();
+
+	        Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
+
+	        optionMap.put(0, "選択してください");
+
+	        for(ShitenMaster entity : list) {
+
+	        	optionMap.put(entity.getId(), entity.getShitenname());
+	        }
+
+	        model.addAttribute("shitenList", optionMap);
+	    }
+	   
 	@RequestMapping(value = "/koinMaster/edit")
-	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id,
-			@ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
+	private String edit(Model model, @RequestParam(name = "id", required = true, defaultValue = "0") int id, @ModelAttribute("koinMasterForm") KoinMasterForm koinMasterForm, HttpSession session) {
 
-		if (id == 0) {
-			// 新規登録
-		} else {
+		if (id != 0) {
+			
 			// 更新
 			BeanUtils.copyProperties(koinMasterRepository.findById(id), koinMasterForm);
 			var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
 			koinMasterForm.setShitenname(entity.getShitenname());
 		}
 
+		common.setBushoSelectTag(model);
+		common.setYakushokuSelectTag(model);
+		model.addAttribute("shitenList", common.setShitenSelectTag());
+		
 		session.setAttribute("koinMasterForm", koinMasterForm);
-
-		this.setSelectTag(model);
-		this.setBushoSelectTag(model);
-		this.setYakushokuSelectTag(model);
 
 		return "koinMaster/edit";
 	}
 
 	@RequestMapping("/koinMaster/editCheck")
-	public String editCheck(@Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result,
-			HttpSession session) {
+	public String editCheck(@RequestParam("filedata") MultipartFile file, HttpSession session, @Validated @ModelAttribute KoinMasterForm koinMasterForm, BindingResult result, Model model) throws IOException {
 
-		var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
-		koinMasterForm.setShitenname(entity.getShitenname());
+		koinMasterForm.setFilename(StringUtils.cleanPath(file.getOriginalFilename()));
+
+		koinMasterForm.setFiledataString(Base64.getEncoder().encodeToString(file.getBytes()));
+
+		String contenttype = "";
+		
+		if(!org.apache.commons.lang3.StringUtils.isBlank(koinMasterForm.getFilename())) {
+			
+			String kakuchoshi = koinMasterForm.getFilename().substring(koinMasterForm.getFilename().lastIndexOf("."));	
+			
+			if(kakuchoshi.equals(".jpg")) {
+				
+				contenttype = "image/jpg";
+			}else if(kakuchoshi.equals(".png")) {
+				
+				contenttype = "image/png";
+			}
+		}
+			
+		model.addAttribute("contentype", contenttype);
+		model.addAttribute("image", koinMasterForm.getFiledataString());
+		
+		if(koinMasterForm.getShitenid() != 0) {
+			
+			var entity = (ShitenMaster) shitenMasterRepository.findById(koinMasterForm.getShitenid());
+			koinMasterForm.setShitenname(entity.getShitenname());
+		}
+
 		session.setAttribute("koinMasterForm", koinMasterForm);
-
+		
+		model.addAttribute("shitenList", common.setShitenSelectTag());
+		common.setBushoSelectTag(model);
+		common.setYakushokuSelectTag(model);
+		
 		if (result.hasErrors()) {
 			return "koinMaster/edit";
 		}
-
+		
 		return "koinMaster/editCheck";
 	}
 
@@ -140,6 +169,8 @@ public class KoinMasterController {
 
 		var koinMaster = new KoinMaster();
 
+		koinMasterForm.setFiledata(Base64.getDecoder().decode(koinMasterForm.getFiledataString()));
+		
 		BeanUtils.copyProperties(koinMasterForm, koinMaster);
 
 		this.koinMasterService.save(koinMaster);
@@ -169,7 +200,7 @@ public class KoinMasterController {
 		model.addAttribute("koinMasterListForm", koinMasterListForm);
 		model.addAttribute("page", PagenationHelper.createPagenation(list));
 
-		this.setSelectTag(model);
+		model.addAttribute("shitenList", common.setShitenSelectTag());
 
 		return "koinMaster/list";
 	}
@@ -196,9 +227,9 @@ public class KoinMasterController {
 
 		model.addAttribute("koinMasterForm", sessionEditForm);
 
-		this.setSelectTag(model);
-		this.setBushoSelectTag(model);
-		this.setYakushokuSelectTag(model);
+		model.addAttribute("shitenList", common.setShitenSelectTag());
+		common.setBushoSelectTag(model);
+		common.setYakushokuSelectTag(model);
 
 		return "koinMaster/edit";
 	}

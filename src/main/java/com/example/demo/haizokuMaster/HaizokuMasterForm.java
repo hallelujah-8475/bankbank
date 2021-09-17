@@ -17,36 +17,30 @@ public class HaizokuMasterForm implements Serializable {
 
 	@Getter
 	@Setter
-	private Long id;
+	private int id;
 
 	@Getter
 	@Setter
-	@NotBlank
 	private String name;
 
 	@Getter
 	@Setter
-	@NotNull
 	private int postcode1;
 
 	@Getter
 	@Setter
-	@NotNull
 	private int postcode2;
 
 	@Getter
 	@Setter
-	@NotBlank
 	private String prefecture;
 
 	@Getter
 	@Setter
-	@NotBlank
 	private String address1;
 
 	@Getter
 	@Setter
-	@NotBlank
 	private String address2;
 
 	@Getter

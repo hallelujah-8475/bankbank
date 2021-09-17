@@ -11,5 +11,4 @@ public interface KeiyakuMasterRepository extends JpaRepository<KeiyakuMaster, In
 	public int countByShoninflg(int shoninflg);
 
 	public KeiyakuMaster findById(int id);
-
 }

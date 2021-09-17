@@ -18,6 +18,15 @@
 			</tr>
 			<tr>
 				<td>
+					<label>添付ファイル</label>
+				</td>
+				<td>
+					<img th:src="${'data:image/png;base64,'+image}" class="mw-100" alt="">
+					<input type="hidden" name="filedata" th:field="*{filedata}">
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label>名前</label>
 				</td>
 				<td>

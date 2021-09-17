@@ -49,4 +49,39 @@ public class KeiyakuMasterService {
     										,pageable);
     }
 
+    public long getSumPrice(int shitenid) {
+    	
+    	var sumPrice = entityManager
+        .createQuery("select sum(price) from KeiyakuMaster where shitenid = :shitenid")
+        .setParameter("shitenid", shitenid)
+        .getSingleResult();
+    	
+    	
+    	long sumPriceLong = 0;
+
+    	if(sumPrice != null) {
+    		
+    		sumPriceLong = (long)sumPrice;
+    	}
+    	
+    	return sumPriceLong;
+    }
+    
+    public long getCountKeiyaku(int shitenid) {
+    	
+    	var countKeiyaku = entityManager
+    			.createQuery("select count(*) from KeiyakuMaster where shitenid = :shitenid")
+    			.setParameter("shitenid", shitenid)
+    			.getSingleResult();
+    	
+    	
+    	long countKeiyakuLong = 0;
+    	
+    	if(countKeiyaku != null) {
+    		
+    		countKeiyakuLong = (long)countKeiyaku;
+    	}
+    	
+    	return countKeiyakuLong;
+    }
 }

@@ -130,9 +130,9 @@ function returnDetail() {
 
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">
-				<a href="/shitenMaster/list" class="btn btn-outline-secondary" th:if="${#strings.isEmpty(shitenMasterForm.id)}">戻る</a>
-				<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnDetail();" th:if="${!#strings.isEmpty(shitenMasterForm.id)}">
-				<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();" th:if="${!#strings.isEmpty(shitenMasterForm.id)}">
+				<a href="/shitenMaster/list" class="btn btn-outline-secondary" th:if="${shitenMasterForm.id == 0}">戻る</a>
+				<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnDetail();" th:if="${shitenMasterForm.id != 0}">
+				<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();" th:if="${shitenMasterForm.id != 0}">
 			</div>
 		</form>
 	</div>

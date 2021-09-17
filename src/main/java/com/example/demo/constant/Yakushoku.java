@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Yakushoku {
 
+	public static final int NASHI = 0;
 	public static final int SHUNIN = 1;
 	public static final int KAKARICHO = 2;
 	public static final int DAIRI = 3;
@@ -14,6 +15,7 @@ public class Yakushoku {
 
 	static {
 
+		items.put(NASHI, "なし");
 		items.put(SHUNIN, "主任");
 		items.put(KAKARICHO, "係長");
 		items.put(DAIRI, "代理");
@@ -39,6 +41,7 @@ public class Yakushoku {
 
 		Map<Integer, String> optionMap = new LinkedHashMap<Integer, String>();
 
+		optionMap.put(NASHI, getLabel(NASHI));
     	optionMap.put(SHUNIN, getLabel(SHUNIN));
     	optionMap.put(KAKARICHO, getLabel(KAKARICHO));
     	optionMap.put(DAIRI, getLabel(DAIRI));

@@ -15,7 +15,7 @@
 					</td>
 					<td class="p-2">
 						<select class="w-100" name="shitenid">
-							<option th:each="entity : ${optionMapList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
+							<option th:each="entity : ${shitenList}" th:value="${entity.key}" th:text="${entity.value}" th:field="*{shitenid}"></option>
 						</select>
 					</td>
 					<td class="p-2 text-center">

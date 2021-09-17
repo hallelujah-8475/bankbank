@@ -37,6 +37,10 @@ public class KoinMasterValidator implements Validator {
 		if(StringUtils.isBlank(form.getNyushastartdate())) {
 			errors.rejectValue("nyushastartdate", "org.hibernate.validator.constraints.NotBlank.message");
 		}
+		
+		if(StringUtils.isBlank(form.getHaizokustartdate())) {
+			errors.rejectValue("haizokustartdate", "org.hibernate.validator.constraints.NotBlank.message");
+		}
 
 	}
 }

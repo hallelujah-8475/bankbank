@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('配属情報一覧')}">
+<head th:replace="~{layout/component :: head('配属情報一覧')}"/>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -57,7 +57,36 @@
 			</form>
 			<!-- ページング -->
 		</div>
-		<table class="table table-striped table-sm">
+		<th:content th:each="entity:${list}">
+		    <th:content th:if="${!#strings.isEmpty(entity.shitenname)}">
+	    	<p th:text="${entity.shitenname}"></p>
+	    	<p th:text="${entity.totalPrice}"></p>
+	    	<p th:text="${entity.countKeiyaku}"></p>
+	    	<p th:text="${entity.shitenRank}"></p>
+	    	<div style="border: solid;">
+		    </th:content>
+				<div class="card mb-3 mr-1" style="max-width: 375px;">
+				  <div class="row no-gutters">
+				    <div class="col-lg-6">
+				      <img th:src="${entity.filedataString}" class="card-img" alt="...">
+				    </div>
+				    <div class="col-lg-6">
+				      <div class="card-body">
+				        <h4 class="card-title">
+				        	<a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.koinname}">
+				        	</a>
+				        </h4>
+				        <p class="card-text"><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.yakushokuname}"></a></p>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+		    <th:content th:if="${entity.nextShitenIdSameFlg == 1}">
+		    <p>test</p>
+		    </div>
+		    </th:content>
+		</th:content>
+<!-- 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>支店名</th>
 		      <th>年齢</th>
@@ -70,7 +99,7 @@
 		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.koinname}">name</a></td>
 		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.yakushokuname}">name</a></td>
 		    </tr>
-	    </table>
+	    </table> -->
 		<div class="w-100 m-2">
 			<!-- ページング -->
 			<form method="post" th:action="@{/haizokuMaster/pagenate}" th:object="${page}">

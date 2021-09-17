@@ -5,19 +5,19 @@
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="row" id="app">
 
-		<transition>
-		<div id="overlay" v-show="showContent">
-			<div id="content" class="text-center">
-				<p>契約数ランキング</p>
-				<ul th:each="entity, entityStatus : ${rankingList}" class="list-unstyled">
-					<li>第<span th:text="${entityStatus.count}"></span>位</li>
-					<img th:if="${entityStatus.count == 1 || entityStatus.count == 2 ||entityStatus.count == 3}" id="ranking_icon" th:src="@{/images/ranking_{count}.png(count=${entityStatus.count})}">
-					<li th:text="${entity[0]}">name</li>
-				</ul>
-				<input type="button" class="btn btn-outline-secondary" v-on:click="closeModal" value="閉じる">
-			</div>
+	<transition>
+	<div id="overlay" v-show="showContent">
+		<div id="content" class="text-center">
+			<p>契約数ランキング</p>
+			<ul th:each="entity, entityStatus : ${rankingList}" class="list-unstyled">
+				<li>第<span th:text="${entityStatus.count}"></span>位</li>
+				<img th:if="${entityStatus.count == 1 || entityStatus.count == 2 ||entityStatus.count == 3}" id="ranking_icon" th:src="@{/images/ranking_{count}.png(count=${entityStatus.count})}">
+				<li th:text="${entity[0]}">name</li>
+			</ul>
+			<input type="button" class="btn btn-outline-secondary" v-on:click="closeModal" value="閉じる">
 		</div>
-		</transition>
+	</div>
+	</transition>
 
 	<div class="col-12 col-sm-12 col-lg-12 text-center">
 		<input type="button" class="btn btn-outline-secondary my-3" v-on:click="openModal" value="契約数ランキング">

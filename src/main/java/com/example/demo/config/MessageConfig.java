@@ -25,6 +25,7 @@ public class MessageConfig extends WebMvcAutoConfiguration {
 
 		list.add("classpath:ValidationMessages");
 		list.add("classpath:messages/systemUser");
+		list.add("classpath:messages/clientMaster");
 
 		return list.toArray(new String[list.size()]);
 	}

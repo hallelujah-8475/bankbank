@@ -13,7 +13,7 @@ public class KeiyakuMasterSpecifications {
 
     public Specification<KeiyakuMaster> shoninFlgContains(int shoninFlg) {
 
-        return shoninFlg == 99 ? null : new Specification<KeiyakuMaster>() {
+        return shoninFlg == 99 || shoninFlg == 0 ? null : new Specification<KeiyakuMaster>() {
 
         	@Override
             public Predicate toPredicate(Root<KeiyakuMaster> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {

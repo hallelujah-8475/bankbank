@@ -119,4 +119,9 @@ public class KeiyakuMaster implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "koinid", referencedColumnName = "id", insertable = false, updatable = false)
 	private KoinMaster koinmaster;
+	
+	@Getter
+	@Setter
+	@Column
+	private int shitenid;
 }

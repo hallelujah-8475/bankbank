@@ -25,6 +25,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +66,7 @@ public class KeiyakuMasterController {
 
 	@Autowired
 	private KeiyakuMasterRepository keiyakuMasterRepository;
-
+	
 	@Autowired
 	private AccessLogService accessLogService;
 	
@@ -80,13 +82,13 @@ public class KeiyakuMasterController {
 	@Autowired
 	Common common;
 	
-//	@Autowired
-//	private KeiyakuMasterValidator keiyakuMasterValidator;
-//
-//	@InitBinder
-//	public void initBinder(WebDataBinder binder) {
-//		binder.addValidators(keiyakuMasterValidator);
-//	}
+	@Autowired
+	private KeiyakuMasterValidator keiyakuMasterValidator;
+
+	@InitBinder("keiyakuMasterForm")
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(keiyakuMasterValidator);
+	}
 
 	@RequestMapping(value = "/keiyakuMaster/detail")
 	private String detail(@RequestParam("id") int id, @ModelAttribute("keiyakuMasterForm") KeiyakuMasterForm keiyakuMasterForm, HttpSession session,Model model) {
@@ -103,6 +105,23 @@ public class KeiyakuMasterController {
 
 			model.addAttribute("image", Base64.getEncoder().encodeToString(keiyakuMaster.getFiledata()));
 		}
+		
+		String contenttype = "";
+		
+		if(!org.apache.commons.lang3.StringUtils.isBlank(keiyakuMasterForm.getFilename())) {
+			
+			String kakuchoshi = keiyakuMasterForm.getFilename().substring(keiyakuMasterForm.getFilename().lastIndexOf("."));	
+			
+			if(kakuchoshi.equals(".jpg")) {
+				
+				contenttype = "image/jpg";
+			}else if(kakuchoshi.equals(".png")) {
+				
+				contenttype = "image/png";
+			}
+		}
+			
+		model.addAttribute("contentype", contenttype);
 
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
 
@@ -160,15 +179,25 @@ public class KeiyakuMasterController {
 		model.addAttribute("contentype", contenttype);
 		model.addAttribute("image", keiyakuMasterForm.getFiledataString());
 
-		keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName());
-		keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMasterForm.getClientid()).getName());
-		keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname());
+		if(keiyakuMasterForm.getShohinid() != 0) {
+			keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName());
+		}
+		if(keiyakuMasterForm.getClientid() != 0) {
+			keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMasterForm.getClientid()).getName());
+		}
+		if(keiyakuMasterForm.getKoinid() != 0) {
+			keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname());
+		}
 		
 		session.setAttribute("keiyakuMasterForm",keiyakuMasterForm);
+		
+		model.addAttribute("shohinList", common.setShohinSelectTag());
+		model.addAttribute("clientList", common.setClientSelectTag());
+		model.addAttribute("koinList", common.setKoinSelectTag());
 
-//		if(result.hasErrors()) {
-//			return "keiyakuMaster/edit";
-//		}
+		if(result.hasErrors()) {
+			return "keiyakuMaster/edit";
+		}
 
 		return "keiyakuMaster/editCheck";
 	}
@@ -182,6 +211,8 @@ public class KeiyakuMasterController {
 
 		BeanUtils.copyProperties(keiyakuMasterForm, keiyakuMaster);
 
+		keiyakuMaster.setShitenid(koinMasterRepository.findById(keiyakuMaster.getKoinid()).getShitenid());
+		
 		this.keiyakuMasterService.save(keiyakuMaster);
 
 		accessLogService.save(6, "更新", "成功");

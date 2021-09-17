@@ -10,6 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +36,15 @@ public class ClientMasterController {
 	
     @Autowired
     HttpSession session;
+    
+	@Autowired
+	private ClientMasterValidator clientMasterValidator;
 
+	@InitBinder("clientMasterForm")
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(clientMasterValidator);
+	}
+    
 	@RequestMapping(value = "/clientMaster/detail")
 	private String detail(@RequestParam("id") int id, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
 
@@ -65,10 +77,14 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping("/clientMaster/editCheck")
-	public String editCheck(@ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session) {
+	public String editCheck(@Validated @ModelAttribute ClientMasterForm clientMasterForm, BindingResult result, HttpSession session) {
 
 		session.setAttribute("clientMasterForm", clientMasterForm);
-
+		
+		if(result.hasErrors()) {
+			return "clientMaster/edit";
+		}
+		
 		return "clientMaster/editCheck";
 	}
 

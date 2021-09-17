@@ -16,7 +16,7 @@ public class KoinMasterForm implements Serializable {
 
 	@Getter
 	@Setter
-	private Long id;
+	private int id;
 
 	@Getter
 	@Setter
@@ -63,4 +63,36 @@ public class KoinMasterForm implements Serializable {
 
 		return Yakushoku.getLabel(this.yakushoku);
 	}
+	
+	@Getter
+	@Setter
+	private byte[] filedata;
+
+	@Getter
+	@Setter
+	private String filename;
+
+	@Getter
+	@Setter
+	private String filedataString;
+	
+	@Getter
+	@Setter
+	private int nextShitenIdSameFlg;
+	
+	@Getter
+	@Setter
+	private int firstFlg;
+	
+	@Getter
+	@Setter
+	private long totalPrice;
+	
+	@Getter
+	@Setter
+	private long countKeiyaku;
+	
+	@Getter
+	@Setter
+	private String shitenRank;
 }

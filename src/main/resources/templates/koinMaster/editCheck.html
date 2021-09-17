@@ -26,6 +26,16 @@ function returnEdit() {
 			</tr>
 			<tr>
 				<td>
+					<label>添付ファイル</label>
+				</td>
+				<td>
+					<img th:src="${'data:' + contenttype + ';base64,'+image}" alt="">
+					<input type="hidden" name="filedataString" th:value="*{filedataString}">
+					<input type="hidden" name="filename" th:field="*{filename}">
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label>名前</label>
 				</td>
 				<td>

@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.example.demo.constant.BushoKbn;
 import com.example.demo.constant.Yakushoku;
@@ -24,6 +27,8 @@ import lombok.Setter;
 @Table(name = "koinmaster")
 public class KoinMaster implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Getter
 	@Setter
 	@Id
@@ -86,4 +91,16 @@ public class KoinMaster implements Serializable {
 
 		return Yakushoku.getLabel(this.yakushoku);
 	}
+	
+	@Getter
+	@Setter
+	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
+	@Column(name="filedata")
+	private byte[] filedata;
+
+	@Getter
+	@Setter
+	@Column
+	private String filename;
 }
