@@ -167,8 +167,8 @@
 					<target>
 						<echo message="copy files" />
 						<property name="fileDir" value="src/main/resources" />
-						<copy file="${fileDir}/prod.application.properties"
-							tofile="${fileDir}/application.properties" overwrite="true" />
+<!-- 						<copy file="${fileDir}/prod.application.properties"
+							tofile="${fileDir}/application.properties" overwrite="true" /> -->
 					</target>
 				</configuration>
 			</plugin>
