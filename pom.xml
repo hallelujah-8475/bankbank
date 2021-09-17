@@ -80,11 +80,6 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.4.1</version>
 		</dependency>
-		<!-- Jasper Report -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency>
 
 	<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
 	<dependency>
