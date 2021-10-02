@@ -1,6 +1,14 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('配属情報一覧')}"/>
+<head th:replace="~{layout/component :: head('配属情報一覧')}"></head>
+<script>
+
+$(function() {
+	
+	$('.tojiDiv').html('<div>divtest</div>');
+})
+
+</script>
 <body>
 <th:block th:replace="~{layout/component :: header}"></th:block>
 <div class="container">
@@ -57,13 +65,13 @@
 			</form>
 			<!-- ページング -->
 		</div>
-		<th:content th:each="entity:${list}">
+		<th:block th:each="entity:${list}">
 		    <th:content th:if="${!#strings.isEmpty(entity.shitenname)}">
+		    <div style="border: solid;">
 	    	<p th:text="${entity.shitenname}"></p>
 	    	<p th:text="${entity.totalPrice}"></p>
 	    	<p th:text="${entity.countKeiyaku}"></p>
 	    	<p th:text="${entity.shitenRank}"></p>
-	    	<div style="border: solid;">
 		    </th:content>
 				<div class="card mb-3 mr-1" style="max-width: 375px;">
 				  <div class="row no-gutters">
@@ -81,11 +89,11 @@
 				    </div>
 				  </div>
 				</div>
+			
 		    <th:content th:if="${entity.nextShitenIdSameFlg == 1}">
-		    <p>test</p>
-		    </div>
+		    <p class="tojiDiv">test</p>
 		    </th:content>
-		</th:content>
+		</th:block>
 <!-- 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>支店名</th>
