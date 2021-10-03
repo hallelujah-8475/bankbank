@@ -1,4 +1,4 @@
-version: 2 # CircleCI 2.0 を使用します
+version: 2 
 jobs:
   deploy:
     machine:
