@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/component :: head('システム管理者情報一覧')}"></head>
+<head th:replace="~{layout/component :: head('行員')}"></head>
 <script>
 function deleteCheck() {
 
@@ -17,6 +17,29 @@ function returnDetail() {
 	document.location.href = '/koinMaster/returnDetail';
 
 	return false;
+}
+
+function getFileDataHeightAndWidth() {
+	
+    if (!file.files[0]){
+        return;
+      }
+    
+      image = new Image();
+    
+      image.onload = function() {
+        
+    	if(image.naturalWidth > 300 || image.naturalHeight > 400) {
+    		
+    		alert('画像のサイズが上限を超えています。');
+    		
+    		$('input[name="filedata"]').val('');
+    	}else {
+    		
+    	}
+      }
+      
+      image.src = URL.createObjectURL(file.files[0]);
 }
 </script>
 <body>
@@ -40,9 +63,13 @@ function returnDetail() {
 						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
 				</th:block>
 				<tr>
-					<td><label>添付ファイル</label></td>
 					<td>
-						<input type="file" name="filedata" th:field="*{filedata}">
+						<label>添付ファイル</label>
+						<span class="badge badge-danger">必須</span>
+					</td>
+					<td>
+						<input type="file" id="file" name="filedata" th:field="*{filedata}" onChange="getFileDataHeightAndWidth();">
+						<span class="text-danger" th:if="${#fields.hasErrors('filedataString')}" th:errors="*{filedataString}"></span>
 					</td>
 				</tr>
 				<tr>
@@ -97,7 +124,7 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="date" name="nyushastartdate" th:field="*{nyushastartdate}">
-						<span th:if="${#fields.hasErrors('nyushastartdate')}" th:errors="*{nyushastartdate}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('nyushastartdate')}" th:errors="*{nyushastartdate}">エラー</span>
 					</td>
 				</tr>
 				<tr>
@@ -107,7 +134,7 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="date" name="haizokustartdate" th:field="*{haizokustartdate}">
-						<span th:if="${#fields.hasErrors('haizokustartdate')}" th:errors="*{haizokustartdate}">エラー</span>
+						<span class="text-danger" th:if="${#fields.hasErrors('haizokustartdate')}" th:errors="*{haizokustartdate}">エラー</span>
 					</td>
 				</tr>
 				<tr>
@@ -124,9 +151,9 @@ function returnDetail() {
 			</table>
 			<div class="mb-3">
 				<input type="submit" value="確認" class="btn btn-outline-secondary">
-				<a href="/koinMaster/list" class="btn btn-outline-secondary" th:if="${koinMasterForm.id == 0}">戻る</a>
-				<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnDetail();" th:if="${koinMasterForm.id != 0}">
-				<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();" th:if="${koinMasterForm.id != 0}">
+				<a href="/koinMaster/list" class="btn btn-outline-secondary" th:if="${#strings.isEmpty(koinMasterForm.id)}">戻る</a>
+				<input type="button" value="戻る" class="btn btn-outline-secondary" onClick="returnDetail();" th:if="${!#strings.isEmpty(koinMasterForm.id)}">
+				<input type="button" value="削除" class="btn btn-outline-secondary" onClick="deleteCheck();" th:if="${!#strings.isEmpty(koinMasterForm.id)}">
 			</div>
 		</form>
 	</div>

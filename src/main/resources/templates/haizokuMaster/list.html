@@ -65,7 +65,33 @@ $(function() {
 			</form>
 			<!-- ページング -->
 		</div>
+		
 		<th:block th:each="entity:${list}">
+		<div th:if="${!#strings.isEmpty(entity.shitenname)}" class="w-100 m-2" id="borderForDiv">
+			<div>
+				<p th:text="${entity.shitenname}" class="paddingForHaizokouMasterList font-weight-bold" />
+			 	<p th:text="${'総契約金額：' + entity.totalPrice + '　総契約金数：' + entity.countKeiyaku + '　支店ランク：' + entity.shitenRank}" class="paddingForHaizokouMasterList" />
+		 	</div>
+		</div>
+		<a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}">
+		<div>
+			<div class="card mb-3 mr-1" style="max-width: 375px;" id="borderForDiv">
+				<div class="row no-gutters">
+				    <div class="col-lg-6">
+				      <img th:src="${entity.filedataString}" class="card-img" alt="..." style="max-height: 180px;">
+				    </div>
+				    <div class="col-lg-6">
+				      <div class="card-body">
+				        <p class="card-text" th:text="${entity.koinname}"></p>
+				        <p class="card-text" th:text="${entity.yakushokuname}"></p>
+				      </div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		</a>
+		</th:block>
+<!-- 		<th:block th:each="entity:${list}">
 		    <th:content th:if="${!#strings.isEmpty(entity.shitenname)}">
 		    <div style="border: solid;">
 	    	<p th:text="${entity.shitenname}"></p>
@@ -93,7 +119,7 @@ $(function() {
 		    <th:content th:if="${entity.nextShitenIdSameFlg == 1}">
 		    <p class="tojiDiv">test</p>
 		    </th:content>
-		</th:block>
+		</th:block> -->
 <!-- 		<table class="table table-striped table-sm">
 		    <tr>
 		      <th>支店名</th>
