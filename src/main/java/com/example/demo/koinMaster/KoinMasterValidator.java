@@ -18,6 +18,11 @@ public class KoinMasterValidator implements Validator {
 
 		var form = KoinMasterForm.class.cast(target);
 
+		if(form.getFiledata() == null) {
+			
+			errors.rejectValue("filedataString", "org.hibernate.validator.constraints.NotBlank.message");
+		}
+		
 		if(StringUtils.isBlank(form.getKoinname())) {
 			errors.rejectValue("koinname", "org.hibernate.validator.constraints.NotBlank.message");
 		}

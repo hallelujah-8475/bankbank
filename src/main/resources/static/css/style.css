@@ -1,10 +1,15 @@
+a {
+text-decoration: none;
+color: inherit;
+}
+
 header, footer {
 	height: 100px;
 	text-align: center;
 }
 
 #login_content {
-	heigh: 200px;
+	height: 200px;
 	width: 320px;
 	margin: 0 auto;
 }
@@ -100,4 +105,12 @@ header, footer {
 
 #keiyakuTextArea {
 	height: 300px;
+}
+
+#borderForDiv {
+	border: 1px solid;
+}
+
+.paddingForHaizokouMasterList {
+	padding: 10px;
 }
