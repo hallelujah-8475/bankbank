@@ -6,7 +6,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - $FINGERPRINTS
+            - 6f:95:78:01:b6:31:da:8d:49:7b:61:f7:a7:cf:7b:14
       - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/bankbank/deploy-me.sh"
 workflows:
   version: 2
