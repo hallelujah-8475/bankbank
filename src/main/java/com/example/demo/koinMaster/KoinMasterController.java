@@ -157,6 +157,7 @@ public class KoinMasterController {
 		common.setBushoSelectTag(model);
 		common.setYakushokuSelectTag(model);
 		
+//		一旦コメントアウト
 //		if (result.hasErrors()) {
 //			return "koinMaster/edit";
 //		}
