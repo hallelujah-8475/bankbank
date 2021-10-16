@@ -212,7 +212,7 @@ public class KoinMasterController {
 
 		this.koinMasterRepository.deleteById(id);
 
-		return this.list(model, koinMasterListForm, pageable);
+		return list(model, koinMasterListForm, pageable);
 	}
 
 	@RequestMapping("/koinMaster/returnEdit")
