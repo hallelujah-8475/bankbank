@@ -110,10 +110,11 @@ function returnDetail() {
 				</tr>
 				<tr>
 					<td>
-						<label>パーキングフラグ</label>
+						<label>駐車場</label>
 					</td>
 					<td>
-						<input type="checkbox" value="1" name="parkingflg" th:field="*{parkingflg}"><br>
+						<input type="radio" value="0" name="parkingflg" th:field="*{parkingflg}">なし
+						<input type="radio" value="1" name="parkingflg" th:field="*{parkingflg}">あり<br>
 						<span class="text-danger" th:if="${#fields.hasErrors('parkingflg')}" th:errors="*{parkingflg}">エラー</span>
 					</td>
 				</tr>

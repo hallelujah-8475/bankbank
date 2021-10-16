@@ -107,6 +107,7 @@ public class HaizokuMasterController {
 				koinMasterForm.setShitenname(shitenMasterRepository.findById(list.getContent().get(i).getShitenid()).getShitenname());
 			}
 			
+			koinMasterForm.setId(list.getContent().get(i).getId());
 			koinMasterForm.setKoinname(list.getContent().get(i).getKoinname());
 			koinMasterForm.setYakushoku(list.getContent().get(i).getYakushoku());
 			koinMasterForm.setFiledataString(common.makeFileDataString(list.getContent().get(i).getFilename(), list.getContent().get(i).getFiledata()));
