@@ -52,10 +52,11 @@
 				<tr>
 					<td>
 						<label>権限</label>
-						<span class="badge badge-danger">必須</span>
-					</td>
+							<span class="badge badge-danger">必須</span>
+						</td>
 					<td>
-						<input type="checkbox" value="ROLE_ADMIN" name="role" th:field="*{role}" th:text="${role == 'ROLE_ADMIN'} ? 'checked' : '' ">
+						<input type="radio" value="ROLE_ADMIN" name="role" th:field="*{role}" th:text="${role == 'ROLE_ADMIN'} ? 'checked' : '' ">ROLE_ADMIN　
+						<input type="radio" value="ROLE_USER" name="role" th:field="*{role}" th:text="${role == 'ROLE_USER'} ? 'checked' : '' ">ROLE_USER
 						<span class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">エラー</span>
 					</td>
 				</tr>

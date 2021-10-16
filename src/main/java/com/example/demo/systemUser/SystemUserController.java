@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.accesslog.AccessLogService;
+import com.example.demo.helper.Common;
 import com.example.demo.koinMaster.KoinMaster;
 import com.example.demo.koinMaster.KoinMasterRepository;
 import com.example.demo.koinMaster.KoinMasterService;
@@ -55,6 +56,9 @@ public class SystemUserController {
 
     @Autowired
     HttpSession session;
+    
+	@Autowired
+	Common common;
 
 	@InitBinder("systemUserForm")
 	public void initBinder(WebDataBinder binder) {
@@ -105,16 +109,18 @@ public class SystemUserController {
 	}
 
 	@RequestMapping("/systemUser/editCheck")
-	public String editCheck(@Validated @ModelAttribute SystemUserForm systemUserForm, BindingResult result, HttpSession session) {
+	public String editCheck(@Validated @ModelAttribute SystemUserForm systemUserForm, BindingResult result, HttpSession session, Model model) {
 
 		systemUserForm.setKoinname(koinMasterRepository.findById(systemUserForm.getKoinid()).getKoinname());
-
+		
 		session.setAttribute("systemUserForm", systemUserForm);
 
+		model.addAttribute("koinList", common.setKoinSelectTag());
+		
 		if(result.hasErrors()) {
 			return "systemUser/edit";
 		}
-
+		
 		return "systemUser/editCheck";
 	}
 

@@ -73,7 +73,7 @@ public class ShitenMasterController {
 
 	@RequestMapping("/shitenMaster/editCheck")
 	public String editCheck(@Validated @ModelAttribute ShitenMasterForm shitenMasterForm, BindingResult result, HttpSession session) {
-
+		
 		session.setAttribute("shitenMasterForm", shitenMasterForm);
 
 		if(result.hasErrors()) {

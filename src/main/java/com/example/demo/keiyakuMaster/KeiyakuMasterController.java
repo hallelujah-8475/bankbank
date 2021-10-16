@@ -195,9 +195,9 @@ public class KeiyakuMasterController {
 		model.addAttribute("clientList", common.setClientSelectTag());
 		model.addAttribute("koinList", common.setKoinSelectTag());
 
-		if(result.hasErrors()) {
-			return "keiyakuMaster/edit";
-		}
+//		if(result.hasErrors()) {
+//			return "keiyakuMaster/edit";
+//		}
 
 		return "keiyakuMaster/editCheck";
 	}

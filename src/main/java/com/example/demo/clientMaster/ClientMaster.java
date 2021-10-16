@@ -17,6 +17,8 @@ import lombok.Setter;
 @Table(name = "clientmaster")
 public class ClientMaster {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Getter
 	@Setter
 	@Id

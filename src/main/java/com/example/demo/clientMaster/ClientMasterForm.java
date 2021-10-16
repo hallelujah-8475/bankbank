@@ -9,9 +9,11 @@ import lombok.Setter;
 @Data
 public class ClientMasterForm implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Getter
 	@Setter
-	private Long id;
+	private int id;
 
 	@Getter
 	@Setter

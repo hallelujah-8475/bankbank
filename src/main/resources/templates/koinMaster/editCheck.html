@@ -15,6 +15,7 @@ function returnEdit() {
 	<div class="row justify-content-start">
 	<form method="post" th:action="@{/koinMaster/finish}" th:object="${koinMasterForm}">
 		<table class="table table-bordered">
+			<th:block th:if="${id}">
 			<tr>
 				<td>
 					<label>ID</label>
@@ -24,6 +25,10 @@ function returnEdit() {
 					<input type="hidden" name="id" th:field="*{id}">
 				</td>
 			</tr>
+			</th:block>
+			<th:block th:unless="${id}">
+					<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+			</th:block>
 			<tr>
 				<td>
 					<label>添付ファイル</label>
