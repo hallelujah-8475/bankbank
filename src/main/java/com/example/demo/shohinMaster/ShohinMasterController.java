@@ -119,7 +119,7 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping("/shohinMaster/delete")
-	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("shohinMasterListForm") ShohinMasterListForm shohinMasterListForm, Pageable pageable) {
 
 		this.shohinMasterRepository.deleteById(id);
 

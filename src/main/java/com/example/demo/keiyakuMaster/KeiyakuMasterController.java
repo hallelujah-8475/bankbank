@@ -257,7 +257,7 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping("/keiyakuMaster/delete")
-	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, Pageable pageable) {
 
 		this.keiyakuMasterRepository.deleteById(id);
 
@@ -295,7 +295,7 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping("/keiyakuMaster/shonin")
-	public String shonin(@RequestParam("id") int id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String shonin(@RequestParam("id") int id, Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, Pageable pageable) {
 
 		var keiyakuMaster = keiyakuMasterRepository.findById(id);
 

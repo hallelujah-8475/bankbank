@@ -23,7 +23,7 @@ public class AccessLogController {
     HttpSession session;
 
 	@RequestMapping(value = "/accesslog/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 
 		AccessLogListForm accessLogListForm = (AccessLogListForm)session.getAttribute("accesslogListForm");
 
