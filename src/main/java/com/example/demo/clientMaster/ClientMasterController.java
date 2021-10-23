@@ -103,7 +103,7 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping(value = "/clientMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 
 		ClientMasterListForm clientMasterListForm = (ClientMasterListForm)session.getAttribute("clientMasterListForm");
 
@@ -111,7 +111,7 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping(value = "/clientMaster/list")
-	public String list(Model model, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		session.setAttribute("clientMasterListForm", clientMasterListForm);
 
