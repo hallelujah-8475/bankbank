@@ -17,7 +17,7 @@ public class MyAppWebConfig implements WebMvcConfigurer {
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
         resolver.setOneIndexedParameters(true);
         // 1ページに表示する最大件数を10件に
-        resolver.setFallbackPageable(PageRequest.of(0, 5));
+        resolver.setFallbackPageable(PageRequest.of(0, 10));
         argumentResolvers.add(resolver);
     }
 }
