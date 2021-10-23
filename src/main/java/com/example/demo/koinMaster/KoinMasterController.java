@@ -186,7 +186,7 @@ public class KoinMasterController {
 
 		KoinMasterListForm koinMasterListForm = (KoinMasterListForm) session.getAttribute("koinMasterListForm");
 
-		return this.list(model, koinMasterListForm, pageable);
+		return list(model, koinMasterListForm, pageable);
 	}
 
 	@RequestMapping(value = "/koinMaster/list")
