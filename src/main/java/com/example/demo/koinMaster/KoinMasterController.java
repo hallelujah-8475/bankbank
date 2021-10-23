@@ -32,6 +32,9 @@ import com.example.demo.shitenMaster.ShitenMasterRepository;
 import com.example.demo.shitenMaster.ShitenMasterService;
 import com.example.demo.systemUser.PagenationHelper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class KoinMasterController {
 
@@ -183,8 +186,16 @@ public class KoinMasterController {
 
 	@RequestMapping(value = "/koinMaster/pagenate")
 	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
-
-		KoinMasterListForm koinMasterListForm = (KoinMasterListForm) session.getAttribute("koinMasterListForm");
+	
+		KoinMasterListForm koinMasterListForm = null;
+		
+		try {
+			
+			koinMasterListForm = (KoinMasterListForm) session.getAttribute("koinMasterListForm");
+		} catch (Exception e) {
+			
+		  log.error("system error", e);
+		}
 
 		return list(model, koinMasterListForm, pageable);
 	}
@@ -193,15 +204,22 @@ public class KoinMasterController {
 	public String list(Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
 			@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-		session.setAttribute("koinMasterListForm", koinMasterListForm);
-
-		Page<KoinMaster> list = koinMasterService.findUsers(koinMasterListForm, pageable);
-
-		model.addAttribute("list", list.getContent());
-		model.addAttribute("koinMasterListForm", koinMasterListForm);
-		model.addAttribute("page", PagenationHelper.createPagenation(list));
-
-		model.addAttribute("shitenList", common.setShitenSelectTag());
+		try {
+			
+			session.setAttribute("koinMasterListForm", koinMasterListForm);
+			
+			Page<KoinMaster> list = koinMasterService.findUsers(koinMasterListForm, pageable);
+			
+			model.addAttribute("list", list.getContent());
+			model.addAttribute("koinMasterListForm", koinMasterListForm);
+			model.addAttribute("page", PagenationHelper.createPagenation(list));
+			
+			model.addAttribute("shitenList", common.setShitenSelectTag());
+		} catch (Exception e) {
+			
+		  log.error("system error", e);
+		}
+		
 
 		return "koinMaster/list";
 	}
