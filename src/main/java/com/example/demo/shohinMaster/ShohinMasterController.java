@@ -59,7 +59,7 @@ public class ShohinMasterController {
 
 		if(id == 0) {
 			// 新規登録
-		}else {
+			}else {
 			// 更新
 			BeanUtils.copyProperties(shohinMasterRepository.findById(id), shohinMasterForm);
 			shohinMasterForm.setId(id);
@@ -71,7 +71,7 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping("/shohinMaster/editCheck")
-	public String editCheck(HttpSession session, @Validated @ModelAttribute ShohinMasterForm shohinMasterForm, BindingResult result) {
+	public String editCheck(@Validated @ModelAttribute ShohinMasterForm shohinMasterForm, BindingResult result, HttpSession session) {
 
 		session.setAttribute("shohinMasterForm", shohinMasterForm);
 

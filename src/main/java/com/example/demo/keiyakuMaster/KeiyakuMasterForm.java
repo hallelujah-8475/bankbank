@@ -2,6 +2,9 @@ package com.example.demo.keiyakuMaster;
 
 import java.io.Serializable;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import com.example.demo.constant.KeiyakuKbn;
 
 import lombok.Data;
@@ -15,6 +18,7 @@ public class KeiyakuMasterForm implements Serializable {
 
 	@Getter
 	@Setter
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
 
 	@Getter
@@ -27,7 +31,7 @@ public class KeiyakuMasterForm implements Serializable {
 
 	@Getter
 	@Setter
-	protected int kinri;
+	protected Double kinri;
 
 	@Getter
 	@Setter

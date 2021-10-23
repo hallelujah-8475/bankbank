@@ -18,6 +18,8 @@ import lombok.Setter;
 @Table(name = "shohinmaster")
 public class ShohinMaster implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Getter
 	@Setter
 	@Id
@@ -33,6 +35,6 @@ public class ShohinMaster implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private int kinri;
+	private Double kinri;
 
 }

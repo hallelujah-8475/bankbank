@@ -36,6 +36,9 @@ function returnDetail() {
 					</td>
 				</tr>
 				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</th:block>
 				<tr>
 					<td>
 						<label>名前</label>
@@ -52,7 +55,7 @@ function returnDetail() {
 						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="number" name="kinri" th:field="*{kinri}">
+						<input type="number" name="kinri" th:field="*{kinri}" step="0.1" min="0">
 						<span class="text-danger" th:if="${#fields.hasErrors('kinri')}" th:errors="*{kinri}">エラー</span>
 					</td>
 				</tr>
