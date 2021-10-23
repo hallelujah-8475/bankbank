@@ -226,7 +226,7 @@ public class KoinMasterController {
 
 	@RequestMapping("/koinMaster/delete")
 	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
-			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+			Pageable pageable) {
 
 		this.koinMasterRepository.deleteById(id);
 

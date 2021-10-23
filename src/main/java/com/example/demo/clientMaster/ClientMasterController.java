@@ -125,7 +125,7 @@ public class ClientMasterController {
 	}
 
 	@RequestMapping("/clientMaster/delete")
-	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("clientMasterForm") ClientMasterForm clientMasterForm, HttpSession session, @ModelAttribute("clientMasterListForm") ClientMasterListForm clientMasterListForm, Pageable pageable) {
 
 		this.clientMasterRepository.deleteById(id);
 

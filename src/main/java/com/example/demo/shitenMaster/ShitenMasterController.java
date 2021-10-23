@@ -98,7 +98,7 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping(value = "/shitenMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 
 		ShitenMasterListForm shitenMasterListForm = (ShitenMasterListForm)session.getAttribute("shitenMasterListForm");
 
@@ -120,7 +120,7 @@ public class ShitenMasterController {
 	}
 
 	@RequestMapping("/shitenMaster/delete")
-	public String delete(Model model, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(Model model, @ModelAttribute("shitenMasterForm") ShitenMasterForm shitenMasterForm, HttpSession session, @ModelAttribute("shitenMasterListForm") ShitenMasterListForm shitenMasterListForm, Pageable pageable) {
 
 		var sessionEditForm = (ShitenMasterForm) session.getAttribute("shitenMasterForm");
 

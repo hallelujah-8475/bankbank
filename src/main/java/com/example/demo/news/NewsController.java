@@ -129,7 +129,7 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 
 		NewsListForm newsListForm = (NewsListForm)session.getAttribute("newsListForm");
 
@@ -153,7 +153,7 @@ public class NewsController {
 	}
 
 	@RequestMapping("/news/delete")
-	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String delete(@RequestParam("id") int id, Model model, @ModelAttribute("newsListForm") NewsListForm newsListForm, Pageable pageable) {
 
 		this.newsRepository.deleteById(id);
 
