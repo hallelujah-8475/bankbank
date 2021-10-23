@@ -12,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 
 import com.example.demo.constant.BushoKbn;
@@ -70,6 +72,7 @@ public class KoinMaster implements Serializable {
 	@Setter
 	@OneToOne
 	@JoinColumn(name = "shitenid", referencedColumnName = "id", insertable = false, updatable = false)
+	@NotFound(action=NotFoundAction.IGNORE)
 	private ShitenMaster shitenmaster;
 
 	public String getBushoname() {
