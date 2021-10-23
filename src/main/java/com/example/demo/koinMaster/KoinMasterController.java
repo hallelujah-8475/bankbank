@@ -11,7 +11,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -201,8 +200,7 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping(value = "/koinMaster/list")
-	public String list(Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm,
-			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("koinMasterListForm") KoinMasterListForm koinMasterListForm, Pageable pageable) {
 
 		try {
 			
