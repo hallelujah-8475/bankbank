@@ -2,10 +2,6 @@ package com.example.demo.shohinMaster;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,11 +17,9 @@ public class ShohinMasterForm implements Serializable {
 
 	@Getter
 	@Setter
-	@NotBlank
 	private String name;
 
 	@Getter
 	@Setter
-	@NotNull
-	private int kinri;
+	private Double kinri;
 }

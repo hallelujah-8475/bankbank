@@ -22,7 +22,7 @@ public class ShohinMasterValidator implements Validator {
 			errors.rejectValue("name", "org.hibernate.validator.constraints.NotBlank.message");
 		}
 		
-		if(form.getKinri() == 0) {
+		if(form.getKinri() == 0 ) {
 			errors.rejectValue("kinri", "org.hibernate.validator.constraints.NotBlank.message");
 		}
 	}

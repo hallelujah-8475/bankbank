@@ -12,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 
 import com.example.demo.constant.KeiyakuKbn;
@@ -49,7 +51,7 @@ public class KeiyakuMaster implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private int kinri;
+	private Double kinri;
 
 	@Getter
 	@Setter
@@ -75,6 +77,7 @@ public class KeiyakuMaster implements Serializable {
 	@Setter
 	@OneToOne
 	@JoinColumn(name = "shohinid", referencedColumnName = "id", insertable = false, updatable = false)
+	@NotFound(action=NotFoundAction.IGNORE)
 	private ShohinMaster shohinmaster;
 
 	@Getter
@@ -118,6 +121,7 @@ public class KeiyakuMaster implements Serializable {
 	@Setter
 	@OneToOne
 	@JoinColumn(name = "koinid", referencedColumnName = "id", insertable = false, updatable = false)
+	@NotFound(action=NotFoundAction.IGNORE)
 	private KoinMaster koinmaster;
 	
 	@Getter

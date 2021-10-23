@@ -101,7 +101,11 @@ public class KeiyakuMasterController {
 
 			keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMaster.getKoinid()).getKoinname());
 			keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMaster.getClientid()).getName());
-			keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
+			
+			if(keiyakuMaster.getShohinid() != 0) {
+				
+				keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
+			}
 
 			model.addAttribute("image", Base64.getEncoder().encodeToString(keiyakuMaster.getFiledata()));
 		}
@@ -142,7 +146,12 @@ public class KeiyakuMasterController {
 
 			keiyakuMasterForm.setKoinname(koinMasterRepository.findById(keiyakuMaster.getKoinid()).getKoinname());
 			keiyakuMasterForm.setClientname(clientMasterRepository.findById(keiyakuMaster.getClientid()).getName());
-			keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
+
+			if(keiyakuMaster.getShohinid() != 0) {
+				
+				keiyakuMasterForm.setShohinname(shohinMasterRepository.findById(keiyakuMaster.getShohinid()).getName());
+			}
+				
 		}
 
 		model.addAttribute("shohinList", common.setShohinSelectTag());

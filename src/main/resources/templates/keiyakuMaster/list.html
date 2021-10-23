@@ -117,7 +117,7 @@ function shonin(id) {
 		      <td th:text="${entity.keiyakukbnlabel}"></td>
 		      <td th:text="${entity.returnlimit}"></td>
 		      <td th:text="${entity.price}"></td>
-		      <td th:text="${entity.shohinmaster.name}"></td>
+		      <td><th:content th:if="${entity.shohinmaster != null}" th:text="${entity.shohinmaster.name}"></td>
 		      <td><input type="button" value="承認" th:disabled="${entity.shoninflg == 1}" th:attr="onclick='shonin(' + ${entity.id} + ');'"></td>
 		    </tr>
 	    </table>
