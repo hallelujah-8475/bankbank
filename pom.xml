@@ -149,6 +149,11 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.4</version>
 		</dependency>
+		
+	<dependency>
+	    <groupId>ch.qos.logback</groupId>
+	    <artifactId>logback-classic</artifactId>
+	</dependency>
 
 
 	</dependencies>
