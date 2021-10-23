@@ -97,7 +97,7 @@ public class ShohinMasterController {
 	}
 
 	@RequestMapping(value = "/shohinMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 
 		ShohinMasterListForm shohinMasterListForm = (ShohinMasterListForm)session.getAttribute("shohinMasterListForm");
 

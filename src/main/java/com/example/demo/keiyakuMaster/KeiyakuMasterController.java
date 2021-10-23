@@ -230,7 +230,7 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 
 		KeiyakuMasterListForm keiyakuMasterListForm = (KeiyakuMasterListForm)session.getAttribute("keiyakuMasterListForm");
 
@@ -238,7 +238,7 @@ public class KeiyakuMasterController {
 	}
 
 	@RequestMapping(value = "/keiyakuMaster/list")
-	public String list(Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+	public String list(Model model, @ModelAttribute("keiyakuMasterListForm") KeiyakuMasterListForm keiyakuMasterListForm, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 		
 		session.setAttribute("keiyakuMasterListForm", keiyakuMasterListForm);
 
