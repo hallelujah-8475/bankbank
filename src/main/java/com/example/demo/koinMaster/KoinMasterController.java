@@ -185,7 +185,7 @@ public class KoinMasterController {
 	}
 
 	@RequestMapping(value = "/koinMaster/pagenate")
-	public String pagenate(Model model, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public String pagenate(Model model, Pageable pageable) {
 	
 		KoinMasterListForm koinMasterListForm = null;
 		
