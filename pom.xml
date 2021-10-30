@@ -96,6 +96,13 @@
 	</exclusions>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+<dependency>
+    <groupId>com.lowagie</groupId>
+    <artifactId>itext</artifactId>
+    <version>2.1.7</version>
+</dependency>
+
 
 		<!-- Jasper Report -->
 		<dependency>
