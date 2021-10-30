@@ -45,7 +45,8 @@ function returnDetail() {
 						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="text" name="shitenname" th:field="*{shitenname}"><br>
+						<input type="text" name="shitenname" th:field="*{shitenname}">
+						<span>　　　【記入例】テスト支店</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('shitenname')}" th:errors="*{shitenname}">エラー</span>
 					</td>
 				</tr>
@@ -55,7 +56,8 @@ function returnDetail() {
 						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="text" name="postcode1" th:field="*{postcode1}">　ー　<input type="text" name="postcode2" th:field="*{postcode2}" onKeyUp="AjaxZip3.zip2addr('postcode1','postcode2','prefecture','address1','address2');"><br>
+						<input type="text" name="postcode1" th:field="*{postcode1}">　ー　<input type="text" name="postcode2" th:field="*{postcode2}" onKeyUp="AjaxZip3.zip2addr('postcode1','postcode2','prefecture','address1','address2');">
+						<span>　　　【注釈】郵便番号を入力すると住所が自動で入力されます</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('postcode1')}" th:errors="*{postcode1}">エラー</span>
 					</td>
 				</tr>
@@ -65,7 +67,7 @@ function returnDetail() {
 						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="text" name="prefecture" th:field="*{prefecture}"><br>
+						<input type="text" name="prefecture" th:field="*{prefecture}">
 						<span class="text-danger" th:if="${#fields.hasErrors('prefecture')}" th:errors="*{prefecture}">エラー</span>
 					</td>
 				</tr>
@@ -75,7 +77,8 @@ function returnDetail() {
 						<span class="badge badge-danger">必須</span>
 					</td>
 					<td>
-						<input type="text" name="address1" th:field="*{address1}"><br>
+						<input type="text" name="address1" th:field="*{address1}">
+						<span>　　　【記入例】◯◯市◯◯区</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}">エラー</span>
 					</td>
 				</tr>

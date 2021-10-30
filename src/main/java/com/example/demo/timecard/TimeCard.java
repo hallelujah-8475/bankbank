@@ -1,5 +1,7 @@
 package com.example.demo.timecard;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,9 @@ import lombok.Setter;
 @Data
 @Entity
 @Table(name = "timecard")
-public class TimeCard {
+public class TimeCard implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter

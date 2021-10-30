@@ -65,6 +65,9 @@ function ctrlByKeiyakuKbn(target) {
 					</td>
 				</tr>
 				</th:block>
+				<th:block th:unless="${id}">
+						<input type="hidden" class="form-control-plaintext" id="id" name="id" th:field="*{id}">
+				</th:block>
 				<tr>
 					<td><label>区分</label></td>
 					<td>

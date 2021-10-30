@@ -70,7 +70,7 @@ function returnEdit() {
 					<label>資金使途</label>
 				</td>
 				<td>
-					<input type="text" readonly class="form-control-plaintext" th:field="*{shikinshitotext}">
+					<input type="text" readonly class="form-control-plaintext" th:text="*{shikinshitotext}">
 					<input type="hidden" name="shikinshitotext" th:field="*{shikinshitotext}">
 				</td>
 			</tr>

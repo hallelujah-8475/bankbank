@@ -66,7 +66,7 @@ public class TimeCardController {
 	}
 
 	@RequestMapping("/timecard/reset")
-	public String reset() {
+	public String reset(Model model) {
 
 		String insertDate = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 
@@ -81,7 +81,7 @@ public class TimeCardController {
         	this.timeCardService.save(timeCard);
         }
 
-        return "timecard/list";
+        return "/timecard/finish";
 	}
 
 }

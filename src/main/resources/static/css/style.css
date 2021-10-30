@@ -1,8 +1,3 @@
-a {
-text-decoration: none;
-color: inherit;
-}
-
 header, footer {
 	height: 100px;
 	text-align: center;
@@ -113,4 +108,9 @@ header, footer {
 
 .paddingForHaizokouMasterList {
 	padding: 10px;
+}
+
+#haizokuMasterA {
+text-decoration: none;
+color: inherit;
 }

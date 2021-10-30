@@ -46,6 +46,7 @@ function returnDetail() {
 					</td>
 					<td>
 						<input type="text" name="name" th:field="*{name}">
+						<span>　　　【記入例】テスト定期</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">エラー</span>
 					</td>
 				</tr>
