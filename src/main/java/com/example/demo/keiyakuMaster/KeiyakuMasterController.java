@@ -328,7 +328,7 @@ public class KeiyakuMasterController {
         params.put("tanto", keiyakuMasterForm.getKoinid() != 0 ? koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname() : "");        
        
         // ファイル読み込み
-        InputStream input = new FileInputStream(resource.getResource("classpath:report/template.jrxml").getFile());
+        InputStream input = new FileInputStream("home/ec2-user/bankbank/src/main/resources/report/template.jrxml");
 
         // コンパイル
         JasperReport jasperReport = JasperCompileManager.compileReport(input);
@@ -352,5 +352,4 @@ public class KeiyakuMasterController {
 
         return null;
 	}
-
 }
