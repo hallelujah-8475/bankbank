@@ -36,6 +36,7 @@
 					</td>
 					<td>
 						<input type="text" name="loginid" th:field="*{loginid}">
+						<span>　　　【記入例】loginId1</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('loginid')}" th:errors="*{loginid}">エラー</span>
 					</td>
 				</tr>
@@ -46,6 +47,7 @@
 					</td>
 					<td>
 						<input type="text" name="password" th:field="*{password}">
+						<span>　　　【記入例】password1</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">エラー</span>
 					</td>
 				</tr>
@@ -57,6 +59,7 @@
 					<td>
 						<input type="radio" value="ROLE_ADMIN" name="role" th:field="*{role}" th:text="${role == 'ROLE_ADMIN'} ? 'checked' : '' ">ROLE_ADMIN　
 						<input type="radio" value="ROLE_USER" name="role" th:field="*{role}" th:text="${role == 'ROLE_USER'} ? 'checked' : '' ">ROLE_USER
+						<span>　　　【注釈】ROLE_ADMIN：管理者権限　ROLE_USER：一般</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">エラー</span>
 					</td>
 				</tr>

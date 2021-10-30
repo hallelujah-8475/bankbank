@@ -14,10 +14,10 @@
 		      <th>退勤</th>
 		    </tr>
 		    <tr th:each="entity:${list}">
-		      <td ><a th:href="@{'/kintaiMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
-		      <td th:text="${entity.koinmaster.koinname}">name</td>
-		      <td th:text="${entity.workstarttime}">name</td>
-		      <td th:text="${entity.workendtime}">age</td>
+		      <td ><a th:href="@{'/kintaiMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}"></a></td>
+		      <td><th:content th:if="${entity.koinmaster.koinname != null}"><span th:text="${entity.koinmaster.koinname}"></span></th:content></td>
+		      <td th:text="${entity.workstarttime}"></td>
+		      <td th:text="${entity.workendtime}"></td>
 		    </tr>
 	    </table>
 	    <a href="/" class="btn btn-outline-secondary mb-3">戻る</a>

@@ -69,6 +69,7 @@ function getFileDataHeightAndWidth() {
 					</td>
 					<td>
 						<input type="file" id="file" name="filedata" th:field="*{filedata}" onChange="getFileDataHeightAndWidth();">
+						<span>　　　【注釈】400px、横300pxの画像を使用して下さい</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('filedataString')}" th:errors="*{filedataString}"></span>
 					</td>
 				</tr>
@@ -79,6 +80,7 @@ function getFileDataHeightAndWidth() {
 					</td>
 					<td>
 						<input type="text" name="koinname" th:field="*{koinname}">
+						<span>　　　【記入例】田中太郎</span><br/>
 						<span class="text-danger" th:if="${#fields.hasErrors('koinname')}" th:errors="*{koinname}">エラー</span>
 					</td>
 				</tr>

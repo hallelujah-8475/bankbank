@@ -73,7 +73,7 @@ $(function() {
 			 	<p th:text="${'総契約金額：' + entity.totalPrice + '　総契約金数：' + entity.countKeiyaku + '　支店ランク：' + entity.shitenRank}" class="paddingForHaizokouMasterList" />
 		 	</div>
 		</div>
-		<a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}">
+		<a id="haizokuMasterA" th:href="@{'/koinMaster/detail?id=' + ${entity.id}}">
 		<div>
 			<div class="card mb-3 mr-1" style="max-width: 375px;" id="borderForDiv">
 				<div class="row no-gutters">
@@ -91,49 +91,6 @@ $(function() {
 		</div>
 		</a>
 		</th:block>
-<!-- 		<th:block th:each="entity:${list}">
-		    <th:content th:if="${!#strings.isEmpty(entity.shitenname)}">
-		    <div style="border: solid;">
-	    	<p th:text="${entity.shitenname}"></p>
-	    	<p th:text="${entity.totalPrice}"></p>
-	    	<p th:text="${entity.countKeiyaku}"></p>
-	    	<p th:text="${entity.shitenRank}"></p>
-		    </th:content>
-				<div class="card mb-3 mr-1" style="max-width: 375px;">
-				  <div class="row no-gutters">
-				    <div class="col-lg-6">
-				      <img th:src="${entity.filedataString}" class="card-img" alt="...">
-				    </div>
-				    <div class="col-lg-6">
-				      <div class="card-body">
-				        <h4 class="card-title">
-				        	<a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.koinname}">
-				        	</a>
-				        </h4>
-				        <p class="card-text"><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.yakushokuname}"></a></p>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-			
-		    <th:content th:if="${entity.nextShitenIdSameFlg == 1}">
-		    <p class="tojiDiv">test</p>
-		    </th:content>
-		</th:block> -->
-<!-- 		<table class="table table-striped table-sm">
-		    <tr>
-		      <th>支店名</th>
-		      <th>年齢</th>
-		      <th>名前</th>
-		      <th>役職</th>
-		    </tr>
-		    <tr th:each="entity:${list}">
-		      <td><a th:href="@{'/shitenMaster/detail?id=' + ${entity.shitenmaster.id}}" th:text="${entity.shitenmaster.shitenname}">name</a></td>
- 		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.age}">name</a></td>
-		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.koinname}">name</a></td>
-		      <td><a th:href="@{'/koinMaster/detail?id=' + ${entity.id}}" th:text="${entity.yakushokuname}">name</a></td>
-		    </tr>
-	    </table> -->
 		<div class="w-100 m-2">
 			<!-- ページング -->
 			<form method="post" th:action="@{/haizokuMaster/pagenate}" th:object="${page}">

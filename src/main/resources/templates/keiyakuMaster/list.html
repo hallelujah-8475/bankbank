@@ -110,7 +110,7 @@ function shonin(id) {
 		      <th>返済期限</th>
 		      <th>金額</th>
 		      <th>商品</th>
-		      <th></th>
+		      <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></th>
 		    </tr>
 		    <tr th:each="entity:${list}">
 		      <td ><a th:href="@{'/keiyakuMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}"></a></td>
@@ -118,7 +118,7 @@ function shonin(id) {
 		      <td th:text="${entity.returnlimit}"></td>
 		      <td th:text="${entity.price}"></td>
 		      <td><th:content th:if="${entity.shohinmaster != null}" th:text="${entity.shohinmaster.name}"></td>
-		      <td><input type="button" value="承認" th:disabled="${entity.shoninflg == 1}" th:attr="onclick='shonin(' + ${entity.id} + ');'"></td>
+		      <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><input type="button" value="承認" th:disabled="${entity.shoninflg == 1}" th:attr="onclick='shonin(' + ${entity.id} + ');'"></td>
 		    </tr>
 	    </table>
 		<div class="w-100 m-2">
