@@ -1,9 +1,8 @@
 package com.example.demo.keiyakuMaster;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -327,11 +326,8 @@ public class KeiyakuMasterController {
         params.put("ringisuisenjiyu", !org.apache.commons.lang3.StringUtils.isBlank(keiyakuMaster.getRingitext()) ? keiyakuMaster.getRingitext() : "");        
         params.put("tanto", keiyakuMasterForm.getKoinid() != 0 ? koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname() : "");        
        
-        // ファイル読み込み
-        InputStream input = new FileInputStream("home/ec2-user/bankbank/src/main/resources/report/template.jrxml");
-
         // コンパイル
-        JasperReport jasperReport = JasperCompileManager.compileReport(input);
+        JasperReport jasperReport = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/src/main/resources/report/template.jrxml");
 
         // 生成
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
