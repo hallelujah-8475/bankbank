@@ -1,6 +1,5 @@
 package com.example.demo.keiyakuMaster;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -334,7 +333,8 @@ public class KeiyakuMasterController {
         params.put("tanto", keiyakuMasterForm.getKoinid() != 0 ? koinMasterRepository.findById(keiyakuMasterForm.getKoinid()).getKoinname() : "");        
        
         // コンパイル
-        JasperReport jasperReport = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/bankbank/src/main/resources/report/template.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/src/main/resources/report/template.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport("/home/ec2-user/bankbank/src/main/resources/report/template.jrxml");
 
         // 生成
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
