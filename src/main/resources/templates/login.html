@@ -7,24 +7,27 @@
  		<form method="post" th:action="@{/index}">
 		<div id="login_content">
 			<img class="m-5" id="header_logo" src="/images/logo.png" width="80" height="80">
-			<table class="table table-bordered">
-				<tr>
-					<td>
-						<label>ログインID</label>
-					</td>
-					<td>
-						<input type="text" name="username" id="username">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>パスワード</label>
-					</td>
-					<td>
-						<input type="password" name="password" id="username">
-					</td>
-				</tr>
-			</table>
+			<div class="row justify-content-start">
+			<th:content th:text="${error}" class="m-4 text-danger"></th:content>
+				<table class="table table-bordered">
+					<tr>
+						<td>
+							<label>ログインID</label>
+						</td>
+						<td>
+							<input type="text" name="username" id="username">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>パスワード</label>
+						</td>
+						<td>
+							<input type="password" name="password" id="username">
+						</td>
+					</tr>
+				</table>
+			</div>
 			<div class="mb-3">
 				<input type="submit" value="ログイン" class="btn btn-outline-secondary">
 			</div>
