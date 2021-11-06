@@ -317,7 +317,14 @@ public class KeiyakuMasterController {
         
         params.put("printdate", new SimpleDateFormat("yyyy年MM月dd日").format(new Date()));
         params.put("moshikominin", keiyakuMaster.getClientid() != 0 ? clientMasterRepository.findById(keiyakuMaster.getClientid()).getName() : "");
-        params.put("naiyo", keiyakuMaster.getKeiyakukbn() != 0 && keiyakuMasterForm.getShohinid() != 0 ? "【" + keiyakuMaster.getKeiyakukbnlabel() + "】" + shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName() : "");        
+        
+        String naiyoLabel = keiyakuMaster.getKeiyakukbnlabel();
+        
+        if(keiyakuMaster.getKeiyakukbn() == 2) {
+        	
+        	naiyoLabel += "　" + shohinMasterRepository.findById(keiyakuMasterForm.getShohinid()).getName();
+        }
+        params.put("naiyo", naiyoLabel);        
         params.put("kingaku", keiyakuMaster.getPrice() != 0 ? "¥" + keiyakuMaster.getPrice() : "");        
         params.put("kinri", keiyakuMaster.getKinri() != 0 ? keiyakuMaster.getKinri() + "％" : "");        
         params.put("hensaikigen", !org.apache.commons.lang3.StringUtils.isBlank(keiyakuMaster.getReturnlimit()) ? keiyakuMaster.getReturnlimit().replaceFirst("-", "年").replaceFirst("-", "月") + "日" : "");        
