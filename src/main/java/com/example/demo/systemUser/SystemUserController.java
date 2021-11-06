@@ -1,9 +1,5 @@
 package com.example.demo.systemUser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -24,14 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.accesslog.AccessLogService;
 import com.example.demo.helper.Common;
 import com.example.demo.koinMaster.KoinMaster;
 import com.example.demo.koinMaster.KoinMasterRepository;
 import com.example.demo.koinMaster.KoinMasterService;
-import com.opencsv.exceptions.CsvException;
 
 @Controller
 public class SystemUserController {
@@ -205,31 +199,31 @@ public class SystemUserController {
 		return "systemUser/detail";
 	}
 
-	@RequestMapping("/systemUser/csvImport")
-	public String csvImport(@RequestParam("csvFile") MultipartFile multipartFile, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, Pageable pageable) throws IOException, CsvException {
-
-		String line = null;
-		InputStream stream = multipartFile.getInputStream();
-		InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
-        BufferedReader buf= new BufferedReader(reader);
-
-        while((line = buf.readLine()) != null) {
-
-        	SystemUser systemUser = new SystemUser();
-
-        	String[] splitList = line.split(",");
-
-        	for(int i = 0; i < splitList.length; i++) {
-
-        		systemUser.setLoginid(splitList[++i]);
-        		systemUser.setPassword(splitList[++i]);
-        		systemUser.setRole(splitList[++i]);
-
-        		this.systemUserService.save(systemUser);
-        	}
-        }
-
-		return this.list(model, systemUserListForm, pageable);
-	}
+//	@RequestMapping("/systemUser/csvImport")
+//	public String csvImport(@RequestParam("csvFile") MultipartFile multipartFile, Model model, @ModelAttribute("systemUserListForm") SystemUserListForm systemUserListForm, Pageable pageable) throws IOException, CsvException {
+//
+//		String line = null;
+//		InputStream stream = multipartFile.getInputStream();
+//		InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+//        BufferedReader buf= new BufferedReader(reader);
+//
+//        while((line = buf.readLine()) != null) {
+//
+//        	SystemUser systemUser = new SystemUser();
+//
+//        	String[] splitList = line.split(",");
+//
+//        	for(int i = 0; i < splitList.length; i++) {
+//
+//        		systemUser.setLoginid(splitList[++i]);
+//        		systemUser.setPassword(splitList[++i]);
+//        		systemUser.setRole(splitList[++i]);
+//
+//        		this.systemUserService.save(systemUser);
+//        	}
+//        }
+//
+//		return this.list(model, systemUserListForm, pageable);
+//	}
 
 }
