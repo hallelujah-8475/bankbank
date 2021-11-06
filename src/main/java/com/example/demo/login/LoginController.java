@@ -1,5 +1,6 @@
 package com.example.demo.login;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,21 @@ public class LoginController {
 
 	@Autowired
 	private NewsService newsService;
+	
+	@Autowired
+	HttpServletRequest request;
 
 	@RequestMapping(value = "/login")
-	private String login() {
+	private String login(Model model) {
 
+		if(request.getParameter("error") != null) {
+			
+			model.addAttribute("error", "ログインIDかパスワードに誤りがあります");
+		}
+			
 		return "login";
 	}
-
+	
 	@RequestMapping(value = "/logout")
 	private String logout() {
 
