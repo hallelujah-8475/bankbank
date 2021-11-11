@@ -7,11 +7,14 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 6f:95:78:01:b6:31:da:8d:49:7b:61:f7:a7:cf:7b:14
-      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST
-      - run: cd /home/ec2-user/bankbank/
-      - run: git pull
-      - run: cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources
-      - run: cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
+      - run: 
+        command: |-
+        ssh -p $SSH_PORT $SSH_USER@$SSH_HOST
+        cd /home/ec2-user/bankbank/
+        git pull
+        cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources
+        cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
+        name: ビルド
       - add_ssh_keys:
           fingerprints:
             - d6:60:c9:6a:0a:2b:e4:b5:0b:68:9c:cf:77:fa:2c:20
