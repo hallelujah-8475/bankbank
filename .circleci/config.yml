@@ -1,4 +1,6 @@
 version: 2 
+orbs:
+  maven: circleci/maven@0.0.12
 jobs:
   deploy:
     machine:
@@ -33,8 +35,6 @@ jobs:
             cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
             '
 workflows:
-  orbs:
-    maven: circleci/maven@0.0.12
   version: 2
   deploy:
     jobs:
