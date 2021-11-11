@@ -10,11 +10,12 @@ jobs:
       - run:
           name: ssh
           command: |
-            ssh -p $SSH_PORT $SSH_USER@$SSH_HOST 
-            'cd /home/ec2-user/bankbank/ &&
+            ssh -p $SSH_PORT $SSH_USER@$SSH_HOST '
+            cd /home/ec2-user/bankbank/ &&
             git pull &&
             cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources &&
-            cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user'
+            cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
+            '
 workflows:
   version: 2
   deploy:
