@@ -1,8 +1,5 @@
-version: 2 
+version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/openjdk:8-jdk
   deploy:
     machine:
       enabled: true
@@ -10,17 +7,18 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 6f:95:78:01:b6:31:da:8d:49:7b:61:f7:a7:cf:7b:14
-      - run: sudo apt-get install maven
       - run:
           name: 1a
           command: |
             ssh -p $SSH_PORT $SSH_USER@$SSH_HOST '
             cd /home/ec2-user/bankbank/ &&
             git pull &&
-            cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources &&
-            mvn clean dependency:copy-dependencies -DoutputDirectory=lib antrun:run package &&
-            cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
+            cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources
             '
+      - run:
+          name: maven
+          command: |
+            mvn clean dependency:copy-dependencies -DoutputDirectory=lib antrun:run package
       - add_ssh_keys:
           fingerprints:
             - d6:60:c9:6a:0a:2b:e4:b5:0b:68:9c:cf:77:fa:2c:20
@@ -32,7 +30,6 @@ jobs:
             cd /home/ec2-user/bankbank/ &&
             git pull &&
             cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources &&
-            mvn clean dependency:copy-dependencies -DoutputDirectory=lib antrun:run package &&
             cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
             '
 workflows:
