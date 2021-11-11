@@ -7,6 +7,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 6f:95:78:01:b6:31:da:8d:49:7b:61:f7:a7:cf:7b:14
+      - run: sudo apt-get install http://ftp.meisei-u.ac.jp/mirror/apache/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
       - run:
           name: 1a
           command: |
@@ -20,6 +21,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - d6:60:c9:6a:0a:2b:e4:b5:0b:68:9c:cf:77:fa:2c:20
+      - run: sudo apt-get install http://ftp.meisei-u.ac.jp/mirror/apache/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
       - run:
           name: 1c
           command: |
