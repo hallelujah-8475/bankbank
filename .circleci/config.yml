@@ -16,8 +16,9 @@ jobs:
             cp /home/ec2-user/application.properties /home/ec2-user/bankbank/src/main/resources &&
             cp /home/ec2-user/bankbank/target/bankbank.jar /home/ec2-user
             '
+      - checkout:
+          path: /home/ec2-user/bankbank
       - run:
-          working_directory: /home/ec2-user/bankbank
           command: mvn clean dependency:copy-dependencies -DoutputDirectory=lib antrun:run package || true
       - add_ssh_keys:
           fingerprints:
