@@ -19,7 +19,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - d6:60:c9:6a:0a:2b:e4:b5:0b:68:9c:cf:77:fa:2c:20
-      - run: sudo apt-get install maven
       - run:
           name: 1c
           command: |
