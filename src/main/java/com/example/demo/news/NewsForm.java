@@ -11,7 +11,7 @@ public class NewsForm implements Serializable {
 	
 	@Getter
 	@Setter
-	private Long id;
+	private int id;
 
 	@Getter
 	@Setter
