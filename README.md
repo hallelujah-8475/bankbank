@@ -51,11 +51,11 @@
 <div style="height: 50px;"></div>
 <h2>機能</h2>
 <hr>
-→同階層の「BANKBANK_機能紹介.pdf」をご覧下さい。
+→「doc/BANKBANK_機能紹介.pdf」をご覧下さい。
 <div style="height: 50px;"></div>
 <h2>テーブル定義書</h2>
 <hr>
-→同階層の「BANKBANK_テーブル定義書.pdf」をご覧下さい。
+→「doc/BANKBANK_テーブル定義書.pdf」をご覧下さい。
 <div style="height: 50px;"></div>
 <h2>このシステムが発揮出来るバリュー</h2>
 <hr>
