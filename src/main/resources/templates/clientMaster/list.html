@@ -31,6 +31,10 @@
 		</div>
 		<a href="/clientMaster/edit" class="btn btn-outline-secondary mb-3">新規登録</a>
 		<div class="w-100 m-2">
+			<p>
+				<span class="text-warning">■</span>要注意先　
+				<span class="text-danger">■</span>破綻懸念先
+			</p>
 			<!-- ページング -->
 			<form method="post" th:action="@{/clientMaster/pagenate}" th:object="${page}">
 			<nav aria-label="Page navigation example">
@@ -62,7 +66,7 @@
 		      <th>顧客名</th>
 		      <th>都道府県名</th>
 		    </tr>
-		    <tr th:each="entity:${list}" th:classappend="${entity.yoshinlevel == 5} ? 'table-danger' : ''">
+		    <tr th:each="entity:${list}" th:classappend="${(entity.yoshinlevel == 5 ? 'table-danger' : '') + (entity.yoshinlevel == 4 ? ' table-warning' : '')}">
 		      <td ><a th:href="@{'/clientMaster/detail?id=' + ${entity.id}}" th:text="${entity.id}">id</a></td>
 		      <td th:text="${entity.name}">name</td>
 		      <td th:text="${entity.prefecture}">name</td>

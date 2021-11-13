@@ -114,11 +114,6 @@ public class NewsController {
 
 		var news = new News();
 
-		if(newsForm.getId() == null) {
-
-			newsForm.setId((long) 0);
-		}
-
 		BeanUtils.copyProperties(newsForm, news);
 
 		this.newsService.save(news);

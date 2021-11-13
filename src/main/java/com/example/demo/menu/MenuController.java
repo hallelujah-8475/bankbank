@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.keiyakuMaster.KeiyakuMasterRepository;
 import com.example.demo.keiyakuMaster.KeiyakuMasterService;
-import com.example.demo.news.NewsService;
+import com.example.demo.news.NewsRepository;
 
 @Controller
 public class MenuController {
@@ -21,7 +21,7 @@ public class MenuController {
 	KeiyakuMasterService keiyakuMasterService;
 
 	@Autowired
-	private NewsService newsService;
+	private NewsRepository newsRepositry;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
@@ -34,7 +34,7 @@ public class MenuController {
 
     	model.addAttribute("rankingList", rankingList);
 
-        var list = newsService.findAll();
+        var list = newsRepositry.findAllByKokaiflgOrderByIdAsc(1);
         model.addAttribute("list", list);
 
     	return "index";

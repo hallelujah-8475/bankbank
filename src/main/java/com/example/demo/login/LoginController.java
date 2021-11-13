@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.keiyakuMaster.KeiyakuMasterRepository;
 import com.example.demo.koinMaster.KoinMasterRepository;
+import com.example.demo.news.NewsRepository;
 import com.example.demo.news.NewsService;
 import com.example.demo.systemUser.SystemUserRepository;
 
@@ -36,6 +37,9 @@ public class LoginController {
 	@Autowired
 	HttpServletRequest request;
 
+	@Autowired
+	private NewsRepository newsRepositry;
+	
 	@RequestMapping(value = "/login")
 	private String login(Model model) {
 
@@ -64,7 +68,7 @@ public class LoginController {
 
     	model.addAttribute("miShoninCount", Integer.toString(miShoninCount));
 
-        var list = newsService.findAll();
+        var list = newsRepositry.findAllByKokaiflgOrderByIdAsc(1);
         model.addAttribute("list", list);
 
 		return "index";
