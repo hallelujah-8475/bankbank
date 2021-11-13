@@ -1,19 +1,16 @@
 <div style="height: 50px;"></div>
 <h2>システム</h2>
-<hr>
 <div style="text-align: center;">
 <h1>銀行専用人材管理システム</h1>
 <img src="src/main/resources/static/images/logo.png"/ style="width: 150px;height: 150px;" />
 </div>
 <div style="height: 50px;"></div>
 <h2>インフラ構成図</h2>
-<hr>
 <div style="text-align: center;">
 <img src="src/main/resources/static/images/BANKBANK_構成図.png" style="width: 100%;" />
 </div>
 <div style="height: 50px;"></div>
 <h2>使用技術</h2>
-<hr>
 <p>◯Java 11</p>
 <p>　・Jasper Report 6.9.0</p>
 <p>　・OpenCSV 5.4.0</p>
@@ -44,21 +41,17 @@
 <p>◯Eclipse 2021-06</p>
 <div style="height: 50px;"></div>
 <h2>概要</h2>
-<hr>
 銀行を対象にした人材管理システムです。<br/>
 銀行業務において発生し得る多様なニーズに即して、<br/>
 業務の改善と円滑化を図る事ができます。
 <div style="height: 50px;"></div>
 <h2>機能</h2>
-<hr>
 →「doc/BANKBANK_機能紹介.pdf」をご覧下さい。
 <div style="height: 50px;"></div>
 <h2>テーブル定義書</h2>
-<hr>
 →「doc/BANKBANK_テーブル定義書.pdf」をご覧下さい。
 <div style="height: 50px;"></div>
 <h2>このシステムが発揮出来るバリュー</h2>
-<hr>
 <p>◯WHO</p>
 銀行で働く職員の方々。
 主に人事部の職員。
@@ -77,7 +70,6 @@
 ・顧客対応の潤滑<br/>
 <div style="height: 50px;"></div>
 <h2>なぜこのシステムを作ったか</h2>
-<hr>
 エンジニアのアウトプットとして何か成果物をと思った際、<br/>
 正直今の自分に他の人達に負けない様な新奇性のあるアイディアを生み出せる自信は無く、<br/>
 またその熟考する時間をポートフォリ作成の為に投下する事は不必要だと感じたので、<br/>
@@ -88,7 +80,6 @@
 いくつかそれを実現しました。
 <div style="height: 50px;"></div>
 <h2>開発において意識した事</h2>
-<hr>
 開発工数が掛かりすぎない様にベースとなる言語は、<br/>
 前知識があるJavaにしました。<br/>
 <br/>
@@ -104,7 +95,7 @@ APIを利用し外部のシステムと連携出来る様にしました。<br/>
 網羅的に他の部署の職員も利用できる様に機能付けを行いました。
 <div style="height: 50px;"></div>
 <h2>開発において感じた事</h2>
-<hr>
+
 開発が進むに連れて、<br/>
 導入したい機能や改善点がどんどんと増えていくので着地点を見つけるのに苦労しました。<br/>
 <br/>
