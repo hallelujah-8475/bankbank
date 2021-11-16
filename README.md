@@ -34,6 +34,8 @@
 <p>　・RDS</p>
 <p>　・ALB</p>
 <p>　・Lambda</p>
+<p>　・Route53</p>
+<p>　・ACM</p>
 <br/>
 <p>◯GitHub</p>
 <p>◯CircleCi CI/CD</p>
